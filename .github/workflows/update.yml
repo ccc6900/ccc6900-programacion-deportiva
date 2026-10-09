@@ -1,0 +1,24 @@
+name: Actualizar programación
+on:
+  schedule:
+    - cron: "0 */3 * * *"   # cada 3 horas
+  workflow_dispatch:         # botón manual en la pestaña Actions
+permissions:
+  contents: write
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scraper/scrape.py
+        env:
+          THESPORTSDB_KEY: ${{ secrets.THESPORTSDB_KEY }}
+      - name: Guardar resultados
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data debug
+          git diff --cached --quiet || (git commit -m "Actualizar datos" && git push)
