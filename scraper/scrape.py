@@ -124,13 +124,26 @@ WEBS = {
 }
 
 
+def limpiar_html(h):
+    """Quita menús, scripts, estilos e iconos para dejar solo el contenido útil."""
+    for tag in ("script", "style", "svg", "nav", "noscript", "header", "footer", "head"):
+        h = re.sub(rf"<{tag}\b.*?</{tag}>", "", h, flags=re.S | re.I)
+    h = re.sub(r"<!--.*?-->", "", h, flags=re.S)
+    h = re.sub(r"<img\b[^>]*>", "", h)
+    h = re.sub(r"\s(?:style|data-[a-z-]+|aria-[a-z-]+|d|viewBox|fill|stroke[a-z-]*)=\"[^\"]*\"", "", h)
+    return re.sub(r"\s+", " ", h)
+
+
 def guardar_html_debug():
-    """Guarda el HTML real de cada web para poder escribir sus parsers."""
+    """Guarda el HTML de cada web (bruto y limpio) para poder escribir sus parsers."""
     for nombre, url in WEBS.items():
+        d = ROOT / "debug"
         try:
-            (ROOT / "debug" / f"{nombre}.html").write_bytes(http(url, 25)[:1_500_000])
+            raw = http(url, 25).decode("utf-8", "replace")
+            (d / f"{nombre}.html").write_text(raw[:1_500_000], encoding="utf-8")
+            (d / f"{nombre}.limpio.html").write_text(limpiar_html(raw)[:150_000], encoding="utf-8")
         except Exception as e:
-            (ROOT / "debug" / f"{nombre}.html").write_text(f"ERROR: {e}", encoding="utf-8")
+            (d / f"{nombre}.html").write_text(f"ERROR: {e}", encoding="utf-8")
 
 
 FUENTES = {"TheSportsDB": fuente_thesportsdb, "ESPN": fuente_espn, "Sofascore": fuente_sofascore}
