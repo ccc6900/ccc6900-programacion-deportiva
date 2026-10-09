@@ -1,6 +1,17 @@
 
 #!/usr/bin/env python3
-"""Agenda deportiva y canales de TV para GitHub Actions."""
+# -*- coding: utf-8 -*-
+"""
+Recopila programación deportiva y canales.
+Se ejecuta desde GitHub Actions y solo utiliza la biblioteca estándar.
+
+Genera:
+  data/AAAA-MM-DD.json
+  data/index.json
+  debug/*.html
+  debug/*.limpio.html
+"""
+
 import html
 import json
 import os
@@ -8,6 +19,7 @@ import re
 import sys
 import unicodedata
 import urllib.request
+
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -18,27 +30,25 @@ try:
 except ImportError:
     ZoneInfo = None
 
+
 ROOT = Path(__file__).resolve().parent.parent
 DIAS = 7
 TSDB_KEY = os.environ.get("THESPORTSDB_KEY") or "3"
 
 UA = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
-    "Accept": "application/json,text/html;q=0.9,*/*;q=0.8",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/130.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/json,*/*",
+    "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
 }
 
-WEBS = {
-    "whatsportson": "https://www.whatsportson.com/",
-    "livesportsin": "https://livesportsin.com/watch",
-    "sportzap": "https://sportzap.tv/",
-    "worldtvradio": "https://www.worldtvradio.com/",
-    "calaverasports": "https://calaverasports.com/",
-    "livesoccertv": "https://www.livesoccertv.com/es/",
-    "relevo": "https://www.relevo.com/agenda-deportiva/",
-    "sincroguia": "https://sincroguia-tv.expansion.com/programacion-tv/retransmisiones-deportivas",
-    "watchsportsguide": "https://watchsportsguide.com/",
-}
 
+# ============================================================
+# UTILIDADES
+# ============================================================
 
 def http(url, timeout=25):
     req = urllib.request.Request(url, headers=UA)
@@ -47,47 +57,97 @@ def http(url, timeout=25):
 
 
 def get_json(url):
-    return json.loads(http(url).decode("utf-8"))
+    return json.loads(http(url).decode("utf-8", "replace"))
 
 
-def texto(fragmento):
-    return html.unescape(
-        re.sub(r"<[^>]+>", " ", fragmento or "")
-    ).replace("\xa0", " ").strip()
-
-
-def norm(s):
-    s = unicodedata.normalize("NFD", s or "").lower()
-    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
-    s = re.sub(
-        r"\b(fc|cf|cd|ud|sd|rc|ca|real|club|the|de|la|el)\b",
-        " ", s
+def norm(texto):
+    texto = unicodedata.normalize("NFD", texto or "").lower()
+    texto = "".join(
+        c for c in texto
+        if unicodedata.category(c) != "Mn"
     )
-    return re.sub(r"[^a-z0-9]", "", s)
+    texto = re.sub(
+        r"\b(fc|cf|cd|ud|sd|rc|ca|real|club|the|de|la|el)\b",
+        " ",
+        texto,
+    )
+    return re.sub(r"[^a-z0-9]", "", texto)
 
 
-def guardar_html_debug():
-    """Guarda HTML para desarrollar y revisar nuevos extractores."""
-    carpeta = ROOT / "debug"
-    carpeta.mkdir(parents=True, exist_ok=True)
+def texto_html(fragmento):
+    fragmento = re.sub(
+        r"<(script|style|svg|noscript)\b.*?</\1>",
+        " ",
+        fragmento or "",
+        flags=re.I | re.S,
+    )
+    fragmento = re.sub(r"<[^>]+>", " ", fragmento)
+    fragmento = html.unescape(fragmento)
+    return re.sub(r"\s+", " ", fragmento).strip()
 
-    for nombre, url in WEBS.items():
-        try:
-            raw = http(url, 25).decode("utf-8", "replace")
-            (carpeta / f"{nombre}.html").write_text(
-                raw[:1_500_000], encoding="utf-8"
-            )
-            limpio = re.sub(
-                r"<(script|style|noscript)\b.*?</\1>",
-                " ", raw, flags=re.I | re.S
-            )
-            (carpeta / f"{nombre}.limpio.html").write_text(
-                limpio[:150_000], encoding="utf-8"
-            )
-        except Exception as exc:
-            (carpeta / f"{nombre}.html").write_text(
-                f"ERROR: {exc}", encoding="utf-8"
-            )
+
+def fecha_hora_utc(fecha, hora, zona="Europe/Madrid"):
+    try:
+        if ZoneInfo:
+            tz = ZoneInfo(zona)
+        else:
+            tz = timezone.utc
+
+        dt = datetime.strptime(
+            f"{fecha} {hora}",
+            "%Y-%m-%d %H:%M",
+        ).replace(tzinfo=tz)
+
+        return dt.astimezone(timezone.utc).isoformat()
+    except Exception:
+        return None
+
+
+def pais_por_dominio(url):
+    dominio = urlparse(url).netloc.lower()
+    sufijo = dominio.rsplit(".", 1)[-1]
+
+    paises = {
+        "es": "ES", "pl": "PL", "ca": "CA", "uk": "GB",
+        "au": "AU", "mx": "MX", "de": "DE", "fr": "FR",
+        "it": "IT", "br": "BR", "ar": "AR", "jp": "JP",
+        "nl": "NL", "pt": "PT", "tr": "TR", "ie": "IE",
+        "nz": "NZ", "za": "ZA", "se": "SE", "no": "NO",
+        "dk": "DK", "be": "BE", "ch": "CH", "at": "AT",
+    }
+
+    return paises.get(sufijo, "Internacional")
+
+
+def clave(evento):
+    equipos = sorted(
+        norm(x) for x in (evento.get("equipos") or []) if x
+    )
+
+    if len(equipos) == 2:
+        return "|".join(equipos)
+
+    return norm(evento.get("nombre"))
+
+
+def normalizar_canales(canales):
+    salida = []
+    vistos = set()
+
+    for canal in canales or []:
+        nombre = str(canal.get("canal") or "").strip()
+        pais = str(canal.get("pais") or "Internacional").strip()
+
+        if not nombre:
+            continue
+
+        llave = (norm(nombre), pais.upper())
+
+        if llave not in vistos:
+            salida.append({"canal": nombre, "pais": pais})
+            vistos.add(llave)
+
+    return salida
 
 
 # ============================================================
@@ -99,28 +159,43 @@ def fuente_thesportsdb(fecha):
         "https://www.thesportsdb.com/api/v1/json/"
         f"{TSDB_KEY}/eventstv.php?d={fecha}"
     )
-    j = get_json(url)
-    eventos = {}
 
-    for x in j.get("tvevents") or []:
-        key = x.get("idEvent") or x.get("strEvent")
-        e = eventos.setdefault(key, {
-            "nombre": x.get("strEvent") or "Evento deportivo",
-            "deporte": x.get("strSport") or "Otros",
-            "liga": x.get("strLeague") or "",
-            "ts": x.get("strTimestamp") or x.get("strTimeStamp"),
-            "equipos": [x.get("strHomeTeam"), x.get("strAwayTeam")],
-            "canales": [],
-        })
+    datos = get_json(url)
+    salida = {}
 
-        canal = x.get("strChannel") or x.get("strTVStation")
+    for item in datos.get("tvevents") or []:
+        identificador = (
+            item.get("idEvent")
+            or item.get("strEvent")
+        )
+
+        evento = salida.setdefault(
+            identificador,
+            {
+                "nombre": item.get("strEvent") or "",
+                "deporte": item.get("strSport") or "Otros",
+                "liga": item.get("strLeague") or "",
+                "ts": (
+                    item.get("strTimestamp")
+                    or item.get("strTimeStamp")
+                ),
+                "equipos": [
+                    item.get("strHomeTeam"),
+                    item.get("strAwayTeam"),
+                ],
+                "canales": [],
+            },
+        )
+
+        canal = item.get("strChannel") or item.get("strTVStation")
+
         if canal:
-            e["canales"].append({
+            evento["canales"].append({
                 "canal": canal,
-                "pais": x.get("strCountry") or "Internacional",
+                "pais": item.get("strCountry") or "Internacional",
             })
 
-    return list(eventos.values())
+    return list(salida.values())
 
 
 # ============================================================
@@ -155,56 +230,62 @@ ESPN = [
 
 def _espn(par, fecha):
     deporte, liga = par
-    url = (
-        f"https://site.api.espn.com/apis/site/v2/sports/"
-        f"{deporte}/{liga}/scoreboard?dates={fecha.replace('-', '')}"
-    )
 
     try:
-        j = get_json(url)
+        datos = get_json(
+            "https://site.api.espn.com/apis/site/v2/"
+            f"sports/{deporte}/{liga}/scoreboard"
+            f"?dates={fecha.replace('-', '')}"
+        )
     except Exception:
         return []
 
-    nombre_liga = (j.get("leagues") or [{}])[0].get("name", liga)
-    resultado = []
+    ligas = datos.get("leagues") or [{}]
+    nombre_liga = ligas[0].get("name", liga)
+    salida = []
 
-    for ev in j.get("events") or []:
-        comp = (ev.get("competitions") or [{}])[0]
+    for item in datos.get("events") or []:
+        competicion = (item.get("competitions") or [{}])[0]
         canales = []
 
-        for item in comp.get("geoBroadcasts") or []:
-            nombre = (item.get("media") or {}).get("shortName")
+        for emision in competicion.get("geoBroadcasts") or []:
+            nombre = (emision.get("media") or {}).get("shortName")
+
             if nombre:
                 canales.append({
                     "canal": nombre,
-                    "pais": (item.get("region") or "US").upper(),
+                    "pais": (emision.get("region") or "US").upper(),
                 })
 
-        for item in comp.get("broadcasts") or []:
-            for nombre in item.get("names") or []:
+        for emision in competicion.get("broadcasts") or []:
+            for nombre in emision.get("names") or []:
                 canales.append({"canal": nombre, "pais": "US"})
 
         equipos = [
-            (c.get("team") or {}).get("displayName")
-            for c in comp.get("competitors") or []
+            (competidor.get("team") or {}).get("displayName")
+            for competidor in competicion.get("competitors") or []
         ]
 
-        resultado.append({
-            "nombre": ev.get("name") or "Evento deportivo",
+        salida.append({
+            "nombre": item.get("name") or "",
             "deporte": deporte.capitalize(),
             "liga": nombre_liga,
-            "ts": ev.get("date"),
+            "ts": item.get("date"),
             "equipos": equipos,
-            "canales": canales,
+            "canales": normalizar_canales(canales),
         })
 
-    return resultado
+    return salida
 
 
 def fuente_espn(fecha):
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        grupos = pool.map(lambda p: _espn(p, fecha), ESPN)
-        return [e for grupo in grupos for e in grupo]
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        resultados = executor.map(
+            lambda par: _espn(par, fecha),
+            ESPN,
+        )
+
+    return [evento for lista in resultados for evento in lista]
 
 
 # ============================================================
@@ -212,57 +293,173 @@ def fuente_espn(fecha):
 # ============================================================
 
 def fuente_sofascore(fecha):
-    base = "https://api.sofascore.com/api/v1"
+    base = "https://www.sofascore.com/api/v1"
+
     datos = get_json(
         f"{base}/sport/football/scheduled-events/{fecha}"
     )
+
     eventos = (datos.get("events") or [])[:120]
 
-    def convertir(ev):
+    def convertir(item):
         canales = []
 
         try:
             tv = get_json(
-                f"{base}/tv/event/{ev['id']}/country-channels"
+                f"{base}/tv/event/{item['id']}/country-channels"
             )
 
-            nombres = {
-                str(c.get("id")): c.get("name")
-                for c in tv.get("channels", [])
-                if isinstance(c, dict)
-            }
+            nombres = {}
 
-            for pais, ids in (tv.get("countryChannels") or {}).items():
-                for item in ids:
+            if isinstance(tv.get("channels"), list):
+                nombres = {
+                    str(c.get("id")): c.get("name")
+                    for c in tv["channels"]
+                }
+
+            for pais, canales_pais in (
+                tv.get("countryChannels") or {}
+            ).items():
+                for canal in canales_pais:
                     nombre = (
-                        item.get("name")
-                        if isinstance(item, dict)
-                        else nombres.get(str(item))
+                        canal.get("name")
+                        if isinstance(canal, dict)
+                        else nombres.get(str(canal))
                     )
+
                     if nombre:
                         canales.append({
                             "canal": nombre,
-                            "pais": pais.upper(),
+                            "pais": pais,
                         })
+
         except Exception:
             pass
 
-        casa = (ev.get("homeTeam") or {}).get("name", "")
-        fuera = (ev.get("awayTeam") or {}).get("name", "")
+        local = item.get("homeTeam") or {}
+        visitante = item.get("awayTeam") or {}
+        equipo_local = local.get("name") or ""
+        equipo_visitante = visitante.get("name") or ""
+
+        marca = item.get("startTimestamp")
+
+        ts = (
+            datetime.fromtimestamp(marca, timezone.utc).isoformat()
+            if marca
+            else None
+        )
 
         return {
-            "nombre": f"{casa} vs {fuera}",
+            "nombre": f"{equipo_local} vs {equipo_visitante}",
             "deporte": "Football",
-            "equipos": [casa, fuera],
-            "ts": datetime.fromtimestamp(
-                ev["startTimestamp"], timezone.utc
-            ).isoformat(),
-            "liga": (ev.get("tournament") or {}).get("name", ""),
-            "canales": canales,
+            "equipos": [equipo_local, equipo_visitante],
+            "ts": ts,
+            "liga": (item.get("tournament") or {}).get("name", ""),
+            "canales": normalizar_canales(canales),
         }
 
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        return list(pool.map(convertir, eventos))
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        return list(executor.map(convertir, eventos))
+
+
+# ============================================================
+# WEBS PARA PARSEO Y ARCHIVOS DE DEPURACIÓN
+# ============================================================
+
+WEBS = {
+    "whatsportson": "https://www.whatsportson.com/",
+    "livesportsin": "https://livesportsin.com/watch",
+    "sportzap": "https://sportzap.tv/",
+    "worldtvradio": "https://www.worldtvradio.com/",
+    "calaverasports": "https://calaverasports.com/",
+    "livesoccertv": "https://www.livesoccertv.com/es/",
+    "relevo": "https://www.relevo.com/agenda-deportiva/",
+    "sincroguia": (
+        "https://sincroguia-tv.expansion.com/"
+        "programacion-tv/retransmisiones-deportivas"
+    ),
+    "watchsportsguide": "https://watchsportsguide.com/",
+    "futbolenlatv": "https://www.futbolenlatv.es/",
+    "marca_tv": "https://www.marca.com/programacion-tv.html",
+}
+
+
+def limpiar_html(contenido):
+    for etiqueta in (
+        "script", "style", "svg", "nav",
+        "noscript", "header", "footer", "head",
+    ):
+        contenido = re.sub(
+            rf"<{etiqueta}\b.*?</{etiqueta}>",
+            "",
+            contenido,
+            flags=re.S | re.I,
+        )
+
+    contenido = re.sub(r"<!--.*?-->", "", contenido, flags=re.S)
+
+    contenido = re.sub(
+        r"<img\b[^>]*?\balt=\"([^\"]*)\"[^>]*>",
+        r'<img alt="\1">',
+        contenido,
+        flags=re.I,
+    )
+
+    contenido = re.sub(
+        r"<img\b(?![^>]*alt=)[^>]*>",
+        "",
+        contenido,
+        flags=re.I,
+    )
+
+    contenido = re.sub(
+        r'\s(?:style|data-[a-z-]+|aria-[a-z-]+|'
+        r'd|viewBox|fill|stroke[a-z-]*)="[^"]*"',
+        "",
+        contenido,
+        flags=re.I,
+    )
+
+    return re.sub(r"\s+", " ", contenido)
+
+
+def guardar_html_debug():
+    carpeta = ROOT / "debug"
+    carpeta.mkdir(parents=True, exist_ok=True)
+
+    def descargar(elemento):
+        nombre, url = elemento
+
+        try:
+            bruto = http(url, 30).decode("utf-8", "replace")
+
+            (carpeta / f"{nombre}.html").write_text(
+                bruto[:1_500_000],
+                encoding="utf-8",
+            )
+
+            (carpeta / f"{nombre}.limpio.html").write_text(
+                limpiar_html(bruto)[:150_000],
+                encoding="utf-8",
+            )
+
+            return nombre, "HTML guardado"
+
+        except Exception as error:
+            mensaje = f"ERROR: {type(error).__name__}: {error}"
+
+            (carpeta / f"{nombre}.html").write_text(
+                mensaje,
+                encoding="utf-8",
+            )
+
+            return nombre, mensaje
+
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        for nombre, resultado in executor.map(
+            descargar, WEBS.items()
+        ):
+            print(f"DEBUG {nombre}: {resultado}", file=sys.stderr)
 
 
 # ============================================================
@@ -293,139 +490,144 @@ EMOJI_DEPORTE = {
     "🏌": "Golf",
 }
 
-TLD_PAIS = {
-    "ca": "CA", "pl": "PL", "au": "AU", "uk": "GB",
-    "es": "ES", "mx": "MX", "de": "DE", "fr": "FR",
-    "it": "IT", "br": "BR", "ar": "AR", "jp": "JP",
-    "nl": "NL", "pt": "PT", "tr": "TR", "ie": "IE",
-    "nz": "NZ", "za": "ZA", "se": "SE", "no": "NO",
-    "dk": "DK", "be": "BE", "ch": "CH", "at": "AT",
-}
-
-_WSO_CACHE = None
+_WS_CACHE = {}
 
 
-def parsear_whatsportson(h):
+def parsear_whatsportson(contenido):
     eventos = []
 
-    for art in re.findall(
-        r"<article\b.*?</article>", h, flags=re.S | re.I
-    ):
-        m = re.search(
-            r'href="/events/(\d+)/[^"]*?(\d{4}-\d{2}-\d{2})',
-            art
-        )
-        hora = re.search(
-            r"<time[^>]*>(\d{1,2}:\d{2})</time>",
-            art, flags=re.S
-        )
-        titulo = re.search(
-            r'<p class="mt-1 [^"]*">(.*?)</p>',
-            art, flags=re.S
+    articulos = re.findall(
+        r"<article\b.*?</article>",
+        contenido,
+        flags=re.S | re.I,
+    )
+
+    for articulo in articulos:
+        marca = re.search(
+            r'href="/events/(\d+)/[^"]*?(\d{4}-\d{2}-\d{2})"',
+            articulo,
         )
 
-        if not (m and hora and titulo):
+        hora = re.search(
+            r"<time[^>]*>(\d{1,2}:\d{2})</time>",
+            articulo,
+            flags=re.I,
+        )
+
+        titulo = re.search(
+            r'<p class="mt-1 [^"]*">(.*?)</p>',
+            articulo,
+            flags=re.S,
+        )
+
+        if not (marca and hora and titulo):
             continue
 
         emoji = re.search(
             r'<span class="text-sm leading-none">([^<]+)</span>',
-            art
+            articulo,
+            flags=re.S,
         )
-        comp = re.search(
+
+        competicion = re.search(
             r'<a href="/competition/[^"]*"><span[^>]*>(.*?)</span></a>',
-            art, flags=re.S
+            articulo,
+            flags=re.S,
+        )
+
+        detalle = re.search(
+            r'<p class="mt-0\.5 text-xs[^"]*">(.*?)</p>',
+            articulo,
+            flags=re.S,
         )
 
         canales = []
+
         enlaces = re.findall(
             r'<a href="(https?://[^"]+)"[^>]*target="_blank"[^>]*>(.*?)</a>',
-            art, flags=re.S | re.I
+            articulo,
+            flags=re.S | re.I,
         )
 
-        for href, interior in enlaces:
-            alt = re.search(r'alt="([^"]*)"', interior)
+        for url, interior in enlaces:
+            alt = re.search(r'alt="([^"]*)"', interior, flags=re.I)
+
             nombre = (
                 html.unescape(alt.group(1)).strip()
                 if alt and alt.group(1).strip()
-                else texto(interior)
+                else texto_html(re.sub(r"FREE", "", interior))
             )
 
-            host = urlparse(href).netloc.replace("www.", "")
-            nombre = re.sub(r"\bFREE\b", "", nombre, flags=re.I).strip()
+            dominio = urlparse(url).netloc.replace("www.", "")
 
-            if not nombre and host and "whatsportson.com" not in host:
-                nombre = host
+            if not nombre and dominio:
+                nombre = dominio
 
-            if nombre:
-                extension = host.rsplit(".", 1)[-1]
+            if nombre and "whatsportson.com" not in dominio:
                 canales.append({
                     "canal": nombre,
-                    "pais": TLD_PAIS.get(extension, "Internacional"),
+                    "pais": pais_por_dominio(url),
                 })
 
-        nombre_evento = texto(titulo.group(1))
+        titulo_texto = texto_html(titulo.group(1))
         equipos = (
-            [p.strip() for p in re.split(r"\s+v\s+", nombre_evento)]
-            if " v " in nombre_evento else []
+            [x.strip() for x in re.split(r"\s+v\s+", titulo_texto)]
+            if " v " in titulo_texto
+            else []
         )
 
-        fecha_evento = m.group(2)
-        ts = None
-
-        try:
-            tz = (
-                ZoneInfo("Europe/London")
-                if ZoneInfo else timezone.utc
-            )
-            dt = datetime.strptime(
-                f"{fecha_evento} {hora.group(1)}",
-                "%Y-%m-%d %H:%M"
-            ).replace(tzinfo=tz)
-            ts = dt.astimezone(timezone.utc).isoformat()
-        except Exception:
-            pass
-
-        icono = (
+        emoji_texto = (
             emoji.group(1).strip().replace("\ufe0f", "")
-            if emoji else ""
+            if emoji
+            else ""
         )
+
+        fecha = marca.group(2)
+        hora_texto = hora.group(1)
 
         eventos.append({
-            "fecha": fecha_evento,
-            "id": m.group(1),
-            "nombre": nombre_evento,
-            "deporte": EMOJI_DEPORTE.get(icono, "Otros"),
-            "liga": texto(comp.group(1)) if comp else "",
-            "ts": ts,
+            "fecha": fecha,
+            "nombre": titulo_texto,
+            "deporte": EMOJI_DEPORTE.get(emoji_texto, "Otros"),
+            "liga": texto_html(competicion.group(1)) if competicion else "",
+            "ts": fecha_hora_utc(fecha, hora_texto, "Europe/London"),
             "equipos": equipos if len(equipos) == 2 else [],
-            "canales": canales,
+            "canales": normalizar_canales(canales),
+            "detalle": texto_html(detalle.group(1)) if detalle else "",
+            "id": marca.group(1),
         })
 
-    unicos = {}
-    for evento in eventos:
-        unicos.setdefault(evento["id"], evento)
+    salida = []
+    vistos = set()
 
-    return list(unicos.values())
+    for evento in eventos:
+        if evento["id"] not in vistos:
+            vistos.add(evento["id"])
+            salida.append(evento)
+
+    return salida
 
 
 def fuente_whatsportson(fecha):
-    global _WSO_CACHE
+    if "eventos" not in _WS_CACHE:
+        contenido = http(
+            WEBS["whatsportson"], 30
+        ).decode("utf-8", "replace")
 
-    if _WSO_CACHE is None:
-        pagina = http(WEBS["whatsportson"], 30).decode(
-            "utf-8", "replace"
-        )
-        _WSO_CACHE = parsear_whatsportson(pagina)
+        _WS_CACHE["eventos"] = parsear_whatsportson(contenido)
 
     return [
-        {k: v for k, v in e.items() if k not in ("fecha", "id")}
-        for e in _WSO_CACHE
-        if e["fecha"] == fecha
+        {
+            k: v for k, v in evento.items()
+            if k not in ("fecha", "id", "detalle")
+        }
+        for evento in _WS_CACHE["eventos"]
+        if evento["fecha"] == fecha
     ]
 
 
 # ============================================================
-# RELEVO: AGENDA DEPORTIVA ESPAÑOLA
+# RELEVO
 # ============================================================
 
 SPORT_RELEVO = {
@@ -439,90 +641,96 @@ SPORT_RELEVO = {
     "sport-otros-deportes": "Otros",
 }
 
-_RELEVO_CACHE = None
+_RELEVO_CACHE = {}
 
 
-def parsear_relevo(h):
+def parsear_relevo(contenido):
     eventos = []
 
     grupos = re.findall(
         r'<div class="sports-agenda-group (sport-[\w-]+)">(.*?)</ul>',
-        h, flags=re.S | re.I
+        contenido,
+        flags=re.S,
     )
 
     for clase, bloque in grupos:
-        mliga = re.search(
+        nombre_liga = re.search(
             r'sports-agenda-group-name">(.*?)</span>',
-            bloque, flags=re.S
+            bloque,
+            flags=re.S,
         )
-        liga = texto(mliga.group(1)) if mliga else ""
 
-        for li in re.findall(
+        liga = texto_html(nombre_liga.group(1)) if nombre_liga else ""
+
+        elementos = re.findall(
             r'<li class="sports-agenda-event">(.*?)</li>',
-            bloque, flags=re.S
-        ):
-            mt = re.search(
+            bloque,
+            flags=re.S,
+        )
+
+        for elemento in elementos:
+            marca = re.search(
                 r'<time[^>]*datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})',
-                li
+                elemento,
             )
-            if not mt:
-                continue
 
             tv = re.search(
                 r'<span class="sports-agenda-tv">(.*?)</span>',
-                li, flags=re.S
+                elemento,
+                flags=re.S,
             )
+
+            if not marca:
+                continue
 
             resto = re.sub(
                 r'<span class="sports-agenda-tv">.*?</span>',
-                "", li, flags=re.S
+                "",
+                elemento,
+                flags=re.S,
             )
             resto = re.sub(
                 r'<a class="sports-agenda-pick".*?</a>',
-                "", resto, flags=re.S
+                "",
+                resto,
+                flags=re.S,
             )
-            resto = re.sub(r"<time.*?</time>", "", resto, flags=re.S)
+            resto = re.sub(
+                r"<time.*?</time>",
+                "",
+                resto,
+                flags=re.S,
+            )
             resto = re.sub(
                 r'<span class="sports-agenda-time[^"]*">.*?</span>',
-                "", resto, flags=re.S
+                "",
+                resto,
+                flags=re.S,
             )
 
-            nombre_bruto = re.sub(
-                r"\s+", " ", texto(resto)
-            ).strip()
-
-            if not nombre_bruto:
-                continue
-
+            texto = texto_html(resto)
             partes = [
-                p.strip()
-                for p in re.split(r"\s[–-]\s", nombre_bruto)
+                x.strip()
+                for x in re.split(r"\s[–-]\s", texto)
             ]
+
             equipos = partes if len(partes) == 2 else []
 
             nombre = (
                 f"{partes[0]} vs {partes[1]}"
                 if equipos
-                else f"{liga}: {nombre_bruto}"
+                else f"{liga}: {texto}"
             )
 
-            tz = (
-                ZoneInfo("Europe/Madrid")
-                if ZoneInfo else timezone.utc
-            )
-            dt = datetime.strptime(
-                f"{mt.group(1)} {mt.group(2)}",
-                "%Y-%m-%d %H:%M"
-            ).replace(tzinfo=tz)
-
-            canal = texto(tv.group(1)) if tv else ""
+            fecha, hora = marca.groups()
+            canal = texto_html(tv.group(1)) if tv else ""
 
             eventos.append({
-                "fecha": mt.group(1),
+                "fecha": fecha,
                 "nombre": nombre,
                 "deporte": SPORT_RELEVO.get(clase, "Otros"),
                 "liga": liga,
-                "ts": dt.astimezone(timezone.utc).isoformat(),
+                "ts": fecha_hora_utc(fecha, hora),
                 "equipos": equipos,
                 "canales": (
                     [{"canal": canal, "pais": "ES"}]
@@ -534,145 +742,239 @@ def parsear_relevo(h):
 
 
 def fuente_relevo(fecha):
-    global _RELEVO_CACHE
+    if "eventos" not in _RELEVO_CACHE:
+        contenido = http(
+            WEBS["relevo"], 30
+        ).decode("utf-8", "replace")
 
-    if _RELEVO_CACHE is None:
-        pagina = http(WEBS["relevo"], 30).decode(
-            "utf-8", "replace"
-        )
-        _RELEVO_CACHE = parsear_relevo(pagina)
+        _RELEVO_CACHE["eventos"] = parsear_relevo(contenido)
 
     return [
-        {k: v for k, v in e.items() if k != "fecha"}
-        for e in _RELEVO_CACHE
-        if e["fecha"] == fecha
+        {k: v for k, v in evento.items() if k != "fecha"}
+        for evento in _RELEVO_CACHE["eventos"]
+        if evento["fecha"] == fecha
     ]
 
 
 # ============================================================
-# SINCROGUIA: EXTRACTOR EXPERIMENTAL
+# FÚTBOL EN LA TELE
+# Extractor experimental: depende de la estructura HTML de la web.
 # ============================================================
 
-_SINCRO_CACHE = None
+_FUTBOLENLATV_CACHE = {}
 
 
-def parsear_sincroguia(h):
-    """
-    Intenta extraer tarjetas m-program.
-    Si la web cambia su HTML, comprobar debug/sincroguia.html.
-    """
+def parsear_futbolenlatv(contenido):
     eventos = []
 
-    # Cada tarjeta se delimita hasta el inicio de la siguiente.
+    # Busca bloques HTML con indicios de partido.
     bloques = re.findall(
-        r'<div\b[^>]*class="[^"]*\bm-program\b[^"]*"[^>]*>'
-        r'.*?(?=<div\b[^>]*class="[^"]*\bm-program\b[^"]*"|\Z)',
-        h, flags=re.S | re.I
+        r"<(?:article|div)\b[^>]*>.*?</(?:article|div)>",
+        contenido,
+        flags=re.S | re.I,
     )
 
+    # Añade bloques mayores conocidos por sus clases.
+    bloques.extend(
+        re.findall(
+            r'<div\b[^>]*class="[^"]*(?:partido|match|fixture|event)[^"]*"'
+            r'[^>]*>.*?</div>',
+            contenido,
+            flags=re.S | re.I,
+        )
+    )
+
+    vistos = set()
+
     for bloque in bloques:
-        # Buscar un timestamp Unix de 10 dígitos en atributos.
-        mt = re.search(r'(?<!\d)(\d{10})(?!\d)', bloque)
-        if not mt:
+        texto = texto_html(bloque)
+
+        if len(texto) < 12 or len(texto) > 5000:
             continue
 
-        try:
-            dt = datetime.fromtimestamp(
-                int(mt.group(1)), timezone.utc
-            )
-        except (ValueError, OSError, OverflowError):
+        marca_hora = re.search(
+            r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
+            texto,
+        )
+
+        if not marca_hora:
             continue
 
-        mn = re.search(
-            r'<h2\b[^>]*class="[^"]*\bm-program__name\b[^"]*"[^>]*>'
-            r'(.*?)</h2>',
-            bloque, flags=re.S | re.I
+        # Busca fecha explícita dentro del bloque.
+        marca_fecha = re.search(
+            r"\b(20\d{2})-(\d{2})-(\d{2})\b",
+            bloque,
         )
-        nombre = texto(mn.group(1)) if mn else ""
-        if not nombre:
+
+        if marca_fecha:
+            fecha = "-".join(marca_fecha.groups())
+        else:
+            # La página principal suele mostrar la programación del día.
+            fecha = datetime.now(timezone.utc).date().isoformat()
+
+        hora = f"{int(marca_hora.group(1)):02d}:{marca_hora.group(2)}"
+
+        # Extrae posibles canales de enlaces e imágenes.
+        canales = []
+
+        for enlace in re.findall(
+            r"<a\b[^>]*>.*?</a>",
+            bloque,
+            flags=re.S | re.I,
+        ):
+            nombre = texto_html(enlace)
+
+            alt = re.search(r'\balt=["\']([^"\']+)["\']', enlace, re.I)
+
+            if alt:
+                nombre = html.unescape(alt.group(1)).strip()
+
+            nombre = re.sub(r"\s+", " ", nombre).strip()
+
+            if (
+                nombre
+                and len(nombre) <= 90
+                and not re.fullmatch(r"\d{1,2}:\d{2}", nombre)
+                and norm(nombre) not in {
+                    "ver", "mas", "partido", "futbol", "hoy",
+                }
+            ):
+                canales.append({"canal": nombre, "pais": "ES"})
+
+        canales = normalizar_canales(canales)
+
+        # Evita inventar equipos: conserva el texto cuando no se
+        # pueden identificar con seguridad.
+        nombre = texto[:180]
+        clave_evento = (fecha, hora, norm(nombre))
+
+        if clave_evento in vistos:
             continue
 
-        mc = re.search(
-            r'<a\b[^>]*class="[^"]*\bm-program__chanel\b[^"]*"'
-            r'[^>]*>.*?<img\b[^>]*alt="([^"]+)"',
-            bloque, flags=re.S | re.I
-        )
-        canal = html.unescape(mc.group(1)).strip() if mc else ""
-
-        # Categoría del programa, si está disponible.
-        mcat = re.search(
-            r'class="[^"]*m-item-program__category-link[^"]*"'
-            r'[^>]*>.*?<a\b[^>]*>(.*?)</a>',
-            bloque, flags=re.S | re.I
-        )
-        categoria = texto(mcat.group(1)) if mcat else "Otros"
-        cat = categoria.casefold()
-
-        deporte = "Otros"
-        if "fútbol" in cat or "futbol" in cat:
-            deporte = "Football"
-        elif "tenis" in cat:
-            deporte = "Tennis"
-        elif "baloncesto" in cat:
-            deporte = "Basketball"
-        elif "ciclismo" in cat:
-            deporte = "Cycling"
-        elif any(x in cat for x in ("motor", "fórmula", "formula", "moto")):
-            deporte = "Motorsport"
-        elif "rugby" in cat:
-            deporte = "Rugby"
-        elif "golf" in cat:
-            deporte = "Golf"
-        elif "padel" in cat or "pádel" in cat:
-            deporte = "Padel"
-        elif "hockey" in cat:
-            deporte = "Hockey"
+        vistos.add(clave_evento)
 
         eventos.append({
             "nombre": nombre,
-            "deporte": deporte,
-            "liga": categoria,
-            "ts": dt.isoformat(),
+            "deporte": "Football",
+            "liga": "",
+            "ts": fecha_hora_utc(fecha, hora),
             "equipos": [],
-            "canales": (
-                [{"canal": canal, "pais": "ES"}]
-                if canal else []
-            ),
-            "_fecha_local": (
-                dt.astimezone(ZoneInfo("Europe/Madrid")).date().isoformat()
-                if ZoneInfo else dt.date().isoformat()
-            ),
+            "canales": canales,
         })
 
-    # Evitar tarjetas repetidas.
-    unicos = {}
-    for evento in eventos:
-        clave = (
-            evento["nombre"],
-            evento["ts"],
-            tuple(
-                (c["canal"], c["pais"])
-                for c in evento["canales"]
-            ),
+    return eventos
+
+
+def fuente_futbolenlatv(fecha):
+    if "eventos" not in _FUTBOLENLATV_CACHE:
+        contenido = http(
+            WEBS["futbolenlatv"], 30
+        ).decode("utf-8", "replace")
+
+        _FUTBOLENLATV_CACHE["eventos"] = (
+            parsear_futbolenlatv(contenido)
         )
-        unicos.setdefault(clave, evento)
-
-    return list(unicos.values())
-
-
-def fuente_sincroguia(fecha):
-    global _SINCRO_CACHE
-
-    if _SINCRO_CACHE is None:
-        pagina = http(WEBS["sincroguia"], 30).decode(
-            "utf-8", "replace"
-        )
-        _SINCRO_CACHE = parsear_sincroguia(pagina)
 
     return [
-        {k: v for k, v in e.items() if k != "_fecha_local"}
-        for e in _SINCRO_CACHE
-        if e.get("_fecha_local") == fecha
+        evento
+        for evento in _FUTBOLENLATV_CACHE["eventos"]
+        if (evento.get("ts") or "").startswith(fecha)
+    ]
+
+
+# ============================================================
+# MARCA TV
+# Descarga y parser experimental. Si no reconoce bloques válidos,
+# devuelve cero eventos en lugar de inventar información.
+# ============================================================
+
+_MARCA_CACHE = {}
+
+
+def parsear_marca_tv(contenido, fecha):
+    eventos = []
+
+    # Solo intenta extraer bloques que contengan hora y señales
+    # de contenido deportivo o televisivo.
+    bloques = re.findall(
+        r"<(?:article|li)\b[^>]*>.*?</(?:article|li)>",
+        contenido,
+        flags=re.S | re.I,
+    )
+
+    for bloque in bloques:
+        texto = texto_html(bloque)
+
+        marca_hora = re.search(
+            r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
+            texto,
+        )
+
+        if not marca_hora:
+            continue
+
+        if not re.search(
+            r"f[uú]tbol|tenis|baloncesto|baloncesto|"
+            r"balonmano|ciclismo|motor|golf|rugby|"
+            r"deporte|liga|copa|champions|dazn|movistar|"
+            r"eurosport|teledeporte",
+            texto,
+            flags=re.I,
+        ):
+            continue
+
+        hora = (
+            f"{int(marca_hora.group(1)):02d}:"
+            f"{marca_hora.group(2)}"
+        )
+
+        canales = []
+
+        for enlace in re.findall(
+            r"<a\b[^>]*>.*?</a>",
+            bloque,
+            flags=re.S | re.I,
+        ):
+            nombre = texto_html(enlace)
+            alt = re.search(
+                r'\balt=["\']([^"\']+)["\']',
+                enlace,
+                flags=re.I,
+            )
+
+            if alt:
+                nombre = html.unescape(alt.group(1)).strip()
+
+            if nombre and len(nombre) <= 80:
+                canales.append({"canal": nombre, "pais": "ES"})
+
+        eventos.append({
+            "nombre": texto[:180],
+            "deporte": "Otros",
+            "liga": "Programación TV",
+            "ts": fecha_hora_utc(fecha, hora),
+            "equipos": [],
+            "canales": normalizar_canales(canales),
+        })
+
+    return eventos
+
+
+def fuente_marca_tv(fecha):
+    if "eventos" not in _MARCA_CACHE:
+        contenido = http(
+            WEBS["marca_tv"], 30
+        ).decode("utf-8", "replace")
+
+        _MARCA_CACHE["eventos"] = parsear_marca_tv(
+            contenido,
+            fecha,
+        )
+
+    return [
+        evento
+        for evento in _MARCA_CACHE["eventos"]
+        if (evento.get("ts") or "").startswith(fecha)
     ]
 
 
@@ -686,108 +988,192 @@ FUENTES = {
     "Sofascore": fuente_sofascore,
     "WhatSportsOn": fuente_whatsportson,
     "Relevo": fuente_relevo,
-    "SincroGuia": fuente_sincroguia,
+    "FutbolEnLaTV": fuente_futbolenlatv,
+    "MARCA_TV": fuente_marca_tv,
 }
 
 
 # ============================================================
-# UNIFICAR EVENTOS Y CANALES
+# UNIÓN DE EVENTOS Y ESTADÍSTICAS
 # ============================================================
-
-def clave(evento, fecha):
-    equipos = sorted(
-        norm(x) for x in (evento.get("equipos") or []) if x
-    )
-
-    if len(equipos) == 2:
-        return f"{fecha}|{'|'.join(equipos)}"
-
-    nombre = norm(evento.get("nombre"))
-    ts = evento.get("ts") or ""
-    return f"{fecha}|{nombre}|{ts[:13]}"
-
 
 def dia(fecha):
     unidos = {}
     estado = {}
+    eventos_por_fuente = {}
 
-    with ThreadPoolExecutor(max_workers=len(FUENTES)) as pool:
+    with ThreadPoolExecutor(
+        max_workers=max(1, len(FUENTES))
+    ) as executor:
         futuros = {
-            nombre: pool.submit(funcion, fecha)
+            nombre: executor.submit(funcion, fecha)
             for nombre, funcion in FUENTES.items()
         }
 
-    for nombre_fuente, futuro in futuros.items():
-        try:
-            lista = futuro.result()
-            estado[nombre_fuente] = f"{len(lista)} eventos"
-        except Exception as exc:
-            estado[nombre_fuente] = (
-                f"error: {type(exc).__name__}: {exc}"
-            )
-            print(
-                f"[AVISO] {nombre_fuente}, {fecha}: {exc}",
-                file=sys.stderr
-            )
-            continue
+        for nombre, futuro in futuros.items():
+            try:
+                lista = futuro.result()
+                eventos_por_fuente[nombre] = lista
+                estado[nombre] = f"{len(lista)} eventos"
+
+            except Exception as error:
+                eventos_por_fuente[nombre] = []
+                estado[nombre] = (
+                    f"error: {type(error).__name__}: {error}"
+                )
+
+    claves_por_fuente = {}
+
+    for nombre, lista in eventos_por_fuente.items():
+        claves = set()
 
         for evento in lista:
-            k = clave(evento, fecha)
+            llave = clave(evento)
 
-            if k not in unidos:
-                unidos[k] = {
+            if not llave:
+                continue
+
+            claves.add(llave)
+
+            unido = unidos.setdefault(
+                llave,
+                {
                     **evento,
                     "canales": [],
                     "fuentes": [],
-                }
+                },
+            )
 
-            unido = unidos[k]
+            if nombre not in unido["fuentes"]:
+                unido["fuentes"].append(nombre)
 
-            if nombre_fuente not in unido["fuentes"]:
-                unido["fuentes"].append(nombre_fuente)
-
-            vistos = {
+            canales_existentes = {
                 (
-                    c.get("canal", "").strip().casefold(),
-                    c.get("pais", "Internacional").upper(),
+                    norm(c.get("canal")),
+                    str(c.get("pais", "")).upper(),
                 )
                 for c in unido["canales"]
             }
 
             for canal in evento.get("canales") or []:
-                nombre_canal = (canal.get("canal") or "").strip()
-                pais = (
-                    canal.get("pais") or "Internacional"
-                ).upper()
+                canal_nombre = canal.get("canal", "")
+                pais = canal.get("pais", "Internacional")
+                llave_canal = (norm(canal_nombre), pais.upper())
 
-                clave_canal = (nombre_canal.casefold(), pais)
-
-                if nombre_canal and clave_canal not in vistos:
+                if canal_nombre and llave_canal not in canales_existentes:
                     unido["canales"].append({
-                        "canal": nombre_canal,
+                        "canal": canal_nombre,
                         "pais": pais,
                     })
-                    vistos.add(clave_canal)
+                    canales_existentes.add(llave_canal)
 
-            # Completar datos vacíos con los de otras fuentes.
-            for campo in ("ts", "liga", "deporte", "equipos"):
-                if not unido.get(campo) and evento.get(campo):
-                    unido[campo] = evento[campo]
+            if not unido.get("ts"):
+                unido["ts"] = evento.get("ts")
 
-    eventos = sorted(
+            if not unido.get("liga"):
+                unido["liga"] = evento.get("liga", "")
+
+            if not unido.get("deporte"):
+                unido["deporte"] = evento.get("deporte", "Otros")
+
+        claves_por_fuente[nombre] = claves
+
+    eventos_finales = sorted(
         unidos.values(),
-        key=lambda e: e.get("ts") or ""
+        key=lambda evento: evento.get("ts") or "",
     )
 
-    for evento in eventos:
+    for evento in eventos_finales:
+        evento["canales"] = normalizar_canales(evento.get("canales"))
         evento.pop("equipos", None)
-        evento.pop("_fecha_local", None)
+
+    # Estadísticas por fuente.
+    estadisticas = {}
+
+    todas_las_claves = set(unidos.keys())
+
+    for nombre, lista in eventos_por_fuente.items():
+        claves = claves_por_fuente.get(nombre, set())
+        exclusivas = [
+            llave for llave in claves
+            if len(unidos[llave].get("fuentes", [])) == 1
+        ]
+        compartidas = [
+            llave for llave in claves
+            if len(unidos[llave].get("fuentes", [])) > 1
+        ]
+
+        eventos_con_canales = 0
+        canales_por_pais = {}
+        canales_es = 0
+        pares_canal_evento = set()
+
+        for evento in lista:
+            canales = normalizar_canales(evento.get("canales"))
+
+            if canales:
+                eventos_con_canales += 1
+
+            for canal in canales:
+                pais = canal.get("pais", "Internacional")
+                nombre_canal = canal.get("canal", "")
+
+                canales_por_pais[pais] = (
+                    canales_por_pais.get(pais, 0) + 1
+                )
+
+                if pais.upper() == "ES":
+                    canales_es += 1
+
+                pares_canal_evento.add(
+                    (clave(evento), norm(nombre_canal), pais.upper())
+                )
+
+        estadisticas[nombre] = {
+            "eventos_recibidos": len(lista),
+            "eventos_distintos": len(claves),
+            "eventos_exclusivos": len(exclusivas),
+            "eventos_compartidos": len(compartidas),
+            "eventos_con_canales": eventos_con_canales,
+            "canales_evento_distintos": len(pares_canal_evento),
+            "canales_es_evento_distintos": canales_es,
+            "canales_por_pais": canales_por_pais,
+            "estado": estado.get(nombre, ""),
+        }
+
+    eventos_con_canales = sum(
+        1 for evento in eventos_finales
+        if evento.get("canales")
+    )
+
+    eventos_sin_canales = len(eventos_finales) - eventos_con_canales
+
+    eventos_con_canales_es = sum(
+        1 for evento in eventos_finales
+        if any(
+            str(canal.get("pais", "")).upper() == "ES"
+            for canal in evento.get("canales", [])
+        )
+    )
+
+    resumen = {
+        "eventos_finales": len(eventos_finales),
+        "eventos_con_canales": eventos_con_canales,
+        "eventos_sin_canales": eventos_sin_canales,
+        "eventos_con_canales_es": eventos_con_canales_es,
+        "fuentes_activas": len(FUENTES),
+        "fuentes_con_resultados": sum(
+            1 for lista in eventos_por_fuente.values() if lista
+        ),
+    }
 
     return {
         "fecha": fecha,
         "actualizado": datetime.now(timezone.utc).isoformat(),
         "estado": estado,
-        "eventos": eventos,
+        "resumen": resumen,
+        "estadisticas_fuentes": estadisticas,
+        "eventos": eventos_finales,
     }
 
 
@@ -800,31 +1186,42 @@ if __name__ == "__main__":
     (ROOT / "debug").mkdir(exist_ok=True)
 
     hoy = datetime.now(timezone.utc).date()
+
     fechas = [
         (hoy + timedelta(days=i)).isoformat()
         for i in range(-1, DIAS)
     ]
 
     for fecha in fechas:
-        resultado = dia(fecha)
+        try:
+            resultado = dia(fecha)
 
-        archivo = ROOT / "data" / f"{fecha}.json"
-        archivo.write_text(
-            json.dumps(resultado, ensure_ascii=False, indent=2),
-            encoding="utf-8"
-        )
+            destino = ROOT / "data" / f"{fecha}.json"
+            destino.write_text(
+                json.dumps(resultado, ensure_ascii=False),
+                encoding="utf-8",
+            )
 
-        print(fecha, resultado["estado"], file=sys.stderr)
+            print(
+                fecha,
+                json.dumps(resultado["estado"], ensure_ascii=False),
+                file=sys.stderr,
+            )
+
+        except Exception as error:
+            print(
+                f"ERROR GENERAL {fecha}: "
+                f"{type(error).__name__}: {error}",
+                file=sys.stderr,
+            )
 
     (ROOT / "data" / "index.json").write_text(
-        json.dumps({"fechas": fechas}, ensure_ascii=False, indent=2),
-        encoding="utf-8"
+        json.dumps({"fechas": fechas}, ensure_ascii=False),
+        encoding="utf-8",
     )
 
-    # Eliminar JSON antiguos que ya no estén en el índice.
-    for antiguo in (ROOT / "data").glob("20*.json"):
-        if antiguo.stem not in fechas:
-            antiguo.unlink()
+    for archivo in (ROOT / "data").glob("20*.json"):
+        if archivo.stem not in fechas:
+            archivo.unlink()
 
-    # Guardar páginas para poder añadir más extractores.
     guardar_html_debug()
