@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Programación deportiva</title>
+<style>
+:root{--bg:#f6f7f4;--fg:#1b2a24;--mut:#5d6b64;--line:#d9ded8;--acc:#0b6b4d;--card:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#121815;--fg:#e6ece8;--mut:#93a39a;--line:#2a3630;--acc:#4cc795;--card:#1a231f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Georgia,serif}
+main{max-width:900px;margin:0 auto;padding:24px 16px 64px}h1{margin:0 0 16px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:6px}
+label{display:flex;flex-direction:column;font:.8rem system-ui;color:var(--mut);gap:4px}
+input,select{font:1rem system-ui;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg)}
+#st{margin:14px 0;color:var(--mut);font:.9rem system-ui}
+h2{font-size:1.2rem;margin:26px 0 8px;border-bottom:2px solid var(--acc)}
+.ev{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.ev h3{margin:0;font-size:1.05rem}.meta{font:.85rem system-ui;color:var(--mut);margin-bottom:6px}
+.ch{font:.9rem system-ui;margin:2px 0}.ch b{color:var(--acc)}
+</style></head><body><main>
+<h1>Programación deportiva</h1>
+<div class="bar">
+<label>Fecha<input type="date" id="f"></label>
+<label>Deporte<select id="d"><option value="">Todos</option></select></label>
+<label>País del canal<select id="p"><option value="">Todos</option></select></label>
+<label>Buscar<input type="search" id="q" placeholder="Equipo, liga o canal"></label></div>
+<div id="st"></div><div id="out"></div></main>
+<script>
+const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let ev=[],meta={};
+const hora=ts=>{if(!ts)return"Hora por confirmar";const d=new Date(/[zZ]|[+-]\d\d:?\d\d$/.test(ts)?ts:ts+"Z");return isNaN(d)?"Hora por confirmar":d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})};
+async function init(){
+  try{const ix=await (await fetch("data/index.json")).json();
+    const f=ix.fechas;$("f").min=f[0];$("f").max=f[f.length-1];
+    const t=new Date();t.setMinutes(t.getMinutes()-t.getTimezoneOffset());
+    const hoy=t.toISOString().slice(0,10);$("f").value=f.includes(hoy)?hoy:f[0];cargar()}
+  catch(e){$("st").textContent="Aún no hay datos. Ejecuta el workflow 'Actualizar programación' en la pestaña Actions del repositorio."}}
+async function cargar(){
+  $("st").textContent="Cargando…";$("out").innerHTML="";
+  try{const r=await fetch(`data/${$("f").value}.json`);if(!r.ok)throw new Error("Sin datos para esa fecha (solo hay unos días disponibles)");
+    const j=await r.json();ev=j.eventos;meta=j;
+    const u=a=>[...new Set(a)].sort();
+    $("d").innerHTML='<option value="">Todos</option>'+u(ev.map(e=>e.deporte)).map(x=>`<option>${esc(x)}</option>`).join("");
+    $("p").innerHTML='<option value="">Todos</option>'+u(ev.flatMap(e=>e.canales.map(c=>c.pais))).map(x=>`<option>${esc(x)}</option>`).join("");
+    pintar()}catch(e){$("st").textContent=e.message}}
+function pintar(){
+  const d=$("d").value,p=$("p").value,q=$("q").value.toLowerCase();
+  const l=ev.filter(e=>(!d||e.deporte===d)&&(!p||e.canales.some(c=>c.pais===p))&&(!q||(e.nombre+e.liga+e.canales.map(c=>c.canal).join(" ")).toLowerCase().includes(q)));
+  const act=new Date(meta.actualizado).toLocaleString("es-ES");
+  $("st").textContent=`${l.length} eventos · Actualizado: ${act} · `+Object.entries(meta.estado).map(([k,v])=>`${k} (${v})`).join(", ");
+  const g={};l.forEach(e=>(g[e.deporte]??=[]).push(e));
+  $("out").innerHTML=Object.keys(g).sort().map(k=>`<h2>${esc(k)}</h2>`+g[k].map(e=>{
+    const pp={};e.canales.filter(c=>!p||c.pais===p).forEach(c=>(pp[c.pais]??=[]).push(c.canal));
+    const ch=Object.keys(pp).sort().map(x=>`<div class="ch"><b>${esc(x)}:</b> ${esc(pp[x].join(", "))}</div>`).join("")||'<div class="ch">Canal sin confirmar</div>';
+    return`<div class="ev"><h3>${esc(e.nombre)}</h3><div class="meta">${hora(e.ts)}${e.liga?" · "+esc(e.liga):""} · ${esc(e.fuentes.join(", "))}</div>${ch}</div>`}).join("")).join("")}
+$("f").onchange=cargar;$("d").onchange=pintar;$("p").onchange=pintar;$("q").oninput=pintar;init();
+</script></body></html>
