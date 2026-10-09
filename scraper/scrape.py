@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -86,6 +85,18 @@ def texto_html(fragmento):
     return re.sub(r"\s+", " ", fragmento).strip()
 
 
+def atributos_html(etiqueta):
+    """Extrae atributos HTML con comillas simples o dobles."""
+    return {
+        nombre.lower(): html.unescape(valor)
+        for nombre, valor in re.findall(
+            r"""([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')""",
+            etiqueta or "",
+        )
+        for valor in [valor[0] or valor[1]]
+    }
+
+
 def fecha_hora_utc(fecha, hora, zona="Europe/Madrid"):
     try:
         if ZoneInfo:
@@ -148,6 +159,22 @@ def normalizar_canales(canales):
             vistos.add(llave)
 
     return salida
+
+
+def fecha_desde_ts(ts):
+    """Devuelve la fecha UTC de una marca temporal ISO."""
+    if not ts:
+        return None
+
+    try:
+        dt = datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        return dt.astimezone(timezone.utc).date().isoformat()
+    except (ValueError, TypeError):
+        return None
 
 
 # ============================================================
@@ -758,7 +785,7 @@ def fuente_relevo(fecha):
 
 # ============================================================
 # FÚTBOL EN LA TELE
-# Extractor experimental: depende de la estructura HTML de la web.
+# Extrae los partidos de las filas de la tabla de programación.
 # ============================================================
 
 _FUTBOLENLATV_CACHE = {}
@@ -766,103 +793,265 @@ _FUTBOLENLATV_CACHE = {}
 
 def parsear_futbolenlatv(contenido):
     eventos = []
+    competicion_actual = ""
 
-    # Busca bloques HTML con indicios de partido.
-    bloques = re.findall(
-        r"<(?:article|div)\b[^>]*>.*?</(?:article|div)>",
+    tablas = re.findall(
+        r'<table\b[^>]*class=["\'][^"\']*\btablaPrincipal\b[^"\']*["\'][^>]*>'
+        r'(.*?)</table>',
         contenido,
         flags=re.S | re.I,
     )
 
-    # Añade bloques mayores conocidos por sus clases.
-    bloques.extend(
-        re.findall(
-            r'<div\b[^>]*class="[^"]*(?:partido|match|fixture|event)[^"]*"'
-            r'[^>]*>.*?</div>',
-            contenido,
+    for tabla in tablas:
+        filas = re.findall(
+            r"<tr\b[^>]*>.*?</tr>",
+            tabla,
             flags=re.S | re.I,
         )
-    )
 
+        for fila in filas:
+            # Las cabeceras de competición se aplican a los partidos
+            # que aparecen a continuación.
+            if re.search(
+                r'class=["\'][^"\']*\bcabeceraCompericion\b',
+                fila,
+                flags=re.I,
+            ):
+                competicion_actual = texto_html(fila)
+                continue
+
+            if re.search(
+                r'class=["\'][^"\']*\bcabeceraTabla\b',
+                fila,
+                flags=re.I,
+            ):
+                continue
+
+            hora_match = re.search(
+                r'<td\b[^>]*class=["\'][^"\']*\bhora\b[^"\']*["\'][^>]*>'
+                r'(.*?)</td>',
+                fila,
+                flags=re.S | re.I,
+            )
+
+            if not hora_match:
+                continue
+
+            hora_texto = texto_html(hora_match.group(1))
+            hora_match = re.search(
+                r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
+                hora_texto,
+            )
+
+            if not hora_match:
+                continue
+
+            hora = (
+                f"{int(hora_match.group(1)):02d}:"
+                f"{hora_match.group(2)}"
+            )
+
+            # El nombre del partido suele estar en el meta itemprop=name.
+            nombre_match = re.search(
+                r'<meta\b[^>]*itemprop=["\']name["\'][^>]*'
+                r'content=["\']([^"\']+)["\'][^>]*>',
+                fila,
+                flags=re.I,
+            )
+
+            if not nombre_match:
+                nombre_match = re.search(
+                    r'<meta\b[^>]*content=["\']([^"\']+)["\'][^>]*'
+                    r'itemprop=["\']name["\'][^>]*>',
+                    fila,
+                    flags=re.I,
+                )
+
+            nombre = (
+                html.unescape(nombre_match.group(1)).strip()
+                if nombre_match
+                else ""
+            )
+
+            # Si no existe el meta name, extrae los nombres de local
+            # y visitante desde las celdas correspondientes.
+            if not nombre:
+                local_match = re.search(
+                    r'<td\b[^>]*class=["\'][^"\']*\blocal\b[^"\']*["\'][^>]*>'
+                    r'(.*?)</td>',
+                    fila,
+                    flags=re.S | re.I,
+                )
+                visitante_match = re.search(
+                    r'<td\b[^>]*class=["\'][^"\']*\bvisitante\b[^"\']*["\'][^>]*>'
+                    r'(.*?)</td>',
+                    fila,
+                    flags=re.S | re.I,
+                )
+
+                local = texto_html(local_match.group(1)) if local_match else ""
+                visitante = (
+                    texto_html(visitante_match.group(1))
+                    if visitante_match else ""
+                )
+
+                if local and visitante:
+                    nombre = f"{local} - {visitante}"
+
+            if not nombre:
+                continue
+
+            nombre = re.sub(
+                r"\s+(?:el\s+)?(?:lunes|martes|miércoles|jueves|viernes|"
+                r"sábado|domingo).*$",
+                "",
+                nombre,
+                flags=re.I,
+            ).strip()
+
+            # Obtiene la fecha y hora de inicio del evento en ISO.
+            inicio_match = re.search(
+                r'<meta\b[^>]*itemprop=["\']startDate["\'][^>]*'
+                r'content=["\']([^"\']+)["\'][^>]*>',
+                fila,
+                flags=re.I,
+            )
+
+            if not inicio_match:
+                inicio_match = re.search(
+                    r'<meta\b[^>]*content=["\']([^"\']+)["\'][^>]*'
+                    r'itemprop=["\']startDate["\'][^>]*>',
+                    fila,
+                    flags=re.I,
+                )
+
+            if inicio_match:
+                inicio = inicio_match.group(1).strip()
+                try:
+                    dt = datetime.fromisoformat(
+                        inicio.replace("Z", "+00:00")
+                    )
+                    if dt.tzinfo is None:
+                        # En el HTML de esta web, startDate se publica
+                        # como hora UTC sin sufijo explícito.
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    ts = dt.astimezone(timezone.utc).isoformat()
+                except ValueError:
+                    continue
+            else:
+                # Sin startDate no podemos asignar una fecha fiable.
+                continue
+
+            fecha_evento = fecha_desde_ts(ts)
+
+            # Canales: incluye enlaces y elementos sin enlace.
+            canales = []
+            bloque_canales = re.search(
+                r'<td\b[^>]*class=["\'][^"\']*\bcanales\b[^"\']*["\'][^>]*>'
+                r'(.*?)</td>',
+                fila,
+                flags=re.S | re.I,
+            )
+
+            if bloque_canales:
+                lista_canales = re.search(
+                    r'<ul\b[^>]*class=["\'][^"\']*\blistaCanales\b[^"\']*["\'][^>]*>'
+                    r'(.*?)</ul>',
+                    bloque_canales.group(1),
+                    flags=re.S | re.I,
+                )
+
+                if lista_canales:
+                    elementos = re.findall(
+                        r"<li\b[^>]*>.*?</li>",
+                        lista_canales.group(1),
+                        flags=re.S | re.I,
+                    )
+
+                    for elemento in elementos:
+                        titulo = re.search(
+                            r'\btitle=["\']([^"\']+)["\']',
+                            elemento,
+                            flags=re.I,
+                        )
+
+                        enlace = re.search(
+                            r"<a\b[^>]*>(.*?)</a>",
+                            elemento,
+                            flags=re.S | re.I,
+                        )
+
+                        canal = (
+                            html.unescape(titulo.group(1)).strip()
+                            if titulo
+                            else texto_html(enlace.group(1))
+                            if enlace
+                            else texto_html(elemento)
+                        )
+
+                        if canal:
+                            canales.append({
+                                "canal": canal,
+                                "pais": "ES",
+                            })
+
+            # Extrae equipos de la celda local/visitante.
+            local_match = re.search(
+                r'<td\b[^>]*class=["\'][^"\']*\blocal\b[^"\']*["\'][^>]*>'
+                r'(.*?)</td>',
+                fila,
+                flags=re.S | re.I,
+            )
+            visitante_match = re.search(
+                r'<td\b[^>]*class=["\'][^"\']*\bvisitante\b[^"\']*["\'][^>]*>'
+                r'(.*?)</td>',
+                fila,
+                flags=re.S | re.I,
+            )
+
+            local = texto_html(local_match.group(1)) if local_match else ""
+            visitante = (
+                texto_html(visitante_match.group(1))
+                if visitante_match else ""
+            )
+
+            equipos = (
+                [local, visitante]
+                if local and visitante
+                else []
+            )
+
+            # El deporte es fútbol; el nombre de competición se hereda
+            # de la última cabecera de competición encontrada.
+            evento = {
+                "fecha": fecha_evento,
+                "nombre": nombre,
+                "deporte": "Football",
+                "liga": competicion_actual,
+                "ts": ts,
+                "equipos": equipos,
+                "canales": normalizar_canales(canales),
+            }
+
+            eventos.append(evento)
+
+    # Elimina repeticiones dentro de la misma página.
+    salida = []
     vistos = set()
 
-    for bloque in bloques:
-        texto = texto_html(bloque)
-
-        if len(texto) < 12 or len(texto) > 5000:
-            continue
-
-        marca_hora = re.search(
-            r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
-            texto,
+    for evento in eventos:
+        llave = (
+            evento.get("ts"),
+            clave(evento),
         )
 
-        if not marca_hora:
+        if llave in vistos:
             continue
 
-        # Busca fecha explícita dentro del bloque.
-        marca_fecha = re.search(
-            r"\b(20\d{2})-(\d{2})-(\d{2})\b",
-            bloque,
-        )
+        vistos.add(llave)
+        salida.append(evento)
 
-        if marca_fecha:
-            fecha = "-".join(marca_fecha.groups())
-        else:
-            # La página principal suele mostrar la programación del día.
-            fecha = datetime.now(timezone.utc).date().isoformat()
-
-        hora = f"{int(marca_hora.group(1)):02d}:{marca_hora.group(2)}"
-
-        # Extrae posibles canales de enlaces e imágenes.
-        canales = []
-
-        for enlace in re.findall(
-            r"<a\b[^>]*>.*?</a>",
-            bloque,
-            flags=re.S | re.I,
-        ):
-            nombre = texto_html(enlace)
-
-            alt = re.search(r'\balt=["\']([^"\']+)["\']', enlace, re.I)
-
-            if alt:
-                nombre = html.unescape(alt.group(1)).strip()
-
-            nombre = re.sub(r"\s+", " ", nombre).strip()
-
-            if (
-                nombre
-                and len(nombre) <= 90
-                and not re.fullmatch(r"\d{1,2}:\d{2}", nombre)
-                and norm(nombre) not in {
-                    "ver", "mas", "partido", "futbol", "hoy",
-                }
-            ):
-                canales.append({"canal": nombre, "pais": "ES"})
-
-        canales = normalizar_canales(canales)
-
-        # Evita inventar equipos: conserva el texto cuando no se
-        # pueden identificar con seguridad.
-        nombre = texto[:180]
-        clave_evento = (fecha, hora, norm(nombre))
-
-        if clave_evento in vistos:
-            continue
-
-        vistos.add(clave_evento)
-
-        eventos.append({
-            "nombre": nombre,
-            "deporte": "Football",
-            "liga": "",
-            "ts": fecha_hora_utc(fecha, hora),
-            "equipos": [],
-            "canales": canales,
-        })
-
-    return eventos
+    return salida
 
 
 def fuente_futbolenlatv(fecha):
@@ -876,88 +1065,249 @@ def fuente_futbolenlatv(fecha):
         )
 
     return [
-        evento
+        {k: v for k, v in evento.items() if k != "fecha"}
         for evento in _FUTBOLENLATV_CACHE["eventos"]
-        if (evento.get("ts") or "").startswith(fecha)
+        if evento.get("fecha") == fecha
     ]
 
 
 # ============================================================
 # MARCA TV
-# Descarga y parser experimental. Si no reconoce bloques válidos,
-# devuelve cero eventos en lugar de inventar información.
+# Extrae los bloques dailyevent de la programación deportiva.
 # ============================================================
 
 _MARCA_CACHE = {}
 
 
-def parsear_marca_tv(contenido, fecha):
+MESES_ES = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "setiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
+
+
+def fecha_desde_marca(contenido):
+    """Lee fechas como '9 de Octubre de 2026' en el encabezado."""
+    patron = (
+        r"(?:<strong\b[^>]*>.*?</strong>\s*)?"
+        r"(\d{1,2})\s+de\s+([A-Za-zÁÉÍÓÚÜáéíóúü]+)"
+        r"\s+de\s+(\d{4})"
+    )
+
+    for coincidencia in re.finditer(
+        patron, contenido, flags=re.I | re.S
+    ):
+        dia_texto, mes_texto, anio_texto = coincidencia.groups()
+        mes = MESES_ES.get(norm(mes_texto))
+
+        if not mes:
+            continue
+
+        try:
+            fecha = datetime(
+                int(anio_texto),
+                mes,
+                int(dia_texto),
+            )
+            return fecha.date().isoformat()
+        except ValueError:
+            continue
+
+    return None
+
+
+def deporte_marca(texto):
+    valor = norm(texto)
+
+    equivalencias = [
+        (("futbol",), "Football"),
+        (("baloncesto",), "Basketball"),
+        (("balonmano",), "Handball"),
+        (("tenis",), "Tennis"),
+        (("tenisdemesa",), "Table Tennis"),
+        (("natacion",), "Swimming"),
+        (("golf",), "Golf"),
+        (("padel",), "Padel"),
+        (("rugby",), "Rugby"),
+        (("ciclismo",), "Cycling"),
+        (("formula1", "motociclismo", "motor"), "Motorsport"),
+        (("hockey",), "Hockey"),
+        (("beisbol",), "Baseball"),
+        (("voleibol",), "Volleyball"),
+        (("boxeo",), "Boxing"),
+        (("atletismo",), "Athletics"),
+        (("futbolamericano", "nfl"), "American Football"),
+        (("baloncestosilladeruedas",), "Wheelchair Basketball"),
+    ]
+
+    for palabras, nombre in equivalencias:
+        if any(palabra in valor for palabra in palabras):
+            return nombre
+
+    return "Otros"
+
+
+def parsear_marca_tv(contenido, fecha_solicitada=None):
     eventos = []
 
-    # Solo intenta extraer bloques que contengan hora y señales
-    # de contenido deportivo o televisivo.
+    # La página contiene la fecha en el título de cada bloque de día.
+    # Si no se puede encontrar, se utiliza la fecha actual española.
+    fecha_pagina = fecha_desde_marca(contenido)
+
+    if not fecha_pagina:
+        if ZoneInfo:
+            fecha_pagina = datetime.now(
+                ZoneInfo("Europe/Madrid")
+            ).date().isoformat()
+        else:
+            fecha_pagina = datetime.now(
+                timezone.utc
+            ).date().isoformat()
+
+    # Extrae cada evento individual, evitando que una expresión
+    # demasiado amplia mezcle varios partidos.
     bloques = re.findall(
-        r"<(?:article|li)\b[^>]*>.*?</(?:article|li)>",
+        r'<li\b[^>]*class=["\'][^"\']*\bdailyevent\b[^"\']*["\'][^>]*>'
+        r'.*?</li>',
         contenido,
         flags=re.S | re.I,
     )
 
     for bloque in bloques:
-        texto = texto_html(bloque)
-
-        marca_hora = re.search(
-            r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
-            texto,
+        hora_match = re.search(
+            r'<strong\b[^>]*class=["\'][^"\']*\bdailyhour\b[^"\']*["\'][^>]*>'
+            r'(.*?)</strong>',
+            bloque,
+            flags=re.S | re.I,
         )
 
-        if not marca_hora:
+        equipos_match = re.search(
+            r'<h[1-6]\b[^>]*class=["\'][^"\']*\bdailyteams\b[^"\']*["\'][^>]*>'
+            r'(.*?)</h[1-6]>',
+            bloque,
+            flags=re.S | re.I,
+        )
+
+        canal_match = re.search(
+            r'<span\b[^>]*class=["\'][^"\']*\bdailychannel\b[^"\']*["\'][^>]*>'
+            r'(.*?)</span>',
+            bloque,
+            flags=re.S | re.I,
+        )
+
+        competicion_match = re.search(
+            r'<span\b[^>]*class=["\'][^"\']*\bdailycompetition\b[^"\']*["\'][^>]*>'
+            r'(.*?)</span>',
+            bloque,
+            flags=re.S | re.I,
+        )
+
+        deporte_match = re.search(
+            r'<span\b[^>]*class=["\'][^"\']*\bdailyday\b[^"\']*["\'][^>]*>'
+            r'(.*?)</span>',
+            bloque,
+            flags=re.S | re.I,
+        )
+
+        if not hora_match or not equipos_match:
             continue
 
-        if not re.search(
-            r"f[uú]tbol|tenis|baloncesto|baloncesto|"
-            r"balonmano|ciclismo|motor|golf|rugby|"
-            r"deporte|liga|copa|champions|dazn|movistar|"
-            r"eurosport|teledeporte",
-            texto,
-            flags=re.I,
-        ):
+        hora_texto = texto_html(hora_match.group(1))
+        hora_match2 = re.search(
+            r"\b([01]?\d|2[0-3]):([0-5]\d)\b",
+            hora_texto,
+        )
+
+        if not hora_match2:
             continue
 
         hora = (
-            f"{int(marca_hora.group(1)):02d}:"
-            f"{marca_hora.group(2)}"
+            f"{int(hora_match2.group(1)):02d}:"
+            f"{hora_match2.group(2)}"
         )
 
-        canales = []
+        nombre = texto_html(equipos_match.group(1))
 
-        for enlace in re.findall(
-            r"<a\b[^>]*>.*?</a>",
-            bloque,
-            flags=re.S | re.I,
-        ):
-            nombre = texto_html(enlace)
-            alt = re.search(
-                r'\balt=["\']([^"\']+)["\']',
-                enlace,
-                flags=re.I,
-            )
+        if not nombre:
+            continue
 
-            if alt:
-                nombre = html.unescape(alt.group(1)).strip()
+        competicion = (
+            texto_html(competicion_match.group(1))
+            if competicion_match else ""
+        )
 
-            if nombre and len(nombre) <= 80:
-                canales.append({"canal": nombre, "pais": "ES"})
+        deporte_texto = (
+            texto_html(deporte_match.group(1))
+            if deporte_match else ""
+        )
+
+        canal = (
+            texto_html(canal_match.group(1))
+            if canal_match else ""
+        )
+
+        # Los horarios de la programación de MARCA corresponden
+        # a la hora peninsular española.
+        ts = fecha_hora_utc(
+            fecha_pagina,
+            hora,
+            "Europe/Madrid",
+        )
+
+        if not ts:
+            continue
+
+        canales = (
+            [{"canal": canal, "pais": "ES"}]
+            if canal else []
+        )
+
+        # Conserva los dos equipos si el bloque contiene un
+        # enfrentamiento con separador reconocible.
+        equipos = []
+        partes = re.split(r"\s+[–—-]\s+|\s+vs\.?\s+", nombre)
+
+        if len(partes) == 2 and all(x.strip() for x in partes):
+            equipos = [x.strip() for x in partes]
 
         eventos.append({
-            "nombre": texto[:180],
-            "deporte": "Otros",
-            "liga": "Programación TV",
-            "ts": fecha_hora_utc(fecha, hora),
-            "equipos": [],
+            "fecha": fecha_pagina,
+            "nombre": nombre,
+            "deporte": deporte_marca(deporte_texto),
+            "liga": competicion,
+            "ts": ts,
+            "equipos": equipos,
             "canales": normalizar_canales(canales),
         })
 
-    return eventos
+    # Evita duplicados dentro de la propia página.
+    salida = []
+    vistos = set()
+
+    for evento in eventos:
+        llave = (
+            evento.get("ts"),
+            norm(evento.get("nombre")),
+            norm(evento.get("liga")),
+        )
+
+        if llave in vistos:
+            continue
+
+        vistos.add(llave)
+        salida.append(evento)
+
+    return salida
 
 
 def fuente_marca_tv(fecha):
@@ -966,15 +1316,12 @@ def fuente_marca_tv(fecha):
             WEBS["marca_tv"], 30
         ).decode("utf-8", "replace")
 
-        _MARCA_CACHE["eventos"] = parsear_marca_tv(
-            contenido,
-            fecha,
-        )
+        _MARCA_CACHE["eventos"] = parsear_marca_tv(contenido)
 
     return [
-        evento
+        {k: v for k, v in evento.items() if k != "fecha"}
         for evento in _MARCA_CACHE["eventos"]
-        if (evento.get("ts") or "").startswith(fecha)
+        if evento.get("fecha") == fecha
     ]
 
 
@@ -1090,14 +1437,14 @@ def dia(fecha):
     # Estadísticas por fuente.
     estadisticas = {}
 
-    todas_las_claves = set(unidos.keys())
-
     for nombre, lista in eventos_por_fuente.items():
         claves = claves_por_fuente.get(nombre, set())
+
         exclusivas = [
             llave for llave in claves
             if len(unidos[llave].get("fuentes", [])) == 1
         ]
+
         compartidas = [
             llave for llave in claves
             if len(unidos[llave].get("fuentes", [])) > 1
