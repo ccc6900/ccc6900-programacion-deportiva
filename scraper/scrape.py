@@ -129,7 +129,8 @@ def limpiar_html(h):
     for tag in ("script", "style", "svg", "nav", "noscript", "header", "footer", "head"):
         h = re.sub(rf"<{tag}\b.*?</{tag}>", "", h, flags=re.S | re.I)
     h = re.sub(r"<!--.*?-->", "", h, flags=re.S)
-    h = re.sub(r"<img\b[^>]*>", "", h)
+    h = re.sub(r"<img\b[^>]*?\balt=\"([^\"]*)\"[^>]*>", r'<img alt="\1">', h)
+    h = re.sub(r"<img\b(?![^>]*alt=)[^>]*>", "", h)
     h = re.sub(r"\s(?:style|data-[a-z-]+|aria-[a-z-]+|d|viewBox|fill|stroke[a-z-]*)=\"[^\"]*\"", "", h)
     return re.sub(r"\s+", " ", h)
 
@@ -146,7 +147,134 @@ def guardar_html_debug():
             (d / f"{nombre}.html").write_text(f"ERROR: {e}", encoding="utf-8")
 
 
-FUENTES = {"TheSportsDB": fuente_thesportsdb, "ESPN": fuente_espn, "Sofascore": fuente_sofascore}
+# ------------------------------------------------------------ WhatSportsOn
+import html as _html
+from urllib.parse import urlparse
+try:
+    from zoneinfo import ZoneInfo
+except Exception:  # pragma: no cover
+    ZoneInfo = None
+
+EMOJI_DEPORTE = {"⚽": "Football", "🏀": "Basketball", "⚾": "Baseball", "🏒": "Ice Hockey", "⛳": "Golf",
+                 "🎾": "Tennis", "🏏": "Cricket", "🏈": "American Football", "🏃": "Athletics",
+                 "🏉": "Rugby / AFL", "🥊": "Boxing", "🚴": "Cycling", "🎯": "Darts", "🐴": "Equestrian",
+                 "🏎": "Motorsport", "🏅": "Motorsport", "🐎": "Horse Racing", "🏊": "Swimming",
+                 "🏐": "Volleyball", "🥋": "Fighting", "🏌": "Golf"}
+TLD_PAIS = {"ca": "CA", "pl": "PL", "au": "AU", "uk": "GB", "es": "ES", "mx": "MX", "de": "DE", "fr": "FR",
+            "it": "IT", "br": "BR", "ar": "AR", "jp": "JP", "nl": "NL", "pt": "PT", "tr": "TR", "ie": "IE",
+            "nz": "NZ", "za": "ZA", "se": "SE", "no": "NO", "dk": "DK", "be": "BE", "ch": "CH", "at": "AT"}
+_WSO_CACHE = {}
+
+
+def _txt(h):
+    return _html.unescape(re.sub(r"<[^>]+>", "", h or "")).strip()
+
+
+def parsear_whatsportson(h):
+    eventos = []
+    for art in re.findall(r"<article\b.*?</article>", h, flags=re.S):
+        m = re.search(r'href="/events/(\d+)/[^"]*?(\d{4}-\d{2}-\d{2})"', art)
+        t = re.search(r"<time[^>]*>(\d{1,2}:\d{2})</time>", art)
+        ti = re.search(r'<p class="mt-1 [^"]*">(.*?)</p>', art, flags=re.S)
+        if not (m and t and ti):
+            continue
+        emo = re.search(r'<span class="text-sm leading-none">([^<]+)</span>', art)
+        comp = re.search(r'<a href="/competition/[^"]*"><span[^>]*>(.*?)</span></a>', art, flags=re.S)
+        sub = re.search(r'<p class="mt-0\.5 text-xs[^"]*">(.*?)</p>', art, flags=re.S)
+        canales = []
+        for href, inner in re.findall(r'<a href="(https?://[^"]+)"[^>]*target="_blank"[^>]*>(.*?)</a>', art, flags=re.S):
+            alt = re.search(r'alt="([^"]*)"', inner)
+            nombre = _html.unescape(alt.group(1)).strip() if alt and alt.group(1).strip() else ""
+            if not nombre:
+                tx = _txt(re.sub(r"FREE", "", inner)).strip()
+                nombre = tx
+            host = urlparse(href).netloc.replace("www.", "")
+            if not nombre:
+                nombre = host if "whatsportson.com" not in host else ""
+            if not nombre:
+                continue
+            pais = TLD_PAIS.get(host.rsplit(".", 1)[-1], "Internacional")
+            canales.append({"canal": nombre, "pais": pais})
+        sin = re.search(r"Channel TBC", art)
+        titulo = _txt(ti.group(1))
+        equipos = [x.strip() for x in re.split(r"\s+v\s+", titulo)] if " v " in titulo else []
+        emoji = (emo.group(1).strip() if emo else "").replace("\ufe0f", "")
+        fecha, hora = m.group(2), t.group(1)
+        ts = None
+        try:
+            tz = ZoneInfo("Europe/London") if ZoneInfo else timezone.utc
+            dt = datetime.strptime(f"{fecha} {hora}", "%Y-%m-%d %H:%M").replace(tzinfo=tz)
+            ts = dt.astimezone(timezone.utc).isoformat()
+        except Exception:
+            pass
+        eventos.append({"fecha": fecha, "nombre": titulo, "deporte": EMOJI_DEPORTE.get(emoji, "Otros"),
+                        "liga": _txt(comp.group(1)) if comp else "", "ts": ts,
+                        "equipos": equipos if len(equipos) == 2 else [], "canales": canales,
+                        "detalle": _txt(sub.group(1)) if sub else "", "id": m.group(1)})
+    # sin duplicados por id
+    vistos, out = set(), []
+    for e in eventos:
+        if e["id"] not in vistos:
+            vistos.add(e["id"])
+            out.append(e)
+    return out
+
+
+def fuente_whatsportson(fecha):
+    if "ev" not in _WSO_CACHE:
+        _WSO_CACHE["ev"] = parsear_whatsportson(http("https://www.whatsportson.com/", 30).decode("utf-8", "replace"))
+    res = []
+    for e in _WSO_CACHE["ev"]:
+        if e["fecha"] == fecha:
+            e = {k: v for k, v in e.items() if k not in ("fecha", "id", "detalle")}
+            res.append(e)
+    return res
+
+
+# ------------------------------------------------------------ Relevo (España)
+SPORT_RELEVO = {"sport-futbol": "Football", "sport-tenis": "Tennis", "sport-baloncesto": "Basketball",
+                "sport-formula-1": "Motorsport", "sport-motociclismo": "Motorsport",
+                "sport-ciclismo": "Cycling", "sport-otros": "Otros", "sport-otros-deportes": "Otros"}
+_RELEVO_CACHE = {}
+
+
+def parsear_relevo(h):
+    eventos = []
+    for clase, bloque in re.findall(r'<div class="sports-agenda-group (sport-[\w-]+)">(.*?)</ul>', h, flags=re.S):
+        n = re.search(r'sports-agenda-group-name">(.*?)</span>', bloque, flags=re.S)
+        liga = _txt(n.group(1)) if n else ""
+        for li in re.findall(r'<li class="sports-agenda-event">(.*?)</li>', bloque, flags=re.S):
+            t = re.search(r'<time[^>]*datetime="(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})', li)
+            tv = re.search(r'<span class="sports-agenda-tv">(.*?)</span>', li, flags=re.S)
+            resto = re.sub(r'<span class="sports-agenda-tv">.*?</span>', "", li, flags=re.S)
+            resto = re.sub(r'<a class="sports-agenda-pick".*?</a>', "", resto, flags=re.S)
+            resto = re.sub(r"<time.*?</time>", "", resto, flags=re.S)
+            resto = re.sub(r'<span class="sports-agenda-time[^"]*">.*?</span>', "", resto, flags=re.S)
+            texto = re.sub(r"\s+", " ", _txt(resto))
+            if not texto or not t:
+                continue
+            partes = [x.strip() for x in re.split(r"\s[–-]\s", texto)]
+            equipos = partes if len(partes) == 2 else []
+            nombre = f"{partes[0]} vs {partes[1]}" if equipos else f"{liga}: {texto}"
+            tz = ZoneInfo("Europe/Madrid") if ZoneInfo else timezone.utc
+            ts = datetime.strptime(f"{t.group(1)} {t.group(2)}", "%Y-%m-%d %H:%M").replace(tzinfo=tz) \
+                .astimezone(timezone.utc).isoformat()
+            canal = _txt(tv.group(1)) if tv else ""
+            eventos.append({"fecha": t.group(1), "nombre": nombre, "deporte": SPORT_RELEVO.get(clase, "Otros"),
+                            "liga": liga, "ts": ts, "equipos": equipos,
+                            "canales": [{"canal": canal, "pais": "ES"}] if canal else []})
+    return eventos
+
+
+def fuente_relevo(fecha):
+    if "ev" not in _RELEVO_CACHE:
+        _RELEVO_CACHE["ev"] = parsear_relevo(
+            http("https://www.relevo.com/agenda-deportiva/", 30).decode("utf-8", "replace"))
+    return [{k: v for k, v in e.items() if k != "fecha"} for e in _RELEVO_CACHE["ev"] if e["fecha"] == fecha]
+
+
+FUENTES = {"TheSportsDB": fuente_thesportsdb, "ESPN": fuente_espn, "Sofascore": fuente_sofascore,
+           "WhatSportsOn": fuente_whatsportson, "Relevo": fuente_relevo}
 
 
 # ------------------------------------------------------------ unión
