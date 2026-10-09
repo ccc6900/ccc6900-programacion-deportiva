@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where to Watch Sports on TV: Live Channels and Streams by Country</title>
+
+            <meta name="description" content="Find where to watch football, NBA, NFL, MLB, NHL, tennis, Formula 1 and UFC: the TV channel or streaming service showing each game in your country, with start times in your time zone. Updated every morning.">
+    
+    <meta property="og:title" content="Where to Watch Sports on TV: Live Channels and Streams by Country">
+        <meta property="og:description" content="Find where to watch football, NBA, NFL, MLB, NHL, tennis, Formula 1 and UFC: the TV channel or streaming service showing each game in your country, with start times in your time zone. Updated every morning.">
+        <meta property="og:url" content="https://www.worldtvradio.com">
+        <meta property="og:type" content="website">
+    <meta property="og:site_name" content="worldtvradio.com">
+
+    <!-- Favicon -->
+        <link rel="icon" href="https://xwmsys.b-cdn.net/favicons/01M2S1KSHZA7MYC312W43X2K52.png">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind Theme Config -->
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary-50: #eef2ff;
+            --color-primary-100: #e0e7ff;
+            --color-primary-200: #c7d2fe;
+            --color-primary-300: #a5b4fc;
+            --color-primary-400: #818cf8;
+            --color-primary-500: #6366f1;
+            --color-primary-600: #4f46e5;
+            --color-primary-700: #4338ca;
+            --color-primary-800: #3730a3;
+            --color-primary-900: #312e81;
+            --color-primary-950: #1e1b4b;
+        }
+    </style>
+
+    <!-- Alpine.js (CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.8/dist/cdn.min.js"></script>
+
+    <!-- Bootstrap Icons (CSS-only, no Bootstrap dependency) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Theme custom CSS -->
+    <link href="https://www.worldtvradio.com/themes/tailwind/css/custom.css" rel="stylesheet">
+
+    <!-- Theme additional styles -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        .rich-text img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <!-- Custom CSS from site settings -->
+        <style>
+        /* =====================================================================
+   WorldTVRadio.com — Sports "Where to Watch" design system (.wtv-*)
+   Source: Claude Design "WorldTVRadio" (Homepage / Football / Article)
+   ===================================================================== */
+:root{
+  --wtv-bg:#f6f5f1; --wtv-ink:#101314; --wtv-soft:#4f5659; --wtv-body:#333a3c; --wtv-mute:#7c8285;
+  --wtv-line:#e2e0d8; --wtv-line2:#ece9e1; --wtv-line3:#cfccc2; --wtv-card:#fff; --wtv-card2:#faf9f6;
+  --wtv-lime:oklch(0.84 0.17 128); --wtv-rust:oklch(0.55 0.13 45); --wtv-rust2:oklch(0.45 0.12 45);
+  --wtv-dark2:#1d2224; --wtv-dark3:#2c3234; --wtv-ondark:#b9bfc1; --wtv-ondark2:#8a9296; --wtv-ondark3:#e6e8e8;
+  --wtv-sans:"IBM Plex Sans",system-ui,sans-serif; --wtv-head:Archivo,"IBM Plex Sans",sans-serif; --wtv-mono:"IBM Plex Mono",Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{background:var(--wtv-bg);color:var(--wtv-ink);margin:0}
+body{font-family:var(--wtv-sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--wtv-ink);text-decoration:none}
+a:hover{color:var(--wtv-rust)}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--wtv-head);margin:0;color:var(--wtv-ink)}
+.tw-page-title,.page-header{display:none}
+.wtv-wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.wtv-mono{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-kicker{margin:0 0 6px;font-family:var(--wtv-head);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--wtv-rust)}
+.wtv-kicker.lg{font-size:12px;margin-bottom:8px}
+.wtv-rule-h2{margin:0;border-top:2px solid var(--wtv-ink);padding-top:14px;font-family:var(--wtv-head);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+.wtv-rule-h2.sm{font-size:20px}
+.wtv-rule-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-top:2px solid var(--wtv-ink);padding-top:14px;flex-wrap:wrap}
+.wtv-rule-row h2{margin:0;border:0;padding:0;font-family:var(--wtv-head);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+.wtv-rule-row a{font-family:var(--wtv-mono);font-size:12px;color:var(--wtv-soft)}
+.wtv-section{margin-top:56px}
+.wtv-btn-dark{display:inline-block;background:var(--wtv-ink);color:var(--wtv-bg);text-align:center;font-family:var(--wtv-head);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:12px 22px;border:0;cursor:pointer}
+.wtv-btn-dark:hover{color:var(--wtv-lime)}
+.wtv-btn-dark.block{display:block;margin-top:16px;padding:12px}
+.wtv-btn-lime{display:block;background:var(--wtv-lime);color:var(--wtv-ink);text-align:center;font-family:var(--wtv-head);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:12px;border:0}
+.wtv-btn-lime:hover{color:var(--wtv-ink);filter:brightness(1.05)}
+
+/* ---------- header ---------- */
+.wtv-header{background:var(--wtv-ink);color:var(--wtv-bg);position:sticky;top:0;z-index:50}
+.wtv-header-in{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:32px}
+.wtv-brand{color:var(--wtv-bg);font-family:var(--wtv-head);font-weight:800;font-size:19px;letter-spacing:-.01em;line-height:1;display:flex;align-items:baseline;gap:5px;white-space:nowrap}
+.wtv-brand:hover{color:var(--wtv-bg)}
+.wtv-brand .lime{color:var(--wtv-lime)}
+.wtv-nav{display:flex;gap:22px;flex:1;flex-wrap:wrap;font-family:var(--wtv-head);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.wtv-nav a{color:var(--wtv-bg)}
+.wtv-nav a:hover,.wtv-nav a.on{color:var(--wtv-lime)}
+.wtv-search{display:flex;align-items:center;gap:8px;background:var(--wtv-dark2);border:1px solid var(--wtv-dark3);border-radius:3px;padding:8px 12px;min-width:240px;margin:0}
+.wtv-search .dot{width:11px;height:11px;border:1.5px solid var(--wtv-ondark2);border-radius:50%;display:block;flex:none}
+.wtv-search input{background:transparent;border:0;outline:none;color:var(--wtv-bg);font-family:var(--wtv-sans);font-size:13px;width:100%;padding:0;margin:0}
+.wtv-search input::placeholder{color:var(--wtv-ondark2)}
+.wtv-burger{display:none;background:transparent;border:1px solid var(--wtv-dark3);color:var(--wtv-bg);border-radius:3px;width:40px;height:38px;font-size:18px;cursor:pointer;margin-left:auto}
+.wtv-mnav{display:none;background:var(--wtv-ink);border-top:1px solid var(--wtv-dark3)}
+.wtv-mnav.open{display:block}
+.wtv-mnav a{display:block;padding:13px 24px;color:var(--wtv-bg);font-family:var(--wtv-head);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--wtv-dark3)}
+.wtv-mnav form{margin:12px 24px 16px;min-width:0}
+@media (max-width:980px){
+  .wtv-nav,.wtv-header-in .wtv-search{display:none}
+  .wtv-burger{display:inline-flex;align-items:center;justify-content:center}
+  .wtv-header-in{padding:12px 16px;gap:16px}
+}
+
+/* ---------- crumbs ---------- */
+.wtv-crumbs{max-width:1240px;margin:0 auto;padding:18px 24px 0;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute);display:flex;gap:8px;flex-wrap:wrap}
+.wtv-crumbs a{color:var(--wtv-mute)}
+.wtv-crumbs a:hover{color:var(--wtv-rust)}
+.wtv-crumbs .here{color:var(--wtv-ink)}
+
+/* ---------- main grids ---------- */
+.wtv-main{max-width:1240px;margin:0 auto;padding:32px 24px 64px}
+.wtv-main.article{padding-top:22px;display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:48px;align-items:start}
+.wtv-2col{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:32px;align-items:start}
+.wtv-2col.wide{gap:40px;margin-top:36px}
+@media (max-width:900px){.wtv-main.article,.wtv-2col{grid-template-columns:1fr}.wtv-main{padding:24px 16px 48px}.wtv-crumbs{padding:14px 16px 0}}
+
+/* ---------- page head (hub) ---------- */
+.wtv-page-head{border-bottom:2px solid var(--wtv-ink);padding-bottom:20px}
+.wtv-page-head h1{font-family:var(--wtv-head);font-weight:800;font-size:clamp(32px,5vw,54px);line-height:1;letter-spacing:-.02em}
+.wtv-page-head p{margin:14px 0 0;font-size:17px;line-height:1.55;color:var(--wtv-soft);max-width:70ch;text-wrap:pretty}
+.wtv-chips{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+.wtv-chip{background:transparent;color:var(--wtv-ink);border:1px solid var(--wtv-line3);border-radius:999px;padding:8px 15px;font-family:var(--wtv-head);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
+.wtv-chip:hover{border-color:var(--wtv-ink);color:var(--wtv-ink)}
+.wtv-chip.on{background:var(--wtv-ink);color:var(--wtv-bg);border-color:var(--wtv-ink)}
+.wtv-chip.on:hover{color:var(--wtv-lime)}
+
+/* ---------- media / cards ---------- */
+.wtv-media{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#e3e1d9;position:relative}
+.wtv-media img{width:100%;height:100%;object-fit:cover;display:block}
+.wtv-media .stamp{position:absolute;top:14px;left:14px;background:var(--wtv-ink);color:var(--wtv-bg);font-family:var(--wtv-mono);font-size:11px;padding:5px 9px;letter-spacing:.04em}
+.wtv-media .badges{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8%;background:linear-gradient(135deg,#1d2224,#101314)}
+.wtv-media .badges img{width:26%;height:auto;max-height:60%;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+.wtv-media .badges .vs{font-family:var(--wtv-head);font-weight:800;color:var(--wtv-lime);font-size:clamp(14px,3vw,28px)}
+.wtv-lead a{display:block}
+.wtv-lead h1,.wtv-lead h2{margin:0;font-family:var(--wtv-head);font-weight:800;font-size:clamp(30px,4vw,46px);line-height:1.04;letter-spacing:-.02em;text-wrap:pretty}
+.wtv-lead h2{font-size:clamp(26px,3.2vw,36px);line-height:1.06}
+.wtv-lead .kick{margin:16px 0 8px}
+.wtv-lead .dek{margin:14px 0 0;font-size:16px;line-height:1.55;color:var(--wtv-soft);max-width:62ch;text-wrap:pretty}
+.wtv-tags{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-ink)}
+.wtv-tags span{border:1px solid var(--wtv-line3);border-radius:3px;padding:5px 9px}
+.wtv-grid{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:32px 28px}
+.wtv-grid.tight{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px 26px;margin-top:28px}
+.wtv-grid.mini{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:24px;margin-top:0}
+.wtv-card a{display:block}
+.wtv-card h3{margin:0;font-family:var(--wtv-head);font-weight:700;font-size:19px;line-height:1.2;text-wrap:pretty}
+.wtv-grid.mini .wtv-card h3{font-size:17px;line-height:1.22}
+.wtv-card .kick{margin:12px 0 6px}
+.wtv-card .meta{margin:8px 0 0;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-list a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--wtv-line)}
+.wtv-list a .t{font-family:var(--wtv-head);font-weight:700;font-size:17px}
+.wtv-list a .l{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-comp-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.wtv-comp{background:var(--wtv-card);border:1px solid var(--wtv-line);border-radius:4px;padding:16px;display:grid;gap:4px}
+.wtv-comp:hover{border-color:var(--wtv-ink);color:var(--wtv-ink)}
+.wtv-comp .n{font-family:var(--wtv-head);font-weight:700;font-size:16px}
+.wtv-comp .c{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+
+/* ---------- sidebar boxes ---------- */
+.wtv-aside{display:grid;gap:24px;align-content:start}
+.wtv-aside.sticky{position:sticky;top:90px}
+.wtv-box{border:1px solid var(--wtv-line);background:var(--wtv-card);border-radius:4px;padding:18px}
+.wtv-box h2,.wtv-box h3{margin:0 0 6px;font-family:var(--wtv-head);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.wtv-box.lg{padding:20px}
+.wtv-box.lg h2{font-size:15px;margin-bottom:4px}
+.wtv-tzrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:0 0 12px;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-tz{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-ink);background:#fff;border:1px solid #d8d5cc;border-radius:3px;padding:4px 6px;max-width:100%}
+.wtv-fix{display:grid;gap:3px;padding:11px 0;border-top:1px solid var(--wtv-line2)}
+.wtv-fix .w{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-fix .m{font-family:var(--wtv-head);font-weight:700;font-size:15px}
+.wtv-fix .b{font-size:13px;color:var(--wtv-soft)}
+.wtv-box.lg .wtv-fix{padding:12px 0;gap:4px}
+.wtv-box.lg .wtv-fix .m{font-size:16px}
+.wtv-leagues{display:grid;gap:10px;font-size:14px}
+.wtv-leagues a{display:flex;justify-content:space-between;gap:12px}
+.wtv-leagues a span:last-child{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-dark{background:var(--wtv-ink);color:var(--wtv-bg);border-radius:4px;padding:20px}
+.wtv-dark h2{margin:0 0 8px;font-family:var(--wtv-head);font-weight:800;font-size:19px;line-height:1.15;color:var(--wtv-bg)}
+.wtv-dark p{margin:0 0 14px;font-size:14px;line-height:1.5;color:var(--wtv-ondark)}
+.wtv-dark .lbl{margin:0 0 4px;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-lime)}
+.wtv-dark .big{margin:0 0 14px;font-family:var(--wtv-head);font-weight:800;font-size:30px;letter-spacing:-.01em;color:var(--wtv-bg)}
+.wtv-dark .fine{margin:10px 0 0;font-family:var(--wtv-mono);font-size:10px;color:var(--wtv-ondark2)}
+.wtv-empty{padding:14px 0;font-size:14px;color:var(--wtv-soft)}
+
+/* ---------- article ---------- */
+.wtv-article h1{margin:0;font-family:var(--wtv-head);font-weight:800;font-size:clamp(30px,4.2vw,48px);line-height:1.03;letter-spacing:-.02em;text-wrap:pretty}
+.wtv-article .dek{margin:16px 0 0;font-size:17px;line-height:1.55;color:var(--wtv-soft);max-width:64ch;text-wrap:pretty}
+.wtv-byline{margin:18px 0 24px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute);border-top:1px solid var(--wtv-line);border-bottom:1px solid var(--wtv-line);padding:12px 0}
+.wtv-byline .who{color:var(--wtv-ink)}
+.wtv-article figure{margin:0 0 12px}
+.wtv-article figcaption{margin-top:8px;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-short{background:var(--wtv-card);border:1px solid var(--wtv-line);border-left:3px solid var(--wtv-lime);border-radius:4px;padding:22px;margin:28px 0}
+.wtv-short h2{margin:0 0 14px;font-family:var(--wtv-head);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.wtv-short .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px}
+.wtv-short .l{margin:0 0 4px;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-short .v{margin:0;font-family:var(--wtv-head);font-weight:700;font-size:18px}
+.wtv-short .y{margin:4px 0 0;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-rust2)}
+.wtv-article h2.sec{margin:36px 0 14px;font-family:var(--wtv-head);font-weight:800;font-size:26px;letter-spacing:-.01em}
+.wtv-article h2.sec + h2.sec{margin-top:40px}
+.wtv-prose p{margin:0 0 14px;font-size:16px;line-height:1.6;color:var(--wtv-body);max-width:66ch}
+.wtv-prose ul{margin:0 0 14px;padding-left:20px;font-size:16px;line-height:1.75;color:var(--wtv-body);max-width:66ch}
+.wtv-prose strong{color:var(--wtv-ink)}
+.wtv-prose a{color:var(--wtv-ink);border-bottom:1px solid var(--wtv-line3)}
+.wtv-tzbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--wtv-card);border:1px solid var(--wtv-line);border-radius:4px;padding:12px 16px;margin-bottom:12px}
+.wtv-tzbar .l{font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-tzbar .k{font-family:var(--wtv-head);font-weight:700;font-size:14px;margin-left:auto}
+.wtv-table{border:1px solid var(--wtv-line);border-radius:4px;overflow:hidden;background:var(--wtv-card)}
+.wtv-table .r{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,.8fr);gap:12px;padding:14px 16px;border-top:1px solid var(--wtv-line2);font-size:15px;align-items:center}
+.wtv-table .r.h{background:var(--wtv-ink);color:var(--wtv-bg);font-family:var(--wtv-head);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;border-top:0}
+.wtv-table .r .c{font-weight:600}
+.wtv-table .r .b{color:var(--wtv-soft)}
+.wtv-table .r .b img{display:inline-block;height:18px;width:auto;vertical-align:middle;margin-right:6px;border-radius:2px;background:#fff}
+.wtv-table .r .t{font-family:var(--wtv-mono);font-size:13px}
+.wtv-table .f{padding:12px 16px;border-top:1px solid var(--wtv-line2);background:var(--wtv-card2);font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.wtv-table .f a{color:var(--wtv-ink)}
+@media (max-width:640px){.wtv-table .r{grid-template-columns:1fr;gap:4px}.wtv-table .r.h span:not(:first-child){display:none}}
+.wtv-faq{display:grid;gap:1px;background:var(--wtv-line);border:1px solid var(--wtv-line);border-radius:4px;overflow:hidden}
+.wtv-faq div{background:var(--wtv-card);padding:16px}
+.wtv-faq .q{margin:0 0 6px;font-family:var(--wtv-head);font-weight:700;font-size:16px}
+.wtv-faq .a{margin:0;font-size:15px;line-height:1.55;color:var(--wtv-soft)}
+.wtv-teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+.wtv-teams div{background:var(--wtv-card);border:1px solid var(--wtv-line);border-radius:4px;padding:16px;display:flex;gap:12px;align-items:center}
+.wtv-teams img{width:44px;height:44px;object-fit:contain}
+.wtv-teams .n{margin:0 0 4px;font-family:var(--wtv-head);font-weight:700;font-size:15px}
+.wtv-teams .s{margin:0;font-size:13px;line-height:1.5;color:var(--wtv-soft)}
+.wtv-more{margin-top:48px;border-top:2px solid var(--wtv-ink);padding-top:14px}
+.wtv-more h2{margin:0 0 20px;font-family:var(--wtv-head);font-weight:800;font-size:20px;letter-spacing:.02em;text-transform:uppercase}
+.wtv-toc{display:grid;gap:9px;font-size:14px}
+.wtv-toc a{color:var(--wtv-soft)}
+
+/* ---------- schedule page ---------- */
+.wtv-day{margin-top:28px}
+.wtv-day h2{margin:0 0 4px;font-family:var(--wtv-head);font-weight:800;font-size:20px}
+.wtv-sched{border:1px solid var(--wtv-line);border-radius:4px;overflow:hidden;background:var(--wtv-card);margin-top:12px}
+.wtv-sched a{display:grid;grid-template-columns:110px minmax(0,1.4fr) minmax(0,1fr);gap:12px;padding:13px 16px;border-top:1px solid var(--wtv-line2);align-items:center;font-size:15px}
+.wtv-sched a:first-child{border-top:0}
+.wtv-sched a:hover{background:var(--wtv-card2);color:var(--wtv-ink)}
+.wtv-sched .t{font-family:var(--wtv-mono);font-size:13px}
+.wtv-sched .m{font-family:var(--wtv-head);font-weight:700}
+.wtv-sched .m small{display:block;font-family:var(--wtv-mono);font-weight:500;font-size:11px;color:var(--wtv-mute);margin-top:2px}
+.wtv-sched .b{font-size:13px;color:var(--wtv-soft)}
+@media (max-width:640px){.wtv-sched a{grid-template-columns:1fr;gap:3px}}
+.wtv-daynav{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+
+/* ---------- static / prose pages ---------- */
+.wtv-static{max-width:760px}
+.wtv-static h1{font-family:var(--wtv-head);font-weight:800;font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.02em;border-bottom:2px solid var(--wtv-ink);padding-bottom:18px;margin-bottom:22px}
+.wtv-static h2{margin:32px 0 10px;font-family:var(--wtv-head);font-weight:800;font-size:22px}
+.wtv-static p,.wtv-static li{font-size:16px;line-height:1.65;color:var(--wtv-body)}
+.wtv-static ul{list-style:disc;padding-left:22px;margin:0 0 16px}
+.wtv-static ol{list-style:decimal;padding-left:22px;margin:0 0 16px}
+.wtv-static li{margin:0 0 6px}
+.wtv-static code{font-family:var(--wtv-mono);font-size:13px;background:var(--wtv-card2);border:1px solid var(--wtv-line);border-radius:3px;padding:1px 5px}
+.wtv-static input,.wtv-static textarea{width:100%;border:1px solid var(--wtv-line3);border-radius:3px;padding:11px 12px;font-family:var(--wtv-sans);font-size:15px;background:#fff;margin:4px 0 12px}
+
+/* ---------- forms: the custom-form block on /listings-desk and the platform's own /contact route (Bootstrap class names, no Bootstrap loaded) ---------- */
+.container.my-5{max-width:820px;margin:32px auto 64px;padding:0 24px}
+.row.justify-content-center,.col-md-8{display:block;width:100%;max-width:none;padding:0;margin:0}
+.card{background:var(--wtv-card);border:1px solid var(--wtv-line);border-radius:4px;overflow:hidden;box-shadow:none}
+.card-header,.card-header.bg-primary{background:var(--wtv-ink)!important;color:var(--wtv-bg)!important;padding:16px 22px;border:0}
+.card-header h2,.card-header .card-title,.card-header h5{margin:0;font-family:var(--wtv-head);font-weight:800;font-size:18px;color:var(--wtv-bg)}
+.card-body{padding:22px}
+.d-none{display:none!important}
+.mb-3{margin-bottom:16px}.mb-2{margin-bottom:8px}.mb-4{margin-bottom:22px}
+.form-label{display:block;margin:0 0 6px;font-family:var(--wtv-head);font-weight:700;font-size:13px;color:var(--wtv-ink)}
+.text-danger{color:var(--wtv-rust)}
+.form-control,.form-select{display:block;width:100%;border:1px solid var(--wtv-line3);border-radius:3px;padding:11px 12px;font-family:var(--wtv-sans);font-size:15px;line-height:1.4;background:#fff;color:var(--wtv-ink);outline:none;box-shadow:none}
+.form-control:focus,.form-select:focus{border-color:var(--wtv-ink);box-shadow:none;outline:none}
+.form-control::placeholder{color:var(--wtv-mute)}
+textarea.form-control{min-height:150px;resize:vertical}
+.form-check{display:flex;align-items:center;gap:8px;font-size:14px}
+.form-text,small.form-text{display:block;margin-top:6px;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-mute)}
+.input-group{display:flex;align-items:stretch}
+.input-group-text{display:none}
+.input-group .form-control{flex:1}
+.d-grid{display:grid}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--wtv-ink);border-radius:3px;padding:12px 22px;font-family:var(--wtv-head);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;background:transparent;color:var(--wtv-ink);line-height:1.2}
+.btn-primary{background:var(--wtv-ink)!important;border-color:var(--wtv-ink)!important;color:var(--wtv-bg)!important}
+.btn-primary:hover{color:var(--wtv-lime)!important}
+.btn-lg{padding:14px 26px}
+.btn-sm{padding:6px 10px;font-size:11px}
+.btn-outline-secondary{border-color:var(--wtv-line3);color:var(--wtv-soft);vertical-align:middle}
+.img-fluid.border.rounded{display:inline-block;border:1px solid var(--wtv-line3);border-radius:3px;vertical-align:middle;background:#fff}
+.alert{padding:12px 14px;border-radius:3px;border:1px solid var(--wtv-line3);margin:0 0 16px;font-size:14px;line-height:1.5}
+.alert-success{border-color:var(--wtv-lime);background:#f4fbe3}
+.alert-danger,.alert-error{border-color:var(--wtv-rust);background:#fbf1ea}
+.invalid-feedback{display:block;font-size:12px;color:var(--wtv-rust);margin-top:4px}
+.is-invalid{border-color:var(--wtv-rust)!important}
+.text-center.mt-3,.text-muted{font-size:14px;color:var(--wtv-soft)}
+.wtv-static [data-custom-form],.wtv-static form{margin-top:20px}
+.wtv-static [data-custom-form] .card{max-width:760px}
+
+/* ---------- footer ---------- */
+.wtv-footer{background:var(--wtv-ink);color:var(--wtv-bg);margin-top:0}
+.wtv-footer-in{max-width:1240px;margin:0 auto;padding:48px 24px 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px 44px}
+.wtv-footer .about p{margin:12px 0 0;font-size:14px;line-height:1.6;color:var(--wtv-ondark);max-width:42ch}
+.wtv-footer .about .m{margin:14px 0 0;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-ondark2)}
+.wtv-footer .about .m.lime{margin-top:6px;color:var(--wtv-lime)}
+.wtv-footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:28px 24px}
+.wtv-footer nav{display:grid;gap:9px;align-content:start}
+.wtv-footer nav p{margin:0 0 4px;font-family:var(--wtv-head);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--wtv-ondark2)}
+.wtv-footer nav a{color:var(--wtv-ondark3);font-size:14px}
+.wtv-footer nav a:hover{color:var(--wtv-lime)}
+.wtv-footer-bottom{border-top:1px solid var(--wtv-dark3)}
+.wtv-footer-bottom div{max-width:1240px;margin:0 auto;padding:18px 24px 34px;display:flex;gap:16px 26px;flex-wrap:wrap;align-items:center;justify-content:space-between;font-family:var(--wtv-mono);font-size:11px;color:var(--wtv-ondark2)}
+.wtv-footer-bottom span.links{display:flex;gap:20px;flex-wrap:wrap}
+.wtv-footer-bottom a{color:var(--wtv-ondark2)}
+.wtv-footer-bottom a:hover{color:var(--wtv-lime)}
+
+/* ---------- search page ---------- */
+.wtv-searchbar{display:flex;gap:8px;margin-top:20px}
+.wtv-searchbar input{flex:1;border:1px solid var(--wtv-line3);border-radius:3px;padding:13px 14px;font-family:var(--wtv-sans);font-size:16px;background:#fff}
+@media (max-width:640px){body{font-size:15.5px}.wtv-section{margin-top:44px}.wtv-grid{gap:26px 20px}}
+    </style>
+    
+    <!-- Page-specific styles -->
+    
+    <!-- Custom head scripts from site settings -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#101314">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:site_name" content="WorldTVRadio">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<style>main>.mx-auto.max-w-7xl{max-width:none!important;padding:0!important}article.page-content,.page-body{max-width:none}.wtv-nav{gap:16px;font-size:12.5px}.wtv-header-in{gap:24px}.wtv-header-in .wtv-search{min-width:210px}@media (max-width:1180px){.wtv-nav{gap:12px;font-size:12px}.wtv-header-in .wtv-search{min-width:170px}}</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://worldtvradio.com/#website","url":"https://worldtvradio.com/","name":"WorldTVRadio","description":"Where to watch football, NBA, NFL, MLB, NHL, tennis, Formula 1 and UFC: TV channels, live streams and kick-off times by country, updated daily.","inLanguage":"en","potentialAction":{"@type":"SearchAction","target":"https://worldtvradio.com/find?q={search_term_string}","query-input":"required name=search_term_string"}},
+{"@type":"Organization","@id":"https://worldtvradio.com/#publisher","name":"WorldTVRadio","url":"https://worldtvradio.com/","description":"Independent where-to-watch listings desk. Not affiliated with any broadcaster, league or club."}
+]}
+</script>
+<meta name="google-site-verification" content="a2E689AOTvIvYKIaflYkkKr0WCQwmZSLxKmPXNFAu9I" />
+    
+    
+        <script defer
+        src="https://analytics.xwm.app/script.js"
+        data-website-id="4894800e-0ea4-49dd-9f81-5f7a2f87f1ee">
+    </script>
+    </head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+    <header>
+        <div class="site-header">
+            <script>if(location.pathname.replace(/\/+$/,'')==='/contact'){location.replace('/listings-desk'+location.search)}</script>
+<header class="wtv-header">
+  <div class="wtv-header-in">
+    <a class="wtv-brand" href="/" aria-label="WorldTVRadio home"><span>WORLDTV</span><span class="lime">RADIO</span></a>
+    <nav class="wtv-nav" aria-label="Sports">
+      <a href="/football" data-sport="football">Football</a>
+      <a href="/basketball" data-sport="basketball">Basketball</a>
+      <a href="/nfl" data-sport="nfl">NFL</a>
+      <a href="/mlb" data-sport="mlb">MLB</a>
+      <a href="/nhl" data-sport="nhl">NHL</a>
+      <a href="/tennis" data-sport="tennis">Tennis</a>
+      <a href="/motorsport" data-sport="motorsport">Motorsport</a>
+      <a href="/combat" data-sport="combat">Combat</a>
+      <a href="/golf" data-sport="golf">Golf</a>
+      <a href="/cricket" data-sport="cricket">Cricket</a>
+      <a href="/rugby" data-sport="rugby">Rugby</a>
+      <a href="/tv-schedule" data-sport="tv-schedule">TV schedule</a>
+    </nav>
+    <form class="wtv-search" action="/find" method="get" role="search">
+      <span class="dot" aria-hidden="true"></span>
+      <input type="text" name="q" placeholder="Search a match, team or league" aria-label="Search a match, team or league" />
+    </form>
+    <button class="wtv-burger" type="button" aria-label="Open menu" aria-controls="wtvMnav" onclick="document.getElementById('wtvMnav').classList.toggle('open')">&#9776;</button>
+  </div>
+  <div class="wtv-mnav" id="wtvMnav">
+    <form class="wtv-search" action="/find" method="get" role="search">
+      <span class="dot" aria-hidden="true"></span>
+      <input type="text" name="q" placeholder="Search a match, team or league" aria-label="Search" />
+    </form>
+    <a href="/football">Football</a>
+    <a href="/basketball">Basketball</a>
+    <a href="/nfl">NFL</a>
+    <a href="/mlb">MLB</a>
+    <a href="/nhl">NHL</a>
+    <a href="/tennis">Tennis</a>
+    <a href="/motorsport">Motorsport</a>
+    <a href="/combat">Combat</a>
+    <a href="/golf">Golf</a>
+    <a href="/cricket">Cricket</a>
+    <a href="/rugby">Rugby</a>
+    <a href="/tv-schedule">TV schedule</a>
+  </div>
+</header>
+    </div>
+    </header>
+
+    <main>
+        
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+            <article class="page-content">
+                        <div class="page-body">
+                <main class="wtv-main"><div class="wtv-2col"><article class="wtv-lead"><a href="/football/la-liga/malaga-vs-espanyol-9-october-2026"><div class="wtv-media"><span class="stamp"><time data-utc="2026-10-09T19:00:00Z" data-fmt="short" data-abbr>2026-10-09T19:00</time></span><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4750835.webp" alt="" /></div><span class="wtv-gotd" style="display:inline-flex;align-items:center;gap:6px;background:var(--wtv-lime);color:var(--wtv-ink);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin:14px 0 8px">&#127942; Game of the Day</span><p class="wtv-kicker lg kick">La Liga &middot; Matchday 8</p><h1>Where to Watch Malaga vs Espanyol: TV Channels, Live Stream and Kick-off Time</h1><p class="dek">Malaga host Espanyol at Estadio La Rosaleda on Friday 9 October. Below is every broadcaster and official stream currently listed for this La Liga match, country by country, plus the kick-off time in your time zone.</p></a></article><aside class="wtv-box lg"><h2>Playing today</h2><div class="wtv-tzrow"><span>Times in</span><select class="wtv-tz" data-tz aria-label="Time zone"><option value="auto">Auto-detect</option><option value="America/Los_Angeles">Los Angeles (PT)</option><option value="America/New_York">New York (ET)</option><option value="America/Sao_Paulo">S&atilde;o Paulo</option><option value="Europe/London">London</option><option value="Europe/Paris">Paris / Rome (CET)</option><option value="Africa/Lagos">Lagos (WAT)</option><option value="Asia/Dubai">Dubai (GST)</option><option value="Asia/Kolkata">India (IST)</option><option value="Asia/Singapore">Singapore (SGT)</option><option value="Australia/Sydney">Sydney (AEST)</option></select><span>&middot; Watching from</span><select class="wtv-tz" data-cc aria-label="Your country"><option value="auto">Auto-detect</option></select></div><a class="wtv-fix" href="/basketball/nba/dallas-mavericks-vs-houston-rockets-9-october-2026" data-bc="{&quot;United States&quot;:[&quot;NBA TV&quot;]}"><span class="w"><time data-utc="2026-10-09T12:00:00Z" data-fmt="short"></time> &middot; NBA</span><span class="m">Dallas Mavericks vs Houston Rockets</span><span class="b">US: NBA TV</span></a><a class="wtv-fix" href="/football/bundesliga/borussia-dortmund-vs-werder-bremen-9-october-2026" data-bc="{&quot;United States&quot;:[&quot;NBC Universo&quot;],&quot;United Kingdom&quot;:[&quot;BBC iPlayer&quot;],&quot;Mexico&quot;:[&quot;FOX One&quot;],&quot;Argentina&quot;:[&quot;ESPN 3&quot;,&quot;Disney+ Premium&quot;],&quot;Albania&quot;:[&quot;Tring Sport 2&quot;],&quot;Chile&quot;:[&quot;ESPN 5&quot;,&quot;Disney+ Premium&quot;],&quot;Colombia&quot;:[&quot;ESPN 5&quot;,&quot;Disney+ Premium&quot;],&quot;Norway&quot;:[&quot;Viaplay&quot;]}"><span class="w"><time data-utc="2026-10-09T18:30:00Z" data-fmt="short"></time> &middot; Bundesliga</span><span class="m">Borussia Dortmund vs Werder Bremen</span><span class="b">US: NBC Universo / UK: BBC iPlayer / Mexico: FOX One</span></a><a class="wtv-fix" href="/football/la-liga/malaga-vs-espanyol-9-october-2026" data-bc="{&quot;United States&quot;:[&quot;ESPN Deportes&quot;,&quot;ESPN+&quot;],&quot;United Kingdom&quot;:[&quot;LaLiga TV&quot;,&quot;Premier Sports Extra&quot;],&quot;Brazil&quot;:[&quot;CazéTV&quot;],&quot;Mexico&quot;:[&quot;SKY Sports&quot;],&quot;Argentina&quot;:[&quot;ESPN 2&quot;,&quot;Disney+ Premium&quot;],&quot;Chile&quot;:[&quot;ESPN&quot;,&quot;Disney+ Premium&quot;],&quot;Colombia&quot;:[&quot;ESPN 2&quot;,&quot;Disney+ Premium&quot;],&quot;Israel&quot;:[&quot;ONE Sports&quot;]}"><span class="w"><time data-utc="2026-10-09T19:00:00Z" data-fmt="short"></time> &middot; La Liga</span><span class="m">Malaga vs Espanyol</span><span class="b">US: ESPN Deportes, ESPN+ / UK: LaLiga TV, Premier Sports Extra / Brazil: CazéTV</span></a><a class="wtv-fix" href="/basketball/nba/chicago-bulls-vs-memphis-grizzlies-9-october-2026" data-bc="{&quot;United States&quot;:[&quot;NBA TV&quot;],&quot;Israel&quot;:[&quot;5 Stars&quot;]}"><span class="w"><time data-utc="2026-10-10T00:00:00Z" data-fmt="short"></time> &middot; NBA</span><span class="m">Chicago Bulls vs Memphis Grizzlies</span><span class="b">US: NBA TV / Israel: 5 Stars</span></a><a class="wtv-fix" href="/motorsport/formula-1/formula-1-singapore-grand-prix-sprint-10-october-2026" data-bc="{&quot;United States&quot;:[&quot;Apple TV&quot;],&quot;United Kingdom&quot;:[&quot;Sky Sports F1&quot;],&quot;Australia&quot;:[&quot;Kayo Sports&quot;],&quot;Ireland&quot;:[&quot;Sky Sports F1&quot;],&quot;India&quot;:[&quot;FanCode&quot;],&quot;Spain&quot;:[&quot;DAZN&quot;],&quot;Italy&quot;:[&quot;Sky Sport F1&quot;],&quot;France&quot;:[&quot;Canal+&quot;],&quot;Germany&quot;:[&quot;Sky Deutschland&quot;],&quot;Netherlands&quot;:[&quot;Viaplay&quot;],&quot;Brazil&quot;:[&quot;TV Globo&quot;],&quot;Mexico&quot;:[&quot;TUDN&quot;]}"><span class="w"><time data-utc="2026-10-10T01:00:00Z" data-fmt="short"></time> &middot; Formula 1</span><span class="m">Formula 1 Singapore Grand Prix Sprint</span><span class="b">US: Apple TV / UK: Sky Sports F1 / Australia: Kayo Sports</span></a><a class="wtv-fix" href="/motorsport/formula-1/formula-1-singapore-grand-prix-qualifying-10-october-2026" data-bc="{&quot;United States&quot;:[&quot;Apple TV&quot;],&quot;United Kingdom&quot;:[&quot;Sky Sports F1&quot;],&quot;Australia&quot;:[&quot;Kayo Sports&quot;],&quot;Ireland&quot;:[&quot;Sky Sports F1&quot;],&quot;India&quot;:[&quot;FanCode&quot;],&quot;Spain&quot;:[&quot;DAZN&quot;],&quot;Italy&quot;:[&quot;Sky Sport F1&quot;],&quot;France&quot;:[&quot;Canal+&quot;],&quot;Germany&quot;:[&quot;Sky Deutschland&quot;],&quot;Netherlands&quot;:[&quot;Viaplay&quot;],&quot;Brazil&quot;:[&quot;TV Globo&quot;],&quot;Mexico&quot;:[&quot;TUDN&quot;]}"><span class="w"><time data-utc="2026-10-10T05:00:00Z" data-fmt="short"></time> &middot; Formula 1</span><span class="m">Formula 1 Singapore Grand Prix Qualifying</span><span class="b">US: Apple TV / UK: Sky Sports F1 / Australia: Kayo Sports</span></a><a class="wtv-btn-dark block" href="/tv-schedule">Full TV schedule</a></aside></div><section class="wtv-section"><div class="wtv-rule-row"><h2>Latest where-to-watch guides</h2><a href="/tv-schedule">All guides &rarr;</a></div><div class="wtv-grid"><div class="wtv-card"><a href="/motorsport/formula-1/formula-1-singapore-grand-prix-sprint-10-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/desk-f1-2026-10-10-singapore-grand-prix-sprint.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Formula 1</p><h3>Where to Watch Formula 1 Singapore Grand Prix Sprint</h3><p class="meta"><time data-utc="2026-10-10T01:00:00Z" data-fmt="long"></time> &middot; 12 broadcasters</p></a></div><div class="wtv-card"><a href="/motorsport/formula-1/formula-1-singapore-grand-prix-qualifying-10-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/desk-f1-2026-10-10-singapore-grand-prix-qualifying.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Formula 1</p><h3>Where to Watch Formula 1 Singapore Grand Prix Qualifying</h3><p class="meta"><time data-utc="2026-10-10T05:00:00Z" data-fmt="long"></time> &middot; 12 broadcasters</p></a></div><div class="wtv-card"><a href="/football/bundesliga/borussia-dortmund-vs-werder-bremen-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4755389.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Bundesliga</p><h3>Where to Watch Borussia Dortmund vs Werder Bremen</h3><p class="meta"><time data-utc="2026-10-09T18:30:00Z" data-fmt="long"></time> &middot; 11 broadcasters</p></a></div><div class="wtv-card"><a href="/basketball/nba/chicago-bulls-vs-memphis-grizzlies-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4814045.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">NBA</p><h3>Where to Watch Chicago Bulls vs Memphis Grizzlies</h3><p class="meta"><time data-utc="2026-10-10T00:00:00Z" data-fmt="long"></time> &middot; 2 broadcasters</p></a></div><div class="wtv-card"><a href="/basketball/nba/dallas-mavericks-vs-houston-rockets-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4811403.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">NBA</p><h3>Where to Watch Dallas Mavericks vs Houston Rockets</h3><p class="meta"><time data-utc="2026-10-09T12:00:00Z" data-fmt="long"></time> &middot; 1 broadcaster</p></a></div><div class="wtv-card"><a href="/football/ligue-1/lens-vs-lyon-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4735252.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Ligue 1</p><h3>Where to Watch Lens vs Lyon</h3><p class="meta"><time data-utc="2026-10-09T18:45:00Z" data-fmt="long"></time> &middot; 13 broadcasters</p></a></div><div class="wtv-card"><a href="/football/championship/west-ham-united-vs-qpr-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4746113.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Championship</p><h3>Where to Watch West Ham United vs QPR</h3><p class="meta"><time data-utc="2026-10-09T19:00:00Z" data-fmt="long"></time> &middot; 14 broadcasters</p></a></div><div class="wtv-card"><a href="/rugby/bledisloe-cup/new-zealand-vs-australia-10-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/desk-rugby-2026-10-10-bledisloe-cup-new-zealand-australia.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Bledisloe Cup</p><h3>Where to Watch New Zealand vs Australia</h3><p class="meta"><time data-utc="2026-10-10T06:10:00Z" data-fmt="long"></time> &middot; 2 broadcasters</p></a></div><div class="wtv-card"><a href="/football/liga-portugal/sc-braga-vs-sporting-cp-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4757171.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Liga Portugal</p><h3>Where to Watch SC Braga vs Sporting CP</h3><p class="meta"><time data-utc="2026-10-09T19:15:00Z" data-fmt="long"></time> &middot; 15 broadcasters</p></a></div><div class="wtv-card"><a href="/cricket/test-cricket/south-africa-vs-australia-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/desk-cricket-test-2026-10-09-south-africa-australia-1st-test.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Test cricket</p><h3>Where to Watch South Africa vs Australia</h3><p class="meta"><time data-utc="2026-10-09T07:30:00Z" data-fmt="long"></time> &middot; 3 broadcasters</p></a></div><div class="wtv-card"><a href="/football/eredivisie/psv-eindhoven-vs-heerenveen-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4734572.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Eredivisie</p><h3>Where to Watch PSV Eindhoven vs Heerenveen</h3><p class="meta"><time data-utc="2026-10-09T18:00:00Z" data-fmt="long"></time> &middot; 6 broadcasters</p></a></div><div class="wtv-card"><a href="/football/super-lig/galatasaray-vs-kasimpasa-9-october-2026"><div class="wtv-media"><img src="https://xwmsys.b-cdn.net/wtv/heroes/s365-4764313.webp" alt="" loading="lazy" /></div><p class="wtv-kicker kick">Super Lig</p><h3>Where to Watch Galatasaray vs Kasimpasa</h3><p class="meta"><time data-utc="2026-10-09T17:00:00Z" data-fmt="long"></time> &middot; 7 broadcasters</p></a></div></div></section><section class="wtv-section"><h2 class="wtv-rule-h2">Browse by sport</h2><div class="wtv-comp-grid"><a class="wtv-comp" href="/football"><span class="n">Football</span><span class="c">252 guides</span></a><a class="wtv-comp" href="/basketball"><span class="n">Basketball</span><span class="c">58 guides</span></a><a class="wtv-comp" href="/nfl"><span class="n">NFL</span><span class="c">32 guides</span></a><a class="wtv-comp" href="/mlb"><span class="n">MLB</span><span class="c">34 guides</span></a><a class="wtv-comp" href="/nhl"><span class="n">NHL</span><span class="c">89 guides</span></a><a class="wtv-comp" href="/tennis"><span class="n">Tennis</span><span class="c">Coming soon</span></a><a class="wtv-comp" href="/motorsport"><span class="n">Motorsport</span><span class="c">9 guides</span></a><a class="wtv-comp" href="/combat"><span class="n">Combat</span><span class="c">5 guides</span></a><a class="wtv-comp" href="/golf"><span class="n">Golf</span><span class="c">5 guides</span></a><a class="wtv-comp" href="/cricket"><span class="n">Cricket</span><span class="c">9 guides</span></a><a class="wtv-comp" href="/rugby"><span class="n">Rugby</span><span class="c">7 guides</span></a></div></section><section class="wtv-section"><h2 class="wtv-rule-h2">Browse by competition</h2><div class="wtv-comp-grid"><a class="wtv-comp" href="/football/premier-league"><span class="n">Premier League</span><span class="c">10 guides &middot; Football</span></a><a class="wtv-comp" href="/nfl/nfl"><span class="n">NFL</span><span class="c">32 guides &middot; NFL</span></a><a class="wtv-comp" href="/basketball/nba"><span class="n">NBA</span><span class="c">40 guides &middot; Basketball</span></a><a class="wtv-comp" href="/football/la-liga"><span class="n">La Liga</span><span class="c">10 guides &middot; Football</span></a><a class="wtv-comp" href="/football/uefa-nations-league"><span class="n">UEFA Nations League</span><span class="c">70 guides &middot; Football</span></a><a class="wtv-comp" href="/football/serie-a"><span class="n">Serie A</span><span class="c">10 guides &middot; Football</span></a><a class="wtv-comp" href="/football/bundesliga"><span class="n">Bundesliga</span><span class="c">9 guides &middot; Football</span></a><a class="wtv-comp" href="/combat/boxing"><span class="n">Boxing</span><span class="c">3 guides &middot; Combat</span></a><a class="wtv-comp" href="/motorsport/formula-1"><span class="n">Formula 1</span><span class="c">5 guides &middot; Motorsport</span></a><a class="wtv-comp" href="/combat/ufc"><span class="n">UFC</span><span class="c">2 guides &middot; Combat</span></a><a class="wtv-comp" href="/rugby/bledisloe-cup"><span class="n">Bledisloe Cup</span><span class="c">1 guide &middot; Rugby</span></a><a class="wtv-comp" href="/rugby/nrl"><span class="n">NRL</span><span class="c">1 guide &middot; Rugby</span></a><a class="wtv-comp" href="/football/ligue-1"><span class="n">Ligue 1</span><span class="c">9 guides &middot; Football</span></a><a class="wtv-comp" href="/cricket/test-cricket"><span class="n">Test cricket</span><span class="c">1 guide &middot; Cricket</span></a><a class="wtv-comp" href="/mlb/mlb"><span class="n">MLB</span><span class="c">34 guides &middot; MLB</span></a><a class="wtv-comp" href="/football/international-friendlies"><span class="n">International Friendlies</span><span class="c">11 guides &middot; Football</span></a><a class="wtv-comp" href="/nhl/nhl"><span class="n">NHL</span><span class="c">89 guides &middot; NHL</span></a><a class="wtv-comp" href="/football/eredivisie"><span class="n">Eredivisie</span><span class="c">4 guides &middot; Football</span></a><a class="wtv-comp" href="/football/liga-portugal"><span class="n">Liga Portugal</span><span class="c">8 guides &middot; Football</span></a><a class="wtv-comp" href="/cricket/t20i"><span class="n">T20I</span><span class="c">5 guides &middot; Cricket</span></a><a class="wtv-comp" href="/football/brasileirao"><span class="n">Brasileirao</span><span class="c">22 guides &middot; Football</span></a><a class="wtv-comp" href="/football/liga-mx"><span class="n">Liga MX</span><span class="c">11 guides &middot; Football</span></a><a class="wtv-comp" href="/football/championship"><span class="n">Championship</span><span class="c">5 guides &middot; Football</span></a><a class="wtv-comp" href="/motorsport/motogp"><span class="n">MotoGP</span><span class="c">2 guides &middot; Motorsport</span></a><a class="wtv-comp" href="/cricket/odi"><span class="n">ODI</span><span class="c">3 guides &middot; Cricket</span></a><a class="wtv-comp" href="/football/mls"><span class="n">MLS</span><span class="c">17 guides &middot; Football</span></a><a class="wtv-comp" href="/football/saudi-pro-league"><span class="n">Saudi Pro League</span><span class="c">6 guides &middot; Football</span></a><a class="wtv-comp" href="/football/scottish-premiership"><span class="n">Scottish Premiership</span><span class="c">2 guides &middot; Football</span></a><a class="wtv-comp" href="/football/liga-profesional-argentina"><span class="n">Liga Profesional Argentina</span><span class="c">29 guides &middot; Football</span></a><a class="wtv-comp" href="/motorsport/nascar-cup-series"><span class="n">NASCAR Cup Series</span><span class="c">2 guides &middot; Motorsport</span></a><a class="wtv-comp" href="/football/super-lig"><span class="n">Super Lig</span><span class="c">4 guides &middot; Football</span></a><a class="wtv-comp" href="/football/belgian-pro-league"><span class="n">Belgian Pro League</span><span class="c">3 guides &middot; Football</span></a><a class="wtv-comp" href="/basketball/euroleague"><span class="n">EuroLeague</span><span class="c">8 guides &middot; Basketball</span></a><a class="wtv-comp" href="/basketball/wnba"><span class="n">WNBA</span><span class="c">10 guides &middot; Basketball</span></a><a class="wtv-comp" href="/football/womens-super-league"><span class="n">Women&#039;s Super League</span><span class="c">7 guides &middot; Football</span></a><a class="wtv-comp" href="/rugby/premiership-rugby"><span class="n">Premiership Rugby</span><span class="c">2 guides &middot; Rugby</span></a><a class="wtv-comp" href="/rugby/urc"><span class="n">URC</span><span class="c">2 guides &middot; Rugby</span></a><a class="wtv-comp" href="/rugby/top-14"><span class="n">Top 14</span><span class="c">1 guide &middot; Rugby</span></a><a class="wtv-comp" href="/football/nwsl"><span class="n">NWSL</span><span class="c">5 guides &middot; Football</span></a><a class="wtv-comp" href="/golf/dp-world-tour"><span class="n">DP World Tour</span><span class="c">3 guides &middot; Golf</span></a><a class="wtv-comp" href="/golf/pga-tour"><span class="n">PGA Tour</span><span class="c">2 guides &middot; Golf</span></a></div></section><section class="wtv-section wtv-dark" style="padding:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;align-items:center"><div><h2 style="font-size:26px;line-height:1.1">Know where every game is, before kick-off.</h2><p style="max-width:46ch">Every morning at 04:00 ET the listings desk checks the coming days' fixtures, confirms the broadcasters in each country and publishes a guide for every game that has one. Nothing is listed until a rights holder is confirmed.</p></div><div style="display:grid;gap:10px"><a class="wtv-btn-lime" href="/tv-schedule">See this week's TV schedule</a><a class="wtv-btn-dark" style="border:1px solid var(--wtv-dark3);text-align:center" href="/editorial-policy">How we source listings</a></div></section></main>
+            </div>
+        </article>
+    </div>
+    </main>
+
+    <footer class="bg-gray-100 pt-8 mt-8">
+        <div class="footer-wrapper">
+            <footer class="wtv-footer">
+  <div class="wtv-footer-in">
+    <div class="about">
+      <a class="wtv-brand" href="/"><span>WORLDTV</span><span class="lime">RADIO</span></a>
+      <p>An independent where-to-watch resource. We track broadcast and streaming rights for the major football, basketball, NFL, MLB, NHL, tennis, motorsport, combat, golf, cricket and rugby competitions, country by country, and only name official rights holders.</p>
+      <p class="m">Listings desk &middot; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="54383d27203d3a332714233b26383020222635303d3b7a373b39">[email&#160;protected]</a></p>
+      <p class="m lime">Schedules refreshed daily at 04:00 ET</p>
+    </div>
+    <div class="cols">
+      <nav aria-label="Sports">
+        <p>Sports</p>
+        <a href="/football">Football</a>
+        <a href="/basketball">Basketball</a>
+        <a href="/nfl">NFL</a>
+        <a href="/mlb">MLB</a>
+        <a href="/nhl">NHL</a>
+        <a href="/tennis">Tennis</a>
+        <a href="/motorsport">Motorsport</a>
+        <a href="/combat">Combat sports</a>
+        <a href="/golf">Golf</a>
+        <a href="/cricket">Cricket</a>
+        <a href="/rugby">Rugby</a>
+      </nav>
+      <nav aria-label="Competitions">
+        <p>Competitions</p>
+        <a href="/football/premier-league">Premier League</a>
+        <a href="/football/champions-league">Champions League</a>
+        <a href="/football/la-liga">La Liga</a>
+        <a href="/football/serie-a">Serie A</a>
+        <a href="/football/bundesliga">Bundesliga</a>
+        <a href="/basketball/nba">NBA</a>
+        <a href="/motorsport/formula-1">Formula 1</a>
+        <a href="/combat/ufc">UFC</a>
+      </nav>
+      <nav aria-label="Guides">
+        <p>Guides</p>
+        <a href="/tv-schedule">Today's TV schedule</a>
+        <a href="/find">Search fixtures</a>
+        <a href="/football/mls">MLS on TV</a>
+        <a href="/nfl/nfl">NFL on TV</a>
+        <a href="/combat/boxing">Boxing on TV</a>
+        <a href="/golf/ryder-cup">Ryder Cup on TV</a>
+      </nav>
+      <nav aria-label="About">
+        <p>About</p>
+        <a href="/about">About us</a>
+        <a href="/editorial-policy">How we source listings</a>
+        <a href="/listings-desk">Corrections</a>
+        <a href="/listings-desk">Contact</a>
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/disclaimer">Disclaimer</a>
+      </nav>
+    </div>
+  </div>
+  <div class="wtv-footer-bottom">
+    <div>
+      <span>&copy; 2026 WorldTVRadio. Not affiliated with any broadcaster, league or club.</span>
+      <span class="links">
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/disclaimer">Disclaimer</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <span>Fixture data via official league schedules and international listings feeds</span>
+      </span>
+    </div>
+  </div>
+</footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+window.WTV=(function(){var KEY='wtvr:tz',CKEY='wtvr:cc',GKEY='wtvr:geo';
+function saved(){try{return localStorage.getItem(KEY)||'auto'}catch(e){return 'auto'}}
+function zone(){var s=saved();if(s&&s!=='auto')return s;try{return Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC'}catch(e){return 'UTC'}}
+function fmt(iso,o){try{return new Intl.DateTimeFormat('en-GB',Object.assign({timeZone:zone()},o)).format(new Date(iso)).replace(/,/g,'')}catch(e){return iso.slice(11,16)}}
+function abbr(iso){try{var p=new Intl.DateTimeFormat('en-US',{timeZone:zone(),timeZoneName:'short'}).formatToParts(new Date(iso));for(var i=0;i<p.length;i++){if(p[i].type==='timeZoneName')return p[i].value}}catch(e){}return ''}
+var F={short:{weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false},time:{hour:'2-digit',minute:'2-digit',hour12:false},long:{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false},date:{weekday:'long',day:'numeric',month:'long'}};
+function render(){var els=document.querySelectorAll('time[data-utc]');for(var i=0;i<els.length;i++){var el=els[i],iso=el.getAttribute('data-utc'),m=el.getAttribute('data-fmt')||'short';if(!iso)continue;el.textContent=fmt(iso,F[m]||F.short)+(el.hasAttribute('data-abbr')?' '+abbr(iso):'')}
+var sels=document.querySelectorAll('select[data-tz]');var d='local';try{d=Intl.DateTimeFormat().resolvedOptions().timeZone||'local'}catch(e){}
+for(var j=0;j<sels.length;j++){var s=sels[j];var o=s.querySelector('option[value="auto"]');if(o)o.textContent='Auto-detect ('+d+')';s.value=saved()}
+var zl=document.querySelectorAll('[data-zone-label]');for(var k=0;k<zl.length;k++)zl[k].textContent=zone()}
+function set(tz){try{localStorage.setItem(KEY,tz)}catch(e){}render()}
+function cd(){var els=document.querySelectorAll('[data-countdown]');for(var i=0;i<els.length;i++){var el=els[i];var t=new Date(el.getAttribute('data-countdown')).getTime();if(isNaN(t))continue;var s=Math.floor((t-Date.now())/1000);var p=function(n){return String(n).padStart(2,'0')};if(s<=0){el.textContent=(s>-10800?'Live now':'Full time');continue}var dd=Math.floor(s/86400);var r=p(Math.floor((s%86400)/3600))+':'+p(Math.floor(s/60)%60)+':'+p(s%60);el.textContent=dd>0?dd+'d '+r:r}}
+/* ---- visitor country: ISO code -> the country names used in the listings data ---- */
+var CC={AL:'Albania',AR:'Argentina',AT:'Austria',AU:'Australia',BA:'Bosnia and Herzegovina',BD:'Bangladesh',BE:'Belgium',BG:'Bulgaria',BR:'Brazil',CA:'Canada',CH:'Switzerland',CL:'Chile',CN:'China',CO:'Colombia',CY:'Cyprus',CZ:'Czech Republic',DE:'Germany',DK:'Denmark',EG:'Egypt',ES:'Spain',FI:'Finland',FR:'France',GB:'United Kingdom',GH:'Ghana',GR:'Greece',HK:'Hong Kong',HR:'Croatia',HU:'Hungary',ID:'Indonesia',IE:'Ireland',IL:'Israel',IN:'India',IS:'Iceland',IT:'Italy',JP:'Japan',KE:'Kenya',KR:'South Korea',LK:'Sri Lanka',LU:'Luxembourg',MA:'Morocco',MK:'North Macedonia',MX:'Mexico',MY:'Malaysia',NG:'Nigeria',NL:'Netherlands',NO:'Norway',NZ:'New Zealand',PE:'Peru',PH:'Philippines',PK:'Pakistan',PL:'Poland',PT:'Portugal',QA:'Qatar',RO:'Romania',RS:'Serbia',SA:'Saudi Arabia',SE:'Sweden',SG:'Singapore',SI:'Slovenia',SK:'Slovakia',TH:'Thailand',TR:'Turkey',TW:'Taiwan',UA:'Ukraine',AE:'United Arab Emirates',US:'United States',UY:'Uruguay',VN:'Vietnam',XK:'Kosovo',ZA:'South Africa'};
+var TZC={'Europe/Tirane':'AL','Europe/London':'GB','Europe/Dublin':'IE','Europe/Brussels':'BE','Europe/Amsterdam':'NL','Europe/Paris':'FR','Europe/Berlin':'DE','Europe/Madrid':'ES','Europe/Rome':'IT','Europe/Lisbon':'PT','Europe/Vienna':'AT','Europe/Zurich':'CH','Europe/Athens':'GR','Europe/Warsaw':'PL','Europe/Stockholm':'SE','Europe/Oslo':'NO','Europe/Copenhagen':'DK','Europe/Istanbul':'TR','Europe/Belgrade':'RS','Europe/Skopje':'MK','Europe/Prague':'CZ','Europe/Zagreb':'HR','Europe/Budapest':'HU','Europe/Bucharest':'RO','America/New_York':'US','America/Chicago':'US','America/Denver':'US','America/Los_Angeles':'US','America/Toronto':'CA','America/Vancouver':'CA','America/Sao_Paulo':'BR','America/Mexico_City':'MX','America/Argentina/Buenos_Aires':'AR','America/Bogota':'CO','America/Santiago':'CL','Asia/Kolkata':'IN','Asia/Tokyo':'JP','Asia/Seoul':'KR','Asia/Singapore':'SG','Asia/Dubai':'AE','Asia/Riyadh':'SA','Asia/Jerusalem':'IL','Australia/Sydney':'AU','Australia/Melbourne':'AU','Pacific/Auckland':'NZ','Africa/Lagos':'NG','Africa/Johannesburg':'ZA','Africa/Cairo':'EG'};
+function tzGuess(){try{return TZC[Intl.DateTimeFormat().resolvedOptions().timeZone]||''}catch(e){return ''}}
+function override(){try{return localStorage.getItem(CKEY)||''}catch(e){return ''}}
+function geo(cb){var o=override();if(o){cb(o);return}var g='';try{g=sessionStorage.getItem(GKEY)||''}catch(e){}if(g){cb(g);return}
+var done=false,fin=function(c){if(done)return;done=true;try{sessionStorage.setItem(GKEY,c)}catch(e){}cb(c)};
+try{fetch('/cdn-cgi/trace',{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var m=/(?:^|\n)loc=([A-Z]{2})/.exec(t);fin(m?m[1]:tzGuess())}).catch(function(){fin(tzGuess())});setTimeout(function(){fin(tzGuess())},2500)}catch(e){fin(tzGuess())}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function applyCountry(cc){var name=CC[cc]||'';
+var sels=document.querySelectorAll('select[data-cc]');for(var i=0;i<sels.length;i++){var s=sels[i];if(s.options.length<2){var keys=Object.keys(CC).sort(function(a,b){return CC[a]<CC[b]?-1:1});for(var k=0;k<keys.length;k++){var op=document.createElement('option');op.value=keys[k];op.textContent=CC[keys[k]];s.appendChild(op)}}var au=s.querySelector('option[value="auto"]');if(au)au.textContent='Auto-detect'+(override()?'':(name?' ('+name+')':''));s.value=override()?cc:'auto'}
+var table=document.getElementById('listings');var hit=null;
+if(table){var rows=table.querySelectorAll('.r[data-country]');for(var r=0;r<rows.length;r++){rows[r].classList.remove('mine');if(rows[r].getAttribute('data-country')===name)hit=rows[r]}var head=table.querySelector('.r.h');if(hit&&head){hit.classList.add('mine');head.insertAdjacentElement('afterend',hit)}}
+var watch=document.querySelector('.wtv-short .watch');if(watch){var old=watch.querySelector('.mk.mine');if(old)old.remove();if(name){var div=document.createElement('div');div.className='mk mine'+(hit?'':' none');var lab='<span class="m">'+esc(name)+'<em>Your country</em></span>';if(hit){var b=hit.querySelector('.b');div.innerHTML=lab+(b?b.innerHTML:'')}else{div.innerHTML=lab+'<span class="nb">No broadcaster listed for '+esc(name)+' yet. <a href="/listings-desk">Know the rights holder? Tell the listings desk</a></span>'}var l=watch.querySelector('.l');if(l)l.insertAdjacentElement('afterend',div);else watch.insertAdjacentElement('afterbegin',div)}}
+var cards=document.querySelectorAll('[data-bc]');for(var c=0;c<cards.length;c++){var el=cards[c],t=el.querySelector('.b');if(!t)continue;var j=null;try{j=JSON.parse(el.getAttribute('data-bc'))}catch(e){}if(!el.hasAttribute('data-bc-default'))el.setAttribute('data-bc-default',t.textContent);if(name&&j&&j[name]){t.textContent=name+': '+j[name].join(', ')}else{t.textContent=el.getAttribute('data-bc-default')}}
+var cl=document.querySelectorAll('[data-country-label]');for(var q=0;q<cl.length;q++)cl[q].textContent=name||'your country'}
+function setCountry(cc){try{if(!cc||cc==='auto')localStorage.removeItem(CKEY);else localStorage.setItem(CKEY,cc)}catch(e){}geo(applyCountry)}
+function init(){render();cd();setInterval(cd,1000);document.addEventListener('change',function(e){var t=e.target;if(!t||!t.getAttribute)return;if(t.hasAttribute('data-tz'))set(t.value);if(t.hasAttribute('data-cc'))setCountry(t.value)});var p=location.pathname.split('/')[1];var links=document.querySelectorAll('.wtv-nav a[data-sport]');for(var i=0;i<links.length;i++){if(links[i].getAttribute('data-sport')===p)links[i].classList.add('on')}geo(applyCountry)}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
+return {zone:zone,render:render,set:set,fmt:fmt,country:function(){return override()||''},setCountry:setCountry,names:CC};})();
+</script>
+    </div>
+    </footer>
+
+    <!-- Highlight.js for code blocks -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+
+    <!-- Global Form Handler -->
+    <script src="https://www.worldtvradio.com/js/form-handler.js"></script>
+
+    <!-- Page-specific scripts -->
+    
+    <!-- Custom footer scripts from site settings -->
+    
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"aa3c796d11d942bbb70476baf582b090","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

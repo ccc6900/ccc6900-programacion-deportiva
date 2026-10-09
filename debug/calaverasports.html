@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalaveraSports — Deporte en directo / Live sports</title>
+  <meta name="description" content="Where to watch live sport today, legally. Full worldwide schedule across every sport, free and legal options first, times in your own timezone. English and Spanish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e14; --panel:#121722; --panel2:#161c28; --line:rgba(255,255,255,.08);
+    --text:#f2f5f9; --muted:#8b94a3; --accent:#2be07a; --accent-d:#12a457; --live:#ff3b47;
+    --font:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --display:"Archivo Black","Archivo",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{font-family:var(--font);color:var(--text);line-height:1.45;-webkit-font-smoothing:antialiased;
+    position:relative;
+    background:
+      radial-gradient(1000px 620px at 6% -10%, rgba(43,224,122,.16), transparent 55%),
+      radial-gradient(920px 600px at 98% 0%, rgba(56,132,255,.15), transparent 55%),
+      radial-gradient(1100px 720px at 50% 112%, rgba(140,84,255,.14), transparent 55%),
+      linear-gradient(180deg,#0c1220 0%,#080b12 100%);
+    background-attachment:fixed}
+  /* capas de ambiente */
+  .fx-aurora{position:fixed;inset:-25%;z-index:-4;pointer-events:none;filter:blur(70px);opacity:.5;
+    background:
+      radial-gradient(closest-side at 22% 28%, rgba(43,224,122,.55), transparent),
+      radial-gradient(closest-side at 82% 18%, rgba(56,132,255,.5), transparent),
+      radial-gradient(closest-side at 65% 82%, rgba(150,90,255,.42), transparent),
+      radial-gradient(closest-side at 28% 78%, rgba(43,224,122,.32), transparent);
+    animation:aurora 20s ease-in-out infinite alternate}
+  @keyframes aurora{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-4%,3%) scale(1.12)}}
+  .fx-grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .fx-collage{position:fixed;inset:0;z-index:-3;pointer-events:none;
+    background:linear-gradient(180deg, rgba(14,64,40,.52) 0%, rgba(7,34,22,.60) 100%),
+      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzQwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjM0MCI+CiAgPGRlZnM+CiAgICA8cGF0dGVybiBpZD0iaGFsZnRvbmUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIyLjEiIGZpbGw9IiMxYzEyMDgiIG9wYWNpdHk9IjAuNTUiLz4KICAgIDwvcGF0dGVybj4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0idGVhbCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyZjhmOGYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxZjZkNmQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgoKICA8IS0tIGZvbmRvIGNyZW1hIC0tPgogIDxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMzQwIiBmaWxsPSIjZWZlM2M0Ii8+CgogIDwhLS0gYmxvcXVlcyBjb2xsYWdlIGVzdGlsbyBwYXBlbCByZWNvcnRhZG8gLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDAgMzQwLDAgMjUwLDM0MCAwLDM0MCIgZmlsbD0iI2Q5NTQyYSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMzQwLDAgNTYwLDAgNDcwLDM0MCAyNTAsMzQwIiBmaWxsPSJ1cmwoI3RlYWwpIi8+CiAgPHBvbHlnb24gcG9pbnRzPSI1NjAsMCA4MDAsMCA4MDAsMzQwIDQ3MCwzNDAiIGZpbGw9IiNlNmFkMmUiLz4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSI4MCIgcj0iMTIwIiBmaWxsPSIjYzIzYTJjIiBvcGFjaXR5PSIwLjkiLz4KICA8Y2lyY2xlIGN4PSI2NjAiIGN5PSIyNzAiIHI9IjE1MCIgZmlsbD0iI2I4NDcxZiIgb3BhY2l0eT0iMC41NSIvPgoKICA8IS0tIHRyYW1hIGRlIHB1bnRvcyBwb3AtYXJ0IC0tPgogIDxyZWN0IHg9IjQ3MCIgeT0iMCIgd2lkdGg9IjMzMCIgaGVpZ2h0PSIzNDAiIGZpbGw9InVybCgjaGFsZnRvbmUpIiBvcGFjaXR5PSIwLjM1Ii8+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjI1MCIgaGVpZ2h0PSIzNDAiIGZpbGw9InVybCgjaGFsZnRvbmUpIiBvcGFjaXR5PSIwLjI1Ii8+CgogIDwhLS0gcmF5YXMgcmV0cm8gLS0+CiAgPGcgc3Ryb2tlPSIjZWZlM2M0IiBzdHJva2Utd2lkdGg9IjgiIG9wYWNpdHk9IjAuNSI+CiAgICA8bGluZSB4MT0iMzYwIiB5MT0iLTEwIiB4Mj0iMjcwIiB5Mj0iMzUwIi8+CiAgICA8bGluZSB4MT0iNTgwIiB5MT0iLTEwIiB4Mj0iNDkwIiB5Mj0iMzUwIi8+CiAgPC9nPgoKICA8IS0tID09PT09PSBCQUxPTkVTID09PT09PSAtLT4KICA8IS0tIEJhbG9uY2VzdG8gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUwLDE4MCkiPgogICAgPGNpcmNsZSByPSI1MiIgZmlsbD0iI2UwN2IyYSIgc3Ryb2tlPSIjMmExNjA4IiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxwYXRoIGQ9Ik0tNTIgMCBINTIgTTAgLTUyIFY1MiBNLTM3IC0zNyBRMCAwIC0zNyAzNyBNMzcgLTM3IFEwIDAgMzcgMzciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJhMTYwOCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPC9nPgoKICA8IS0tIEJhbMOzbiBkZSBmw7p0Ym9sIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQxMCwxMjApIj4KICAgIDxjaXJjbGUgcj0iNTAiIGZpbGw9IiNmN2YyZTYiIHN0cm9rZT0iIzIwMTIwYSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgICA8cG9seWdvbiBwb2ludHM9IjAsLTIyIDIxLC03IDEzLDE4IC0xMywxOCAtMjEsLTciIGZpbGw9IiMyMDEyMGEiLz4KICAgIDxnIHN0cm9rZT0iIzIwMTIwYSIgc3Ryb2tlLXdpZHRoPSI0Ij4KICAgICAgPGxpbmUgeDE9IjAiIHkxPSItMjIiIHgyPSIwIiB5Mj0iLTQ4Ii8+CiAgICAgIDxsaW5lIHgxPSIyMSIgeTE9Ii03IiB4Mj0iNDYiIHkyPSItMTYiLz4KICAgICAgPGxpbmUgeDE9IjEzIiB5MT0iMTgiIHgyPSIzMCIgeTI9IjQwIi8+CiAgICAgIDxsaW5lIHgxPSItMTMiIHkxPSIxOCIgeDI9Ii0zMCIgeTI9IjQwIi8+CiAgICAgIDxsaW5lIHgxPSItMjEiIHkxPSItNyIgeDI9Ii00NiIgeTI9Ii0xNiIvPgogICAgPC9nPgogIDwvZz4KCiAgPCEtLSBCw6lpc2JvbCAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2MDAsMTEwKSI+CiAgICA8Y2lyY2xlIHI9IjQwIiBmaWxsPSIjZjdmMmU2IiBzdHJva2U9IiMyMDEyMGEiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHBhdGggZD0iTS0yNCAtMzAgUS02IDAgLTI0IDMwIE0yNCAtMzAgUTYgMCAyNCAzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzIzYTJjIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDxnIHN0cm9rZT0iI2MyM2EyYyIgc3Ryb2tlLXdpZHRoPSIyIj4KICAgICAgPHBhdGggZD0iTS0yMCAtMjAgbDYgMyBNLTIwIC04IGw2IDIgTS0yMCA0IGw2IC0xIE0tMjAgMTYgbDYgLTMiLz4KICAgICAgPHBhdGggZD0iTTIwIC0yMCBsLTYgMyBNMjAgLTggbC02IDIgTTIwIDQgbC02IC0xIE0yMCAxNiBsLTYgLTMiLz4KICAgIDwvZz4KICA8L2c+CgogIDwhLS0gVGVuaXMgLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjgwLDI1MCkiPgogICAgPGNpcmNsZSByPSI0NCIgZmlsbD0iI2M2ZTM0YSIgc3Ryb2tlPSIjMjAxMjBhIiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxwYXRoIGQ9Ik0tNDQgLTYgUTAgLTM0IDQ0IC02IE0tNDQgMTIgUTAgNDAgNDQgMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y3ZjJlNiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPC9nPgoKICA8IS0tIGVzdHJlbGxhIHJldHJvIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwMCwyNzApIiBmaWxsPSIjZWZlM2M0IiBvcGFjaXR5PSIwLjkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIwLC0zMCA4LC04IDMwLC04IDEyLDYgMTksMjggMCwxNCAtMTksMjggLTEyLDYgLTMwLC04IC04LC04Ii8+CiAgPC9nPgo8L3N2Zz4K");
+    background-size:cover, 540px auto;background-repeat:no-repeat, repeat;
+    filter:blur(9px) saturate(.85);opacity:.5}
+  .brandwall{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;filter:blur(9px);opacity:.45}
+  .brandwall span{position:absolute;white-space:nowrap;font-weight:800;line-height:1;letter-spacing:-.5px;user-select:none}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;
+    padding:14px 20px;background:rgba(10,14,20,.85);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--display);font-size:22px;letter-spacing:-.5px;display:flex;align-items:center;gap:0}
+  .brand .sk{font-size:20px}
+  .brand .b1{color:#fff}.brand .b2{color:var(--accent)}
+  .topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:#0d121b}
+  .lang button{background:transparent;border:0;color:var(--muted);font-family:var(--font);
+    font-size:12px;font-weight:800;padding:6px 12px;cursor:pointer;transition:.15s}
+  .lang button.on{background:var(--accent);color:#04240f}
+
+  .wrap{max-width:1160px;margin:0 auto;padding:22px}
+
+  /* ---------- HERO: PARTIDO DESTACADO ---------- */
+  .hero{position:relative;border-radius:22px;overflow:hidden;margin-bottom:22px;min-height:520px;
+    display:flex;flex-direction:column;justify-content:center;
+    background:
+      linear-gradient(180deg, rgba(6,10,16,.42) 0%, rgba(6,10,16,.64) 100%),
+      radial-gradient(150px 80px at 18% -12%, rgba(190,225,255,.24), transparent 70%),
+      radial-gradient(150px 80px at 82% -12%, rgba(190,225,255,.22), transparent 70%),
+      radial-gradient(circle at 50% 145%, transparent 96px, rgba(255,255,255,.10) 98px, transparent 101px),
+      linear-gradient(180deg,#0d3320 0%,#071a10 100%);
+    border:1px solid rgba(43,224,122,.22);
+    box-shadow:0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06)}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:saturate(.32) brightness(.86) contrast(.96) sepia(.05)}
+  .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(6,10,16,.5) 0%, rgba(6,10,16,.75) 100%)}
+  .hero-head,.hero-body,.hero-meta{position:relative;z-index:2}
+  .hero-head{display:flex;align-items:center;gap:10px;padding:16px 20px 0;font-size:12px;
+    text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);font-weight:700}
+  .hero-live{display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--live);
+    padding:3px 9px;border-radius:6px;font-size:11px;letter-spacing:.6px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+  @keyframes pulse{0%{opacity:1}50%{opacity:.4}100%{opacity:1}}
+  .hero-body{display:flex;align-items:center;justify-content:space-around;gap:12px;padding:22px 20px 8px}
+  .team{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;min-width:0;text-align:center}
+  .crest-lg{width:124px;height:124px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-size:38px;color:#fff;background:#1b2230;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 8px 24px rgba(0,0,0,.4);object-fit:contain}
+  .team .tname{font-size:20px;font-weight:700;line-height:1.2}
+  .vs{font-family:var(--display);font-size:22px;color:var(--muted);flex-shrink:0}
+  .hero-meta{text-align:center;padding:4px 20px 20px}
+  .hero-comp{font-size:13px;color:var(--muted);font-weight:600}
+  .hero-time{font-family:var(--display);font-size:38px;margin-top:4px}
+  .hero-btn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+    background:var(--accent);color:#04240f;text-decoration:none;font-weight:800;font-size:14px;
+    padding:12px 26px;border-radius:12px;box-shadow:0 8px 20px rgba(43,224,122,.3);transition:.15s}
+  .hero-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+  .status{display:none !important}
+  .status.ok{background:rgba(43,224,122,.10);color:#82efb0;border-color:rgba(43,224,122,.3)}
+  .status.warn{background:rgba(227,179,65,.10);color:#f0d071;border-color:rgba(227,179,65,.3)}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .search{flex:1;min-width:200px;background:var(--panel);color:var(--text);border:1px solid var(--line);
+    border-radius:12px;padding:12px 14px;font-family:var(--font);font-size:14px}
+  .search::placeholder{color:var(--muted)}
+  .search:focus{outline:none;border-color:rgba(43,224,122,.5)}
+  select#zoneSelect{background:var(--panel);color:var(--text);border:1px solid var(--line);
+    border-radius:12px;padding:12px 12px;font-family:var(--font);font-size:14px;cursor:pointer}
+  .zonesearch{background:var(--panel);color:var(--text);border:1px solid var(--line);
+    border-radius:12px;padding:12px 14px;font-family:var(--font);font-size:14px;min-width:150px}
+  .zonesearch:focus{outline:none;border-color:rgba(55,224,122,.5)}
+  .zonesearch::placeholder{color:var(--muted)}
+
+  .filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px;scrollbar-width:thin}
+  .filters::-webkit-scrollbar{height:6px}.filters::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .filters-scroll{position:relative}
+  .filters-scroll::after{content:"";position:absolute;top:0;right:0;bottom:8px;width:58px;pointer-events:none;z-index:1;
+    background:linear-gradient(90deg,transparent,var(--bg) 82%);transition:opacity .25s}
+  .scroll-cue{position:absolute;top:50%;right:9px;transform:translateY(-60%);z-index:2;color:var(--accent);
+    font-size:28px;font-weight:900;line-height:1;pointer-events:none;text-shadow:0 0 8px rgba(0,0,0,.7);
+    animation:nudge 1.3s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translateY(-60%) translateX(0)}50%{transform:translateY(-60%) translateX(5px)}}
+  .filters-scroll.ended::after{opacity:0}
+  .filters-scroll.ended .scroll-cue{display:none}
+  .chip{background:var(--panel);border:1px solid var(--line);color:var(--muted);
+    padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;
+    transition:.15s;white-space:nowrap}
+  .chip:hover{color:var(--text);border-color:rgba(255,255,255,.2)}
+  .chip.active{background:var(--accent);color:#04240f;border-color:transparent;font-weight:800}
+  .count{font-size:12px;color:var(--muted);margin:2px 2px 14px}
+
+  .day{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);
+    margin:20px 0 10px;font-weight:800;display:flex;align-items:center;gap:12px}
+  .day::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  .match{display:flex;align-items:center;gap:14px;border:1px solid var(--line);
+    border-radius:14px;padding:13px 16px;margin-bottom:10px;transition:.16s;cursor:pointer;
+    background:linear-gradient(180deg,#151c2a 0%,#101622 100%);
+    box-shadow:0 6px 20px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.04)}
+  .match:hover{border-color:rgba(43,224,122,.35);transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06)}
+  .match.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent), 0 10px 26px rgba(43,224,122,.18)}
+  .match.live{border-color:rgba(255,59,71,.4)}
+  .m-time{min-width:52px;text-align:center;flex-shrink:0}
+  .m-time .h{font-family:var(--display);font-size:16px}
+  .m-time .d{font-size:10px;color:var(--muted);text-transform:capitalize;margin-top:1px}
+  .m-teams{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+  .crest{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
+    justify-content:center;font-family:var(--display);font-size:12px;color:#fff;background:#1b2230;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);object-fit:contain}
+  .m-names{min-width:0}
+  .m-league{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+  .m-title{font-size:14.5px;font-weight:700;line-height:1.25;margin-top:1px;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  .tag-live{display:inline-flex;align-items:center;gap:4px;background:var(--live);color:#fff;
+    font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:7px;vertical-align:middle;
+    text-transform:uppercase;letter-spacing:.4px}
+  .m-btn{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:6px;
+    background:rgba(43,224,122,.12);color:var(--accent);border:1px solid rgba(43,224,122,.35);
+    text-decoration:none;font-weight:800;font-size:13px;padding:9px 15px;border-radius:10px;transition:.15s}
+  .m-btn:hover{background:var(--accent);color:#04240f}
+
+  .empty{text-align:center;color:var(--muted);font-size:14px;padding:40px 20px;
+    border:1px dashed var(--line);border-radius:16px}
+  .empty .big{font-size:34px;display:block;margin-bottom:10px}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 20px 44px;
+    border-top:1px solid var(--line);margin-top:24px}
+  .note{background:rgba(74,163,255,.08);border:1px solid rgba(74,163,255,.22);border-radius:12px;
+    padding:18px 22px;font-size:15.5px;color:#bcd6f5;margin-bottom:16px}
+  .note b{color:#e2eeff}
+  .afil{max-width:1160px;margin:16px auto 0;padding:14px 20px;border-radius:12px;
+    background:rgba(55,224,122,.06);border:1px solid rgba(55,224,122,.25);
+    font-size:14.5px;color:var(--text);line-height:1.5}
+  .afil a{color:#37e07a;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(55,224,122,.5)}
+  .afil-disc{margin-top:7px;font-size:11.5px;color:var(--muted)}
+
+  @media (max-width:560px){
+    .hero-body{padding:18px 8px 6px}
+    .crest-lg{width:84px;height:84px;font-size:26px}
+    .team .tname{font-size:13px}
+    .match{gap:10px;padding:12px}
+    .m-title{white-space:normal}
+    .m-btn{padding:9px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="fx-aurora"></div>
+<div class="fx-grain"></div>
+<div class="brandwall" id="brandwall"></div>
+
+<div class="topbar">
+  <div class="brand"><span class="b1">calavera</span><span class="b2">Sports</span></div>
+  <div class="right">
+    <div class="lang">
+      <button id="btnEs" data-l="es">ES</button>
+      <button id="btnEn" data-l="en">EN</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO destacado -->
+  <div id="hero" class="hero" style="display:none"></div>
+
+  <div class="afil" id="afil"></div>
+
+  <div id="status" class="status"></div>
+  <div id="note" class="note"></div>
+
+  <div class="controls">
+    <input id="search" class="search" type="text">
+    <select id="zoneSelect"></select>
+    <input id="zoneSearch" class="zonesearch" type="text" list="tzlist" autocomplete="off">
+    <datalist id="tzlist"></datalist>
+  </div>
+
+  <div class="filters-scroll"><div id="filters" class="filters"></div><span class="scroll-cue">›</span></div>
+  <div id="count" class="count"></div>
+  <div id="list"></div>
+
+</div>
+
+<footer id="footer"></footer>
+
+<script>
+  const I18N={
+    es:{tagline:"Todos los deportes · en tu horario local",
+      statusOk:n=>"✅ Datos reales · "+n+" partidos próximos",
+      statusWarn:"👀 Vista previa con agenda de muestra. Publicada o abierta en tu navegador cargará todos los partidos y escudos reales.",
+      note:"<b>Guía legal.</b> Indexamos dónde ver cada partido; el botón <b>Ver</b> lleva a la retransmisión oficial. No alojamos señal.",
+      viewing:"Zona horaria:",searchPh:"Buscar equipo, deporte o competición…",detect:"📍 Detectar mi ubicación",tzSearch:"🌍 ¿Otra ciudad? escríbela",
+      featured:"Partido destacado",live:"En directo",watch:"Ver ahora",
+      liveNow:n=>n>0?n+" en directo":"Próximos",count:(n,s)=>n+" partido"+(n>1?"s":"")+" · "+s,
+      empty:s=>"No hay partidos de "+s+" próximamente.",btn:"Ver",tagLive:"Live",
+      footer:"CalaveraSports · guía legal de dónde ver el deporte en directo",
+      query:m=>"dónde ver "+m+" gratis en directo",locale:"es"},
+    en:{tagline:"Every sport · in your local time",
+      statusOk:n=>"✅ Real data · "+n+" upcoming games",
+      statusWarn:"👀 Preview with a sample schedule. Published or opened in your browser it loads all real games and team badges.",
+      note:"<b>Legal guide.</b> We index where to watch each game; the <b>Watch</b> button opens the official broadcast. We don't host any stream.",
+      viewing:"Time zone:",searchPh:"Search team, sport or competition…",detect:"📍 Detect my location",tzSearch:"🌍 Other city? type it",
+      featured:"Featured match",live:"Live",watch:"Watch now",
+      liveNow:n=>n>0?n+" live":"Upcoming",count:(n,s)=>n+" game"+(n>1?"s":"")+" · "+s,
+      empty:s=>"No "+s+" games coming up.",btn:"Watch",tagLive:"Live",
+      footer:"CalaveraSports · legal guide to where to watch live sports",
+      query:m=>"where to watch "+m+" free live",locale:"en"}
+  };
+
+  const ZONAS=[{v:"auto"},
+    {v:"Europe/Madrid",label:"🇪🇸 España (Madrid)"},
+    {v:"America/Mexico_City",label:"🇲🇽 México (CDMX)"},
+    {v:"America/Bogota",label:"🇨🇴 Colombia (Bogotá)"},
+    {v:"America/Lima",label:"🇵🇪 Perú (Lima)"},
+    {v:"America/Argentina/Buenos_Aires",label:"🇦🇷 Argentina (Bs. As.)"},
+    {v:"America/Santiago",label:"🇨🇱 Chile (Santiago)"},
+    {v:"America/Guayaquil",label:"🇪🇨 Ecuador (Quito)"},
+    {v:"America/Caracas",label:"🇻🇪 Venezuela (Caracas)"},
+    {v:"America/Montevideo",label:"🇺🇾 Uruguay (Montevideo)"},
+    {v:"America/Asuncion",label:"🇵🇾 Paraguay (Asunción)"},
+    {v:"America/La_Paz",label:"🇧🇴 Bolivia (La Paz)"},
+    {v:"America/Sao_Paulo",label:"🇧🇷 Brasil (São Paulo)"},
+    {v:"America/Guatemala",label:"🇬🇹 Guatemala"},
+    {v:"America/Costa_Rica",label:"🇨🇷 Costa Rica"},
+    {v:"America/Panama",label:"🇵🇦 Panamá"},
+    {v:"America/Santo_Domingo",label:"🇩🇴 Rep. Dominicana"},
+    {v:"America/Puerto_Rico",label:"🇵🇷 Puerto Rico"},
+    {v:"America/New_York",label:"🇺🇸 USA Este (New York)"},
+    {v:"America/Chicago",label:"🇺🇸 USA Central (Chicago)"},
+    {v:"America/Denver",label:"🇺🇸 USA Montaña (Denver)"},
+    {v:"America/Los_Angeles",label:"🇺🇸 USA Oeste (Los Angeles)"},
+    {v:"Europe/London",label:"🇬🇧 UK (London)"},
+    {v:"Europe/Paris",label:"🇫🇷 Francia (París)"},
+    {v:"Europe/Berlin",label:"🇩🇪 Alemania (Berlín)"},
+    {v:"Europe/Rome",label:"🇮🇹 Italia (Roma)"}];
+
+  const SPORTS=[{k:"todos",es:"Todos",en:"All"},{k:"futbol",es:"Fútbol",en:"Soccer"},
+    {k:"baloncesto",es:"Baloncesto",en:"Basketball"},{k:"tenis",es:"Tenis",en:"Tennis"},
+    {k:"f1",es:"Fórmula 1",en:"Formula 1"},{k:"motogp",es:"MotoGP",en:"MotoGP"},
+    {k:"boxeo",es:"Boxeo",en:"Boxing"},{k:"mma",es:"MMA / UFC",en:"MMA / UFC"},
+    {k:"beisbol",es:"Béisbol",en:"Baseball"},{k:"futbol_americano",es:"NFL",en:"NFL"},
+    {k:"hockey_hielo",es:"Hockey",en:"Ice Hockey"},{k:"rugby",es:"Rugby",en:"Rugby"},
+    {k:"golf",es:"Golf",en:"Golf"},{k:"ciclismo",es:"Ciclismo",en:"Cycling"},
+    {k:"tenis_mesa",es:"Tenis mesa",en:"Table Tennis"},{k:"voleibol",es:"Voleibol",en:"Volleyball"},
+    {k:"esports",es:"Esports",en:"Esports"},{k:"atletismo",es:"Atletismo",en:"Athletics"},
+    {k:"natacion",es:"Natación",en:"Swimming"},{k:"otros",es:"Otros",en:"Other"}];
+  const sName=k=>{const s=SPORTS.find(x=>x.k===k)||SPORTS[SPORTS.length-1];return s;};
+
+  const SPORT_LEAGUES={
+    futbol:["4335","4328","4332","4331","4334","4406","4350","4351","4344","4346","4480","4329","4330","4336","4337","4338","4339","4340","4347","4354","4355","4356","4358","4359","4394","4396","4399","4400"],
+    baloncesto:["4387","4408"],
+    futbol_americano:["4391","4405"],
+    beisbol:["4424"],
+    hockey_hielo:["4380","4419"],
+    f1:["4370"],
+    motogp:["4407"],
+    mma:["4443"],
+    rugby:["4414","4415","4714","4446"],
+    golf:["4425","4426"]
+  };
+  // Carga inicial (página principal · juegos del día): fútbol top + un referente de cada deporte
+  const LEAGUES=["4335","4328","4332","4331","4334","4406","4350","4351","4344","4346","4480","4387","4391","4424","4380","4370","4407","4443"];
+  const loadedIds=new Set(LEAGUES);
+  const loadedSports=new Set();
+  const API=id=>"https://www.thesportsdb.com/api/v1/json/9482415391/eventsnextleague.php?id="+id;
+  const API_DAY=(d,s)=>"https://www.thesportsdb.com/api/v1/json/9482415391/eventsday.php?d="+d+"&s="+encodeURIComponent(s);
+  const SPORTS_DAY=["Soccer","Basketball","American Football","Baseball","Ice Hockey","Motorsport","Fighting","Tennis","Rugby","Golf","Cycling","Volleyball"];
+  function sportKey(s,league){const L=(league||"").toLowerCase();
+    if(s==="Motorsport") return (L.includes("motogp")||L.includes("moto2")||L.includes("moto3"))?"motogp":"f1";
+    if(s==="Fighting") return L.includes("box")?"boxeo":"mma";
+    const m={"Soccer":"futbol","Basketball":"baloncesto","American Football":"futbol_americano",
+    "Ice Hockey":"hockey_hielo","Baseball":"beisbol","Motorsport":"f1","Tennis":"tenis","Fighting":"mma",
+    "Rugby":"rugby","Golf":"golf","Cycling":"ciclismo","Volleyball":"voleibol"};return m[s]||"otros";}
+
+  // Escudos reales verificados de TheSportsDB
+  const B={
+    arsenal:"https://r2.thesportsdb.com/images/media/team/badge/uyhbfe1612467038.png",
+    coventry:"https://r2.thesportsdb.com/images/media/team/badge/uxyqys1424033798.png",
+    alaves:"https://r2.thesportsdb.com/images/media/team/badge/mfn99h1734673842.png",
+    getafe:"https://r2.thesportsdb.com/images/media/team/badge/eyh2891655594452.png",
+    hawks:"https://r2.thesportsdb.com/images/media/team/badge/7o1noy1778226315.png",
+    grizzlies:"https://r2.thesportsdb.com/images/media/team/badge/v44qp21778197640.png",
+    bengals:"https://r2.thesportsdb.com/images/media/team/badge/h1ce8y1784717263.png",
+    lions:"https://r2.thesportsdb.com/images/media/team/badge/lgsgkr1546168257.png"
+  };
+
+  // Demo dinámico (alrededor de la hora actual) con equipos y escudos reales donde los hay
+  function buildDemo(){
+    const now=Date.now();
+    const mk=(min,sport,comp,home,away)=>({sport,utc:new Date(now+min*60000).toISOString(),dur:120,comp,home,away});
+    return [
+      mk(-38,"futbol","Premier League",{n:"Arsenal",img:B.arsenal},{n:"Coventry City",img:B.coventry}),
+      mk(-15,"futbol","LaLiga",{n:"Deportivo Alavés",img:B.alaves},{n:"Getafe",img:B.getafe}),
+      mk(20,"baloncesto","NBA",{n:"Atlanta Hawks",img:B.hawks},{n:"Memphis Grizzlies",img:B.grizzlies}),
+      mk(70,"tenis","US Open",{n:"Carlos Alcaraz"},{n:"Jannik Sinner"}),
+      mk(120,"f1","GP de Italia",{n:"Fórmula 1 — Monza"},null),
+      mk(160,"mma","UFC 320",{n:"Jones"},{n:"Aspinall"}),
+      mk(210,"boxeo","Título mundial",{n:"Canelo"},{n:"Benavidez"}),
+      mk(60*20,"beisbol","MLB",{n:"New York Yankees"},{n:"LA Dodgers"}),
+      mk(60*22,"motogp","GP de Austria",{n:"MotoGP — Red Bull Ring"},null),
+      mk(60*25,"futbol_americano","NFL",{n:"Cincinnati Bengals",img:B.bengals},{n:"Detroit Lions",img:B.lions}),
+      mk(60*27,"ciclismo","La Vuelta",{n:"La Vuelta — Etapa 12"},null),
+      mk(60*30,"esports","LEC",{n:"G2 Esports"},{n:"Fnatic"})
+    ];
+  }
+
+  let EVENTOS=[];
+  let lang=(navigator.language||"es").toLowerCase().startsWith("es")?"es":"en";
+  let zonaActiva="auto",deporteActivo="todos",texto="",featuredId=null;
+  let BASE_EVENTOS=[],remoteTimer=null;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  // Escena de fondo del recuadro principal según el deporte
+  const SCRIM="linear-gradient(180deg, rgba(6,10,16,.42) 0%, rgba(6,10,16,.66) 100%)";
+  const SCENES={
+    futbol:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBhMWEyZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMjEzOCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNTM4MWYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYTIxMTMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJlYW0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjZmU2ZmYiIHN0b3Atb3BhY2l0eT0iLjU1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2ZlNmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cGF0dGVybiBpZD0iY3Jvd2QiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIxIiBmaWxsPSIjM2E1YTg2IiBvcGFjaXR5PSIuNyIvPjwvcGF0dGVybj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSIjMTAxZjMzIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSJ1cmwoI2Nyb3dkKSIvPgo8ZyBmaWxsPSIjMmMzZTU4Ij48cmVjdCB4PSIxMDgiIHk9IjQwIiB3aWR0aD0iNTgiIGhlaWdodD0iMTYiIHJ4PSIzIi8+PHJlY3QgeD0iNjM0IiB5PSI0MCIgd2lkdGg9IjU4IiBoZWlnaHQ9IjE2IiByeD0iMyIvPjwvZz4KPGcgc3Ryb2tlPSIjMmMzZTU4IiBzdHJva2Utd2lkdGg9IjQiPjxsaW5lIHgxPSIxMzciIHkxPSI1NSIgeDI9IjEzNyIgeTI9IjExMiIvPjxsaW5lIHgxPSI2NjMiIHkxPSI1NSIgeDI9IjY2MyIgeTI9IjExMiIvPjwvZz4KPGcgZmlsbD0iI2RjZWZmZiI+PGNpcmNsZSBjeD0iMTIyIiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjEzNyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSIxNTIiIGN5PSI0OCIgcj0iMi40Ii8+PGNpcmNsZSBjeD0iNjQ4IiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjY2MyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSI2NzgiIGN5PSI0OCIgcj0iMi40Ii8+PC9nPgo8cG9seWdvbiBwb2ludHM9IjEzNyw1OCAzMCwzMDAgMzIwLDMwMCIgZmlsbD0idXJsKCNiZWFtKSIvPgo8cG9seWdvbiBwb2ludHM9IjY2Myw1OCA0ODAsMzAwIDc3MCwzMDAiIGZpbGw9InVybCgjYmVhbSkiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExNiA4MDAsMTE2IDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjZ3Jhc3MpIi8+CjxnIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDM1Ij48cG9seWdvbiBwb2ludHM9IjAsMTE2IDEyMCwxMTYgODAsMzAwIDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSIyNDAsMTE2IDM2MCwxMTYgMzIwLDMwMCAyMDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI0ODAsMTE2IDYwMCwxMTYgNTYwLDMwMCA0NDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI3MjAsMTE2IDgwMCwxMTYgODAwLDMwMCA2ODAsMzAwIi8+PC9nPgo8ZyBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTE2IiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxlbGxpcHNlIGN4PSI0MDAiIGN5PSIzMDAiIHJ4PSIxMTAiIHJ5PSI0NiIvPgo8ZWxsaXBzZSBjeD0iNDAwIiBjeT0iMjA1IiByeD0iNjYiIHJ5PSIyNiIvPgo8cGF0aCBkPSJNMCwxNjggSDk2IFYyNjQgSDAiLz4KPHBhdGggZD0iTTgwMCwxNjggSDcwNCBWMjY0IEg4MDAiLz4KPC9nPgo8L3N2Zz4K) center/cover no-repeat,#0e131d",
+    futbol_americano:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBhMWEyZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMjEzOCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNTM4MWYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYTIxMTMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJlYW0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjZmU2ZmYiIHN0b3Atb3BhY2l0eT0iLjU1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2ZlNmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cGF0dGVybiBpZD0iY3Jvd2QiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIxIiBmaWxsPSIjM2E1YTg2IiBvcGFjaXR5PSIuNyIvPjwvcGF0dGVybj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSIjMTAxZjMzIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSJ1cmwoI2Nyb3dkKSIvPgo8ZyBmaWxsPSIjMmMzZTU4Ij48cmVjdCB4PSIxMDgiIHk9IjQwIiB3aWR0aD0iNTgiIGhlaWdodD0iMTYiIHJ4PSIzIi8+PHJlY3QgeD0iNjM0IiB5PSI0MCIgd2lkdGg9IjU4IiBoZWlnaHQ9IjE2IiByeD0iMyIvPjwvZz4KPGcgc3Ryb2tlPSIjMmMzZTU4IiBzdHJva2Utd2lkdGg9IjQiPjxsaW5lIHgxPSIxMzciIHkxPSI1NSIgeDI9IjEzNyIgeTI9IjExMiIvPjxsaW5lIHgxPSI2NjMiIHkxPSI1NSIgeDI9IjY2MyIgeTI9IjExMiIvPjwvZz4KPGcgZmlsbD0iI2RjZWZmZiI+PGNpcmNsZSBjeD0iMTIyIiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjEzNyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSIxNTIiIGN5PSI0OCIgcj0iMi40Ii8+PGNpcmNsZSBjeD0iNjQ4IiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjY2MyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSI2NzgiIGN5PSI0OCIgcj0iMi40Ii8+PC9nPgo8cG9seWdvbiBwb2ludHM9IjEzNyw1OCAzMCwzMDAgMzIwLDMwMCIgZmlsbD0idXJsKCNiZWFtKSIvPgo8cG9seWdvbiBwb2ludHM9IjY2Myw1OCA0ODAsMzAwIDc3MCwzMDAiIGZpbGw9InVybCgjYmVhbSkiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExNiA4MDAsMTE2IDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjZ3Jhc3MpIi8+CjxnIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDM1Ij48cG9seWdvbiBwb2ludHM9IjAsMTE2IDEyMCwxMTYgODAsMzAwIDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSIyNDAsMTE2IDM2MCwxMTYgMzIwLDMwMCAyMDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI0ODAsMTE2IDYwMCwxMTYgNTYwLDMwMCA0NDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI3MjAsMTE2IDgwMCwxMTYgODAwLDMwMCA2ODAsMzAwIi8+PC9nPgo8ZyBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTE2IiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxlbGxpcHNlIGN4PSI0MDAiIGN5PSIzMDAiIHJ4PSIxMTAiIHJ5PSI0NiIvPgo8ZWxsaXBzZSBjeD0iNDAwIiBjeT0iMjA1IiByeD0iNjYiIHJ5PSIyNiIvPgo8cGF0aCBkPSJNMCwxNjggSDk2IFYyNjQgSDAiLz4KPHBhdGggZD0iTTgwMCwxNjggSDcwNCBWMjY0IEg4MDAiLz4KPC9nPgo8L3N2Zz4K) center/cover no-repeat,#0e131d",
+    beisbol:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBhMWEyZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMjEzOCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNTM4MWYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYTIxMTMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJlYW0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjZmU2ZmYiIHN0b3Atb3BhY2l0eT0iLjU1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2ZlNmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cGF0dGVybiBpZD0iY3Jvd2QiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIxIiBmaWxsPSIjM2E1YTg2IiBvcGFjaXR5PSIuNyIvPjwvcGF0dGVybj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSIjMTAxZjMzIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSJ1cmwoI2Nyb3dkKSIvPgo8ZyBmaWxsPSIjMmMzZTU4Ij48cmVjdCB4PSIxMDgiIHk9IjQwIiB3aWR0aD0iNTgiIGhlaWdodD0iMTYiIHJ4PSIzIi8+PHJlY3QgeD0iNjM0IiB5PSI0MCIgd2lkdGg9IjU4IiBoZWlnaHQ9IjE2IiByeD0iMyIvPjwvZz4KPGcgc3Ryb2tlPSIjMmMzZTU4IiBzdHJva2Utd2lkdGg9IjQiPjxsaW5lIHgxPSIxMzciIHkxPSI1NSIgeDI9IjEzNyIgeTI9IjExMiIvPjxsaW5lIHgxPSI2NjMiIHkxPSI1NSIgeDI9IjY2MyIgeTI9IjExMiIvPjwvZz4KPGcgZmlsbD0iI2RjZWZmZiI+PGNpcmNsZSBjeD0iMTIyIiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjEzNyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSIxNTIiIGN5PSI0OCIgcj0iMi40Ii8+PGNpcmNsZSBjeD0iNjQ4IiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjY2MyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSI2NzgiIGN5PSI0OCIgcj0iMi40Ii8+PC9nPgo8cG9seWdvbiBwb2ludHM9IjEzNyw1OCAzMCwzMDAgMzIwLDMwMCIgZmlsbD0idXJsKCNiZWFtKSIvPgo8cG9seWdvbiBwb2ludHM9IjY2Myw1OCA0ODAsMzAwIDc3MCwzMDAiIGZpbGw9InVybCgjYmVhbSkiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExNiA4MDAsMTE2IDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjZ3Jhc3MpIi8+CjxnIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDM1Ij48cG9seWdvbiBwb2ludHM9IjAsMTE2IDEyMCwxMTYgODAsMzAwIDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSIyNDAsMTE2IDM2MCwxMTYgMzIwLDMwMCAyMDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI0ODAsMTE2IDYwMCwxMTYgNTYwLDMwMCA0NDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI3MjAsMTE2IDgwMCwxMTYgODAwLDMwMCA2ODAsMzAwIi8+PC9nPgo8ZyBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTE2IiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxlbGxpcHNlIGN4PSI0MDAiIGN5PSIzMDAiIHJ4PSIxMTAiIHJ5PSI0NiIvPgo8ZWxsaXBzZSBjeD0iNDAwIiBjeT0iMjA1IiByeD0iNjYiIHJ5PSIyNiIvPgo8cGF0aCBkPSJNMCwxNjggSDk2IFYyNjQgSDAiLz4KPHBhdGggZD0iTTgwMCwxNjggSDcwNCBWMjY0IEg4MDAiLz4KPC9nPgo8L3N2Zz4K) center/cover no-repeat,#0e131d",
+    baloncesto:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImFyZW5hIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWMxMzBhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTIwYzA2Ii8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJ3b29kIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2E0ZTIyIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNGEyZjE0Ii8+PC9saW5lYXJHcmFkaWVudD4KPHJhZGlhbEdyYWRpZW50IGlkPSJzcG90IiBjeD0iNTAlIiBjeT0iMCUiIHI9IjcwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZjZjhhIiBzdG9wLW9wYWNpdHk9Ii4yOCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmY2Y4YSIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPHBhdHRlcm4gaWQ9ImNyb3dkMiIgd2lkdGg9IjgiIGhlaWdodD0iOCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiM1YTQwMjgiIG9wYWNpdHk9Ii42Ii8+PC9wYXR0ZXJuPgo8L2RlZnM+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI2FyZW5hKSIvPgo8cmVjdCB4PSIwIiB5PSI2MCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NiIgZmlsbD0iIzI0MWExMCIvPgo8cmVjdCB4PSIwIiB5PSI2MCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0NiIgZmlsbD0idXJsKCNjcm93ZDIpIi8+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI3Nwb3QpIi8+Cjxwb2x5Z29uIHBvaW50cz0iMCwxMDYgODAwLDEwNiA4MDAsMzAwIDAsMzAwIiBmaWxsPSJ1cmwoI3dvb2QpIi8+CjxnIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDUiPjxyZWN0IHg9IjAiIHk9IjEwNiIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0Ii8+PHJlY3QgeD0iMTIwIiB5PSIxMDYiIHdpZHRoPSIzIiBoZWlnaHQ9IjE5NCIvPjxyZWN0IHg9IjMwMCIgeT0iMTA2IiB3aWR0aD0iMyIgaGVpZ2h0PSIxOTQiLz48cmVjdCB4PSI1MDAiIHk9IjEwNiIgd2lkdGg9IjMiIGhlaWdodD0iMTk0Ii8+PHJlY3QgeD0iNjgwIiB5PSIxMDYiIHdpZHRoPSIzIiBoZWlnaHQ9IjE5NCIvPjwvZz4KPGcgc3Ryb2tlPSIjZjRlM2M0IiBzdHJva2Utb3BhY2l0eT0iMC42IiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTA2IiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIwNSIgcj0iNDIiLz4KPHBhdGggZD0iTTAsMTUwIEgxMjAgVjI2MiBIMCIvPgo8cGF0aCBkPSJNODAwLDE1MCBINjgwIFYyNjIgSDgwMCIvPgo8cGF0aCBkPSJNNDAsMTUwIEE1NiA1NiAwIDAgMSA0MCAyNjIiLz4KPHBhdGggZD0iTTc2MCwxNTAgQTU2IDU2IDAgMCAwIDc2MCAyNjIiLz4KPC9nPgo8L3N2Zz4K) center/cover no-repeat,#0e131d",
+    tenis:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InN1ciIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE1NTY0ZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBhMmIyNiIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iY3QiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZjZmOGYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMjRhNjMiLz48L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI3N1cikiLz4KPHBvbHlnb24gcG9pbnRzPSIxNTAsMTEwIDY1MCwxMTAgNzgwLDMwMCAyMCwzMDAiIGZpbGw9InVybCgjY3QpIi8+CjxnIHN0cm9rZT0iI2VhZjRmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuODUiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSI+Cjxwb2x5Z29uIHBvaW50cz0iMTUwLDExMCA2NTAsMTEwIDc4MCwzMDAgMjAsMzAwIi8+CjxsaW5lIHgxPSIxMjAiIHkxPSIyMDUiIHgyPSI2ODAiIHkyPSIyMDUiLz4KPGxpbmUgeDE9IjIzNSIgeTE9IjE1MCIgeDI9IjU2NSIgeTI9IjE1MCIvPgo8bGluZSB4MT0iMTgwIiB5MT0iMzAwIiB4Mj0iNjIwIiB5Mj0iMzAwIiBvcGFjaXR5PSIwIi8+CjxsaW5lIHgxPSI0MDAiIHkxPSIxNTAiIHgyPSI0MDAiIHkyPSIyNjAiLz4KPGxpbmUgeDE9IjIwNSIgeTE9IjE1MCIgeDI9IjE1MCIgeTI9IjMwMCIvPgo8bGluZSB4MT0iNTk1IiB5MT0iMTUwIiB4Mj0iNjUwIiB5Mj0iMzAwIi8+CjwvZz4KPGcgc3Ryb2tlPSIjMGEyYjI2IiBzdHJva2Utd2lkdGg9IjQiPjxsaW5lIHgxPSIxMjAiIHkxPSIyMDUiIHgyPSI2ODAiIHkyPSIyMDUiLz48L2c+CjxyZWN0IHg9IjExOCIgeT0iMTg4IiB3aWR0aD0iNTY0IiBoZWlnaHQ9IjE3IiBmaWxsPSIjMGQzYTMzIiBvcGFjaXR5PSIuNSIvPgo8L3N2Zz4K) center/cover no-repeat,#0e131d",
+    f1:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImFzZiIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJhMmQzMyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE1MTcxYiIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ic2t5MiIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWIyNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMGYxNCIvPjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9InVybCgjc2t5MikiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExMCA4MDAsMTEwIDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjYXNmKSIvPgo8IS0tIGN1cmJzIHJvam8vYmxhbmNvIC0tPgo8Zz4KPHJlY3QgeD0iMCIgeT0iMTEwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjgiIGZpbGw9IiNkMzMiLz4KPGcgZmlsbD0iI2VlZSI+PHJlY3QgeD0iMCIgeT0iMTEwIiB3aWR0aD0iNDAiIGhlaWdodD0iOCIvPjxyZWN0IHg9IjgwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMTYwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMjQwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMzIwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNDAwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNDgwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNTYwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNjQwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNzIwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PC9nPgo8L2c+CjwhLS0gbGluZWFzIGRlIGNhcnJpbCAtLT4KPGcgc3Ryb2tlPSIjZThlOGU4IiBzdHJva2Utb3BhY2l0eT0iMC41IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1kYXNoYXJyYXk9IjI2IDIyIj48bGluZSB4MT0iMCIgeTE9IjE4NSIgeDI9IjgwMCIgeTI9IjE4NSIvPjxsaW5lIHgxPSIwIiB5MT0iMjUwIiB4Mj0iODAwIiB5Mj0iMjUwIi8+PC9nPgo8IS0tIGxpbmVhIGRlIG1ldGEgYSBjdWFkcm9zIC0tPgo8Zz4KPHJlY3QgeD0iMzYwIiB5PSIxMTgiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxODIiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPgo8ZyBmaWxsPSIjZjJmMmYyIj48cmVjdCB4PSIzNjAiIHk9IjExOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iMzgwIiB5PSIxMTgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjQwMCIgeT0iMTE4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSI0MjAiIHk9IjExOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iMzcwIiB5PSIxMjgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjM5MCIgeT0iMTI4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSI0MTAiIHk9IjEyOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iNDMwIiB5PSIxMjgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjM2MCIgeT0iMTM4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSIzODAiIHk9IjEzOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iNDAwIiB5PSIxMzgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjQyMCIgeT0iMTM4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48L2c+CjwvZz4KPC9zdmc+Cg==) center/cover no-repeat,#0e131d",
+    motogp:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImFzZiIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzJhMmQzMyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzE1MTcxYiIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ic2t5MiIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzE2MWIyNCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMGYxNCIvPjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9InVybCgjc2t5MikiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExMCA4MDAsMTEwIDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjYXNmKSIvPgo8IS0tIGN1cmJzIHJvam8vYmxhbmNvIC0tPgo8Zz4KPHJlY3QgeD0iMCIgeT0iMTEwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjgiIGZpbGw9IiNkMzMiLz4KPGcgZmlsbD0iI2VlZSI+PHJlY3QgeD0iMCIgeT0iMTEwIiB3aWR0aD0iNDAiIGhlaWdodD0iOCIvPjxyZWN0IHg9IjgwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMTYwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMjQwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iMzIwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNDAwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNDgwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNTYwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNjQwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PHJlY3QgeD0iNzIwIiB5PSIxMTAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI4Ii8+PC9nPgo8L2c+CjwhLS0gbGluZWFzIGRlIGNhcnJpbCAtLT4KPGcgc3Ryb2tlPSIjZThlOGU4IiBzdHJva2Utb3BhY2l0eT0iMC41IiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1kYXNoYXJyYXk9IjI2IDIyIj48bGluZSB4MT0iMCIgeTE9IjE4NSIgeDI9IjgwMCIgeTI9IjE4NSIvPjxsaW5lIHgxPSIwIiB5MT0iMjUwIiB4Mj0iODAwIiB5Mj0iMjUwIi8+PC9nPgo8IS0tIGxpbmVhIGRlIG1ldGEgYSBjdWFkcm9zIC0tPgo8Zz4KPHJlY3QgeD0iMzYwIiB5PSIxMTgiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxODIiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4xNSIvPgo8ZyBmaWxsPSIjZjJmMmYyIj48cmVjdCB4PSIzNjAiIHk9IjExOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iMzgwIiB5PSIxMTgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjQwMCIgeT0iMTE4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSI0MjAiIHk9IjExOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iMzcwIiB5PSIxMjgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjM5MCIgeT0iMTI4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSI0MTAiIHk9IjEyOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iNDMwIiB5PSIxMjgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjM2MCIgeT0iMTM4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48cmVjdCB4PSIzODAiIHk9IjEzOCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIi8+PHJlY3QgeD0iNDAwIiB5PSIxMzgiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjxyZWN0IHg9IjQyMCIgeT0iMTM4IiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiLz48L2c+CjwvZz4KPC9zdmc+Cg==) center/cover no-repeat,#0e131d",
+    boxeo:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InNwb3RCIiBjeD0iNTAlIiBjeT0iLTEwJSIgcj0iODAlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYwYzgiIHN0b3Atb3BhY2l0eT0iLjMiLz48c3RvcCBvZmZzZXQ9IjAuNSIgc3RvcC1jb2xvcj0iI2ZmZjBjOCIgc3RvcC1vcGFjaXR5PSIuMDUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYwYzgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibWF0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMjQzMjQ3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxYjI4Ii8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzBhMDgxMCIvPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNzcG90QikiLz4KPCEtLSBsb25hIGRlbCByaW5nIGVuIHBlcnNwZWN0aXZhIC0tPgo8cG9seWdvbiBwb2ludHM9IjIzMCwxNDAgNTcwLDE0MCA3MjAsMzAwIDgwLDMwMCIgZmlsbD0idXJsKCNtYXQpIiBzdHJva2U9IiMzYTRhNjMiIHN0cm9rZS13aWR0aD0iMiIvPgo8IS0tIGN1ZXJkYXMgLS0+CjxnIHN0cm9rZT0iI2M5ZDNlMyIgc3Ryb2tlLW9wYWNpdHk9IjAuNTUiIHN0cm9rZS13aWR0aD0iMyI+CjxsaW5lIHgxPSIxNTAiIHkxPSIxNzAiIHgyPSI2NTAiIHkyPSIxNzAiLz4KPGxpbmUgeDE9IjEyMCIgeTE9IjIwNSIgeDI9IjY4MCIgeTI9IjIwNSIvPgo8bGluZSB4MT0iOTAiIHkxPSIyNDUiIHgyPSI3MTAiIHkyPSIyNDUiLz4KPC9nPgo8IS0tIHBvc3RlcyAtLT4KPGcgZmlsbD0iI2MzMyI+PHJlY3QgeD0iMjIyIiB5PSIxMjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI2MCIgcng9IjMiLz48cmVjdCB4PSI1NjgiIHk9IjEyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjYwIiByeD0iMyIvPjxyZWN0IHg9IjcyIiB5PSIyMzAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI3MCIgcng9IjMiLz48cmVjdCB4PSI3MTYiIHk9IjIzMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjcwIiByeD0iMyIvPjwvZz4KPC9zdmc+Cg==) center/cover no-repeat,#0e131d",
+    mma:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8cmFkaWFsR3JhZGllbnQgaWQ9InNwb3RCIiBjeD0iNTAlIiBjeT0iLTEwJSIgcj0iODAlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYwYzgiIHN0b3Atb3BhY2l0eT0iLjMiLz48c3RvcCBvZmZzZXQ9IjAuNSIgc3RvcC1jb2xvcj0iI2ZmZjBjOCIgc3RvcC1vcGFjaXR5PSIuMDUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYwYzgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0ibWF0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMjQzMjQ3Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxYjI4Ii8+PC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzBhMDgxMCIvPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNzcG90QikiLz4KPCEtLSBsb25hIGRlbCByaW5nIGVuIHBlcnNwZWN0aXZhIC0tPgo8cG9seWdvbiBwb2ludHM9IjIzMCwxNDAgNTcwLDE0MCA3MjAsMzAwIDgwLDMwMCIgZmlsbD0idXJsKCNtYXQpIiBzdHJva2U9IiMzYTRhNjMiIHN0cm9rZS13aWR0aD0iMiIvPgo8IS0tIGN1ZXJkYXMgLS0+CjxnIHN0cm9rZT0iI2M5ZDNlMyIgc3Ryb2tlLW9wYWNpdHk9IjAuNTUiIHN0cm9rZS13aWR0aD0iMyI+CjxsaW5lIHgxPSIxNTAiIHkxPSIxNzAiIHgyPSI2NTAiIHkyPSIxNzAiLz4KPGxpbmUgeDE9IjEyMCIgeTE9IjIwNSIgeDI9IjY4MCIgeTI9IjIwNSIvPgo8bGluZSB4MT0iOTAiIHkxPSIyNDUiIHgyPSI3MTAiIHkyPSIyNDUiLz4KPC9nPgo8IS0tIHBvc3RlcyAtLT4KPGcgZmlsbD0iI2MzMyI+PHJlY3QgeD0iMjIyIiB5PSIxMjAiIHdpZHRoPSIxMCIgaGVpZ2h0PSI2MCIgcng9IjMiLz48cmVjdCB4PSI1NjgiIHk9IjEyMCIgd2lkdGg9IjEwIiBoZWlnaHQ9IjYwIiByeD0iMyIvPjxyZWN0IHg9IjcyIiB5PSIyMzAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI3MCIgcng9IjMiLz48cmVjdCB4PSI3MTYiIHk9IjIzMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjcwIiByeD0iMyIvPjwvZz4KPC9zdmc+Cg==) center/cover no-repeat,#0e131d",
+    esports:"radial-gradient(220px 120px at 50% -20%, rgba(150,90,255,.35), transparent 70%),linear-gradient(180deg,#1a1140,#0a0820)",
+    default:"url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzBhMWEyZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMjEzOCIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNTM4MWYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwYTIxMTMiLz48L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9ImJlYW0iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNjZmU2ZmYiIHN0b3Atb3BhY2l0eT0iLjU1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjY2ZlNmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50Pgo8cGF0dGVybiBpZD0iY3Jvd2QiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIxIiBmaWxsPSIjM2E1YTg2IiBvcGFjaXR5PSIuNyIvPjwvcGF0dGVybj4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSIjMTAxZjMzIi8+CjxyZWN0IHg9IjAiIHk9IjY2IiB3aWR0aD0iODAwIiBoZWlnaHQ9IjUyIiBmaWxsPSJ1cmwoI2Nyb3dkKSIvPgo8ZyBmaWxsPSIjMmMzZTU4Ij48cmVjdCB4PSIxMDgiIHk9IjQwIiB3aWR0aD0iNTgiIGhlaWdodD0iMTYiIHJ4PSIzIi8+PHJlY3QgeD0iNjM0IiB5PSI0MCIgd2lkdGg9IjU4IiBoZWlnaHQ9IjE2IiByeD0iMyIvPjwvZz4KPGcgc3Ryb2tlPSIjMmMzZTU4IiBzdHJva2Utd2lkdGg9IjQiPjxsaW5lIHgxPSIxMzciIHkxPSI1NSIgeDI9IjEzNyIgeTI9IjExMiIvPjxsaW5lIHgxPSI2NjMiIHkxPSI1NSIgeDI9IjY2MyIgeTI9IjExMiIvPjwvZz4KPGcgZmlsbD0iI2RjZWZmZiI+PGNpcmNsZSBjeD0iMTIyIiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjEzNyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSIxNTIiIGN5PSI0OCIgcj0iMi40Ii8+PGNpcmNsZSBjeD0iNjQ4IiBjeT0iNDgiIHI9IjIuNCIvPjxjaXJjbGUgY3g9IjY2MyIgY3k9IjQ4IiByPSIyLjQiLz48Y2lyY2xlIGN4PSI2NzgiIGN5PSI0OCIgcj0iMi40Ii8+PC9nPgo8cG9seWdvbiBwb2ludHM9IjEzNyw1OCAzMCwzMDAgMzIwLDMwMCIgZmlsbD0idXJsKCNiZWFtKSIvPgo8cG9seWdvbiBwb2ludHM9IjY2Myw1OCA0ODAsMzAwIDc3MCwzMDAiIGZpbGw9InVybCgjYmVhbSkiLz4KPHBvbHlnb24gcG9pbnRzPSIwLDExNiA4MDAsMTE2IDgwMCwzMDAgMCwzMDAiIGZpbGw9InVybCgjZ3Jhc3MpIi8+CjxnIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuMDM1Ij48cG9seWdvbiBwb2ludHM9IjAsMTE2IDEyMCwxMTYgODAsMzAwIDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSIyNDAsMTE2IDM2MCwxMTYgMzIwLDMwMCAyMDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI0ODAsMTE2IDYwMCwxMTYgNTYwLDMwMCA0NDAsMzAwIi8+PHBvbHlnb24gcG9pbnRzPSI3MjAsMTE2IDgwMCwxMTYgODAwLDMwMCA2ODAsMzAwIi8+PC9nPgo8ZyBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTE2IiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxlbGxpcHNlIGN4PSI0MDAiIGN5PSIzMDAiIHJ4PSIxMTAiIHJ5PSI0NiIvPgo8ZWxsaXBzZSBjeD0iNDAwIiBjeT0iMjA1IiByeD0iNjYiIHJ5PSIyNiIvPgo8cGF0aCBkPSJNMCwxNjggSDk2IFYyNjQgSDAiLz4KPHBhdGggZD0iTTgwMCwxNjggSDcwNCBWMjY0IEg4MDAiLz4KPC9nPgo8L3N2Zz4K) center/cover no-repeat,#0e131d"
+  };
+  const sceneFor=k=>SCENES[k]||SCENES.default;
+  // Fotos genéricas del deporte (Creative Commons, por palabra clave) para el recuadro
+  const US=b=>b+"?w=1600&q=80&fit=crop&crop=entropy&auto=format";
+  const VPHOTO={
+    futbol:US("https://images.unsplash.com/photo-1522778119026-d647f0596c20"),
+    baloncesto:US("https://images.unsplash.com/photo-1546519638-68e109498ffc"),
+    tenis:US("https://images.unsplash.com/photo-1554068865-24cecd4e34b8"),
+    f1:US("https://images.unsplash.com/photo-1659203206829-218b9b5930e5"),
+    motogp:US("https://images.unsplash.com/photo-1514760263916-4ac83991b2e6"),
+    boxeo:US("https://images.unsplash.com/photo-1552072092-7f9b8d63efcb"),
+    mma:US("https://images.unsplash.com/photo-1611077479643-5b3c01381f9e"),
+    beisbol:US("https://images.unsplash.com/photo-1471295253337-3ceaaedca402"),
+    futbol_americano:US("https://images.unsplash.com/photo-1566577739112-5180d4bf9390"),
+    hockey_hielo:US("https://images.unsplash.com/photo-1545471977-94cac22e71ed"),
+    rugby:US("https://images.unsplash.com/photo-1529663297269-6d349ec39b57"),
+    golf:US("https://images.unsplash.com/photo-1535131749006-b7f58c99034b"),
+    ciclismo:US("https://images.unsplash.com/photo-1452573992436-6d508f200b30"),
+    atletismo:US("https://images.unsplash.com/photo-1502904550040-7534597429ae"),
+    natacion:US("https://images.unsplash.com/photo-1560090995-01632a28895b"),
+    voleibol:US("https://images.unsplash.com/photo-1612872087720-bb876e2e67d1"),
+    tenis_mesa:US("https://images.unsplash.com/photo-1676827613262-5fba25cee5fd"),
+    esports:US("https://images.unsplash.com/photo-1542751371-adc38448a05e"),
+    default:US("https://images.unsplash.com/photo-1522778119026-d647f0596c20")
+  };
+  const photoUrl=k=>VPHOTO[k]||VPHOTO.default;
+  const ESTADIO_BG="linear-gradient(180deg,rgba(6,10,16,.34),rgba(6,10,16,.60)),url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgMzAwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjMwMCI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzA4MTEyMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBhMWMzMyIvPjwvbGluZWFyR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3Jhc3MiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxYzUyMzAiLz48c3RvcCBvZmZzZXQ9IjAuNSIgc3RvcC1jb2xvcj0iIzE2NDIyNSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBjMmExNyIvPjwvbGluZWFyR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0icGl0Y2hnbG93IiBjeD0iNTAlIiBjeT0iNDIlIiByPSI2MCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2E4ZmZjZiIgc3RvcC1vcGFjaXR5PSIuMjIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNhOGZmY2YiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+CjxsaW5lYXJHcmFkaWVudCBpZD0iYmVhbSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2VhZjRmZiIgc3RvcC1vcGFjaXR5PSIuNTUiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNlYWY0ZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+CjxyYWRpYWxHcmFkaWVudCBpZD0ibGFtcCIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48c3RvcCBvZmZzZXQ9IjAuNCIgc3RvcC1jb2xvcj0iI2RmZjBmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2RmZjBmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD4KPHBhdHRlcm4gaWQ9ImNyb3dkIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICA8cmVjdCB3aWR0aD0iOSIgaGVpZ2h0PSI5IiBmaWxsPSIjMGYyMDM4Ii8+CiAgPGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEuMjUiIGZpbGw9IiNjZGQ5ZWEiLz4KICA8Y2lyY2xlIGN4PSI2IiBjeT0iMyIgcj0iMS4yNSIgZmlsbD0iIzkzYTZjMCIvPgogIDxjaXJjbGUgY3g9IjQiIGN5PSI2LjUiIHI9IjEuMjUiIGZpbGw9IiM3NDg4YTQiLz4KICA8Y2lyY2xlIGN4PSI4IiBjeT0iNy41IiByPSIxLjI1IiBmaWxsPSIjYjZjNGQ2Ii8+CjwvcGF0dGVybj4KPC9kZWZzPgoKPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9InVybCgjc2t5KSIvPgoKPCEtLSByZXNwbGFuZG9yIGRlIGxhcyBsdWNlcyBlbiBlbCBjaWVsbyAtLT4KPGVsbGlwc2UgY3g9IjE4MCIgY3k9IjMwIiByeD0iMTUwIiByeT0iNzAiIGZpbGw9IiNiZmUwZmYiIG9wYWNpdHk9IjAuMDYiLz4KPGVsbGlwc2UgY3g9IjYyMCIgY3k9IjMwIiByeD0iMTUwIiByeT0iNzAiIGZpbGw9IiNiZmUwZmYiIG9wYWNpdHk9IjAuMDYiLz4KCjwhLS0gZXN0cnVjdHVyYSBkZSBncmFkZXLDrW8gKGJvd2wpIC0tPgo8cGF0aCBkPSJNLTIwLDE1MCBDMTYwLDcyIDY0MCw3MiA4MjAsMTUwIEw4MjAsMTY4IEM2NDAsOTIgMTYwLDkyIC0yMCwxNjggWiIgZmlsbD0iIzEyMjQzYyIvPgo8cGF0aCBkPSJNLTIwLDE1MCBDMTYwLDcyIDY0MCw3MiA4MjAsMTUwIEw4MjAsMTU4IEM2NDAsODYgMTYwLDg2IC0yMCwxNTggWiIgZmlsbD0iIzBlMWMzMCIvPgo8IS0tIGdlbnRlIGVuIGxhcyBncmFkYXMgLS0+CjxwYXRoIGQ9Ik0tMjAsMTUwIEMxNjAsNzQgNjQwLDc0IDgyMCwxNTAgTDgyMCwxNTAgQzY0MCw4MCAxNjAsODAgLTIwLDE1MCBaIiBmaWxsPSJ1cmwoI2Nyb3dkKSIgb3BhY2l0eT0iMC45Ii8+CjxwYXRoIGQ9Ik0tMjAsMTQwIEMxNzAsNjYgNjMwLDY2IDgyMCwxNDAgTDgyMCwxNTAgQzYzMCw3OCAxNzAsNzggLTIwLDE1MCBaIiBmaWxsPSJ1cmwoI2Nyb3dkKSIgb3BhY2l0eT0iMC43NSIvPgo8IS0tIHRvcXVlcyBkZSBjb2xvciBlbnRyZSBlbCBww7pibGljbyAtLT4KPGcgb3BhY2l0eT0iMC45Ij4KPGNpcmNsZSBjeD0iMTIwIiBjeT0iMTIwIiByPSIxLjYiIGZpbGw9IiNmZmQyNGEiLz48Y2lyY2xlIGN4PSIyNjAiIGN5PSIxMDQiIHI9IjEuNiIgZmlsbD0iI2ZmNmI2YiIvPgo8Y2lyY2xlIGN4PSI0MTAiIGN5PSI5OCIgcj0iMS42IiBmaWxsPSIjNTlhNWZmIi8+PGNpcmNsZSBjeD0iNTQwIiBjeT0iMTA0IiByPSIxLjYiIGZpbGw9IiNmZmQyNGEiLz4KPGNpcmNsZSBjeD0iNjcwIiBjeT0iMTIwIiByPSIxLjYiIGZpbGw9IiNmZjZiNmIiLz48Y2lyY2xlIGN4PSIzMzAiIGN5PSIxMTIiIHI9IjEuNiIgZmlsbD0iIzdDRkM5QSIvPgo8Y2lyY2xlIGN4PSI0ODAiIGN5PSIxMTIiIHI9IjEuNiIgZmlsbD0iI2ZmZmZmZiIvPjxjaXJjbGUgY3g9IjIwMCIgY3k9IjExMiIgcj0iMS42IiBmaWxsPSIjNTlhNWZmIi8+CjwvZz4KCjwhLS0gdG9ycmVzIGRlIGx1eiBjb24gaGFsbyB5IGhheiAtLT4KPGc+CiAgPHJlY3QgeD0iOTYiIHk9IjMwIiB3aWR0aD0iNzAiIGhlaWdodD0iMTYiIHJ4PSIzIiBmaWxsPSIjMzM0NjVmIi8+CiAgPHJlY3QgeD0iNjM0IiB5PSIzMCIgd2lkdGg9IjcwIiBoZWlnaHQ9IjE2IiByeD0iMyIgZmlsbD0iIzMzNDY1ZiIvPgogIDxsaW5lIHgxPSIxMzEiIHkxPSI0NCIgeDI9IjEzMSIgeTI9IjE1MCIgc3Ryb2tlPSIjMzM0NjVmIiBzdHJva2Utd2lkdGg9IjQiLz4KICA8bGluZSB4MT0iNjY5IiB5MT0iNDQiIHgyPSI2NjkiIHkyPSIxNTAiIHN0cm9rZT0iIzMzNDY1ZiIgc3Ryb2tlLXdpZHRoPSI0Ii8+CiAgPGVsbGlwc2UgY3g9IjEzMSIgY3k9IjM4IiByeD0iNDIiIHJ5PSIyNiIgZmlsbD0idXJsKCNsYW1wKSIgb3BhY2l0eT0iMC44Ii8+CiAgPGVsbGlwc2UgY3g9IjY2OSIgY3k9IjM4IiByeD0iNDIiIHJ5PSIyNiIgZmlsbD0idXJsKCNsYW1wKSIgb3BhY2l0eT0iMC44Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMzEsNDAgMTAsMzAwIDM2MCwzMDAiIGZpbGw9InVybCgjYmVhbSkiIG9wYWNpdHk9IjAuNSIvPgogIDxwb2x5Z29uIHBvaW50cz0iNjY5LDQwIDQ0MCwzMDAgNzkwLDMwMCIgZmlsbD0idXJsKCNiZWFtKSIgb3BhY2l0eT0iMC41Ii8+CjwvZz4KCjwhLS0gY8Opc3BlZCAtLT4KPHBvbHlnb24gcG9pbnRzPSItNDAsMTUwIDg0MCwxNTAgOTAwLDMwMCAtMTAwLDMwMCIgZmlsbD0idXJsKCNncmFzcykiLz4KPHJlY3QgeD0iMCIgeT0iMTUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjE1MCIgZmlsbD0idXJsKCNwaXRjaGdsb3cpIi8+CjwhLS0gZnJhbmphcyBkZSBjb3J0ZSAtLT4KPGcgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC4wNDUiPgo8cG9seWdvbiBwb2ludHM9Ii00MCwxNTAgMTEwLDE1MCA3MCwzMDAgLTEwMCwzMDAiLz48cG9seWdvbiBwb2ludHM9IjIzMCwxNTAgMzgwLDE1MCAzNDAsMzAwIDE5MCwzMDAiLz48cG9seWdvbiBwb2ludHM9IjUwMCwxNTAgNjUwLDE1MCA2MTAsMzAwIDQ2MCwzMDAiLz4KPC9nPgo8IS0tIGxpbmVhcyBkZWwgY2FtcG8gLS0+CjxnIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIgc3Ryb2tlLXdpZHRoPSIyLjIiIGZpbGw9Im5vbmUiPgo8bGluZSB4MT0iNDAwIiB5MT0iMTUwIiB4Mj0iNDAwIiB5Mj0iMzAwIi8+CjxlbGxpcHNlIGN4PSI0MDAiIGN5PSIzMDAiIHJ4PSIxMjAiIHJ5PSI1MCIvPgo8ZWxsaXBzZSBjeD0iNDAwIiBjeT0iMjIyIiByeD0iNzAiIHJ5PSIyNyIvPgo8cGF0aCBkPSJNLTQwLDE5NiBIOTIgVjI4NiBILTQwIi8+CjxwYXRoIGQ9Ik04NDAsMTk2IEg3MDggVjI4NiBIODQwIi8+CjwvZz4KPC9zdmc+Cg==) center/cover no-repeat,#0e131d";
+  const T=()=>I18N[lang];
+  const zonaReal=()=>zonaActiva==="auto"?Intl.DateTimeFormat().resolvedOptions().timeZone:zonaActiva;
+  const nombreZona=tz=>{try{const p=tz.split("/");return p[p.length-1].replace(/_/g," ");}catch(e){return tz;}};
+  const estaEnVivo=ev=>{const i=new Date(ev.utc).getTime();const f=i+(ev.dur||120)*60000;const n=Date.now();return n>=i&&n<=f;};
+  const titulo=ev=>ev.away?ev.home.n+" vs "+ev.away.n:ev.home.n;
+  // botón "gratis primero": busca las opciones GRATIS y legales de cada país (Google etiqueta las gratis)
+  const enlaceVer=ev=>"https://www.google.com/search?q="+encodeURIComponent(T().query(titulo(ev)));
+
+  function monogram(name){
+    const clean=name.replace(/^(FC|CF|AC|SC|CD)\s+/i,"").trim();
+    const parts=clean.split(/\s+/).filter(Boolean);
+    let ini = parts.length>=2 ? (parts[0][0]+parts[parts.length-1][0]) : clean.slice(0,3);
+    return ini.toUpperCase();
+  }
+  function crest(team,big){
+    if(!team) return "";
+    const cls=big?"crest-lg":"crest";
+    if(team.img){
+      const safe=String(team.n).replace(/'/g,"\\'");
+      return '<img class="'+cls+'" loading="lazy" src="'+team.img+'" alt="" onerror="badgeFail(this,\''+safe+'\','+(big?'true':'false')+')">';
+    }
+    return crestMono(team.n,big);
+  }
+  function crestMono(name,big){
+    const cls=big?"crest-lg":"crest";
+    return '<span class="'+cls+'">'+monogram(name)+'</span>';
+  }
+  function badgeFail(img,name,big){ img.outerHTML=crestMono(name,big); }
+  window.badgeFail=badgeFail;
+
+  function aplicarIdioma(){
+    document.documentElement.lang=lang;
+    document.getElementById("btnEs").classList.toggle("on",lang==="es");
+    document.getElementById("btnEn").classList.toggle("on",lang==="en");
+    document.getElementById("note").innerHTML=T().note;
+    document.getElementById("search").placeholder=T().searchPh;
+    document.getElementById("footer").innerHTML=T().footer+"<br>calaveraSports — v24<br>"+
+      '<img class="visit-counter" src="https://hits.sh/calaverasports.com.svg?style=flat-square&label='+(lang==="es"?"Visitas":"Visits")+'&color=37e07a&labelColor=0d1117" alt="" style="margin-top:9px;height:22px" onerror="this.style.display=\'none\'">';
+    document.getElementById("afil").innerHTML=(lang==="es"
+        ? '📺 <b>¿Verlo en tu tele?</b> Con un Fire TV Stick abres estas apps de deporte en tu televisor → '
+        : '📺 <b>Watch on your TV?</b> A Fire TV Stick opens these sports apps on your television → ')
+      + '<a href="https://www.amazon.es/s?k=fire+tv+stick&tag=calaverasport-21" target="_blank" rel="sponsored nofollow noopener">'
+      + (lang==="es"?'verlo en Amazon':'see it on Amazon')+'</a>'
+      + '<div class="afil-disc">'+(lang==="es"
+          ? 'Como Afiliado de Amazon, calaveraSports gana por las compras adscritas que cumplan los requisitos.'
+          : 'As an Amazon Associate, calaveraSports earns from qualifying purchases.')+'</div>';
+    const sel=document.getElementById("zoneSelect");
+    sel.innerHTML=ZONAS.map(z=>'<option value="'+z.v+'">'+(z.v==="auto"?T().detect:z.label)+'</option>').join("");
+    sel.value=zonaActiva;
+    const zs=document.getElementById("zoneSearch"); if(zs){ zs.placeholder=T().tzSearch; }
+    fillTz();
+  }
+
+  function renderFilters(){
+    document.getElementById("filters").innerHTML=SPORTS.map(s=>
+      '<div class="chip'+(s.k===deporteActivo?' active':'')+'" data-k="'+s.k+'">'+s[lang]+'</div>').join("");
+    document.querySelectorAll("#filters .chip").forEach(c=>c.addEventListener("click",()=>{
+      deporteActivo=c.dataset.k;featuredId=null;renderFilters();renderAll();}));
+  }
+
+  function renderHero(){
+    const tz=zonaReal();
+    const fmtHora=new Intl.DateTimeFormat(T().locale,{hour:"2-digit",minute:"2-digit",hour12:lang==="en",timeZone:tz});
+    const heroEl=document.getElementById("hero");
+    let dest=null;
+    if(deporteActivo!=="todos"){
+      dest=(featuredId!=null&&EVENTOS.find(e=>e._id===featuredId&&e.sport===deporteActivo))||EVENTOS.find(e=>e.sport===deporteActivo)||null;
+    }else{
+      dest=featuredId!=null?EVENTOS.find(e=>e._id===featuredId):null;
+      if(!dest){const live=EVENTOS.filter(estaEnVivo);dest=live[0]||EVENTOS[0];}
+    }
+    const heroSport=deporteActivo!=="todos"?deporteActivo:(dest?dest.sport:"default");
+    heroEl.style.display="block";
+    heroEl.style.background="linear-gradient(180deg,#0e1726 0%,#080d16 100%)";
+    const photo='<img class="hero-photo" src="'+photoUrl(heroSport)+'" alt="" onerror="this.remove()"><div class="hero-scrim"></div>';
+    const isLive=dest&&estaEnVivo(dest);
+    const head='<div class="hero-head">'+(isLive?'<span class="hero-live"><span class="dot"></span>'+T().live+'</span>':'')+
+        '<span>'+T().featured+'</span></div>';
+    let body,meta;
+    if(dest){
+      if(dest.away){
+        body='<div class="hero-body">'+
+          '<div class="team">'+crest(dest.home,true)+'<div class="tname">'+dest.home.n+'</div></div>'+
+          '<div class="vs">VS</div>'+
+          '<div class="team">'+crest(dest.away,true)+'<div class="tname">'+dest.away.n+'</div></div></div>';
+      }else{
+        body='<div class="hero-body"><div class="team">'+crest(dest.home,true)+'<div class="tname">'+dest.home.n+'</div></div></div>';
+      }
+      meta='<div class="hero-meta"><div class="hero-comp">'+sName(dest.sport)[lang]+' · '+dest.comp+'</div>'+
+        '<div class="hero-time">'+fmtHora.format(new Date(dest.utc))+'</div>'+
+        '<a class="hero-btn" href="'+enlaceVer(dest)+'" target="_blank" rel="noopener noreferrer">▶ '+T().watch+'</a></div>';
+    }else{
+      const sp=sName(heroSport);
+      body='<div class="hero-body" style="justify-content:center"><div class="team" style="flex:0 0 auto"><div class="tname" style="font-size:24px">'+sp[lang]+'</div></div></div>';
+      meta='<div class="hero-meta"><div class="hero-comp">'+(lang==="es"?"Sin partidos ahora mismo":"No games right now")+'</div></div>';
+    }
+    heroEl.innerHTML=photo+head+body+meta;
+  }
+
+  function renderList(){
+    const tz=zonaReal();
+    const fmtHora=new Intl.DateTimeFormat(T().locale,{hour:"2-digit",minute:"2-digit",hour12:lang==="en",timeZone:tz});
+    const fmtDia=new Intl.DateTimeFormat(T().locale,{weekday:"long",day:"numeric",month:"short",timeZone:tz});
+
+    const q=texto.trim().toLowerCase();
+    let filtrados=EVENTOS.filter(ev=>{
+      const okD=deporteActivo==="todos"||ev.sport===deporteActivo;
+      const txt=(titulo(ev)+" "+ev.comp+" "+sName(ev.sport)[lang]).toLowerCase();
+      return okD&&(!q||txt.includes(q));
+    });
+    // Principal: solo HOY · pestaña de deporte: hoy en adelante (en la zona horaria elegida)
+    if(!q){
+      const fday=new Intl.DateTimeFormat("en-CA",{timeZone:tz});
+      const hoy=fday.format(new Date());
+      if(deporteActivo==="todos") filtrados=filtrados.filter(ev=>fday.format(new Date(ev.utc))===hoy);
+      else filtrados=filtrados.filter(ev=>fday.format(new Date(ev.utc))>=hoy);
+    }
+    document.getElementById("count").textContent=filtrados.length>0?T().count(filtrados.length,sName(deporteActivo)[lang]):"";
+
+    if(filtrados.length===0){
+      let ehtml;
+      if(q){
+        const url="https://www.google.com/search?q="+encodeURIComponent(T().query(texto.trim()));
+        ehtml='<div class="empty"><span class="big">🔎</span>'+
+          (lang==="es"?'No encontramos "'+esc(texto.trim())+'" en la agenda ahora mismo.':'We couldn\'t find "'+esc(texto.trim())+'" in the schedule right now.')+
+          '<div style="margin-top:14px"><a class="m-btn" href="'+url+'" target="_blank" rel="noopener noreferrer">▶ '+(lang==="es"?"Buscar dónde verlo":"Find where to watch")+'</a></div></div>';
+      }else{
+        const msg=(deporteActivo==="todos")?(lang==="es"?"No hay partidos para hoy. Usa el buscador para encontrar cualquier equipo del mundo.":"No games today. Use the search to find any team worldwide."):T().empty(sName(deporteActivo)[lang]);
+        ehtml='<div class="empty"><span class="big">📅</span>'+msg+'</div>';
+      }
+      document.getElementById("list").innerHTML=ehtml;return;
+    }
+    const CAP=300;
+    const total=filtrados.length;
+    const vistos=total>CAP?filtrados.slice(0,CAP):filtrados;
+    const grupos={};
+    vistos.forEach(ev=>{const d=new Date(ev.utc);const dia=fmtDia.format(d);(grupos[dia]=grupos[dia]||[]).push({ev,d});});
+    let html="";
+    Object.keys(grupos).forEach(dia=>{
+      html+='<div class="day">'+dia+'</div>';
+      grupos[dia].forEach(({ev,d})=>{
+        const hora=fmtHora.format(d);
+        const live=estaEnVivo(ev);
+        const liveTag=live?'<span class="tag-live"><span class="dot"></span>'+T().tagLive+'</span>':'';
+        const crests=ev.away?crest(ev.home,false)+crest(ev.away,false):crest(ev.home,false);
+        html+='<div class="match'+(live?' live':'')+(ev._id===featuredId?' sel':'')+'" data-id="'+ev._id+'">'+
+          '<div class="m-time"><div class="h">'+hora+'</div><div class="d">'+dia.split(" ")[0].replace(/[.,]/g,"")+'</div></div>'+
+          '<div class="m-teams">'+crests+
+            '<div class="m-names"><div class="m-league">'+sName(ev.sport)[lang]+' · '+ev.comp+'</div>'+
+            '<div class="m-title">'+titulo(ev)+liveTag+'</div></div></div>'+
+          '<a class="m-btn" href="'+enlaceVer(ev)+'" target="_blank" rel="noopener noreferrer">▶ '+T().btn+'</a>'+
+        '</div>';
+      });
+    });
+    if(total>CAP){ html+='<div class="empty" style="padding:16px 8px"><span>'+(lang==="es"?"Mostrando "+CAP+" de "+total+" partidos. Filtra por deporte arriba o busca tu equipo.":"Showing "+CAP+" of "+total+" games. Filter by sport above or search your team.")+'</span></div>'; }
+    document.getElementById("list").innerHTML=html;
+    // clic en un partido -> pasa al recuadro principal
+    document.querySelectorAll("#list .match").forEach(el=>{
+      el.addEventListener("click",e=>{
+        if(e.target.closest("a")) return; // no robar el botón Ver
+        featuredId=Number(el.dataset.id);
+        renderHero();
+        document.querySelectorAll("#list .match").forEach(m=>m.classList.toggle("sel",Number(m.dataset.id)===featuredId));
+        window.scrollTo({top:0,behavior:"smooth"});
+      });
+    });
+  }
+
+  function renderAll(){ EVENTOS.forEach((e,i)=>e._id=i); renderHero(); renderList(); }
+
+  // Mapea un evento crudo de TheSportsDB al formato interno
+  function mapEvent(e){
+    if(!e.strTimestamp && !(e.dateEvent && e.strTime)) return null;
+    const iso=e.strTimestamp?(e.strTimestamp.replace(" ","T")+"Z"):(e.dateEvent+"T"+e.strTime+"Z");
+    const two=e.strHomeTeam&&e.strAwayTeam;
+    return {sport:sportKey(e.strSport,e.strLeague),utc:iso,dur:130,comp:e.strLeague||"",
+      home:{n:e.strHomeTeam||e.strEvent,img:e.strHomeTeamBadge||""},
+      away:two?{n:e.strAwayTeam,img:e.strAwayTeamBadge||""}:null};
+  }
+  // Búsqueda MUNDIAL en vivo: cualquier equipo, cualquier deporte
+  function buscarMundial(qraw){
+    clearTimeout(remoteTimer);
+    const q=(qraw||"").trim();
+    if(q.length<3){ EVENTOS=BASE_EVENTOS.slice(); EVENTOS.forEach((e,i)=>e._id=i); return; }
+    remoteTimer=setTimeout(async()=>{
+      const c=document.getElementById("count");
+      if(c) c.textContent=(lang==="es"?"🔎 Buscando en todo el mundo…":"🔎 Searching worldwide…");
+      const B="https://www.thesportsdb.com/api/v1/json/9482415391/";
+      let extra=[];
+      try{
+        const ts=await fetch(B+"searchteams.php?t="+encodeURIComponent(q)).then(r=>r.ok?r.json():null);
+        const teams=(ts&&ts.teams||[]).slice(0,5);
+        const lists=await Promise.allSettled(teams.map(t=>fetch(B+"eventsnext.php?id="+t.idTeam).then(r=>r.ok?r.json():null)));
+        const evs=[];
+        lists.forEach(r=>{ if(r.status==="fulfilled"&&r.value&&Array.isArray(r.value.events)) evs.push(...r.value.events); });
+        const mapped=evs.map(mapEvent).filter(Boolean);
+        const seen=new Set(BASE_EVENTOS.map(e=>e.home.n+"|"+e.utc));
+        mapped.forEach(e=>{ const k=e.home.n+"|"+e.utc; if(!seen.has(k)){ seen.add(k); extra.push(e); } });
+      }catch(err){ extra=[]; }
+      if(texto.trim()!==q) return; // el usuario siguió escribiendo: descartar
+      EVENTOS=[...BASE_EVENTOS, ...extra].sort((a,b)=>new Date(a.utc)-new Date(b.utc));
+      EVENTOS.forEach((e,i)=>e._id=i);
+      renderList();
+    },350);
+  }
+
+  async function fetchLeagues(ids){
+    const res=[];
+    for(let i=0;i<ids.length;i+=8){
+      const chunk=ids.slice(i,i+8);
+      const part=await Promise.allSettled(chunk.map(id=>fetch(API(id)).then(r=>r.ok?r.json():null)));
+      res.push(...part);
+      if(i+8<ids.length) await new Promise(r=>setTimeout(r,220));
+    }
+    const out=[];
+    res.forEach(r=>{ if(r.status==="fulfilled"&&r.value&&Array.isArray(r.value.events)){
+      r.value.events.forEach(e=>{ const m=mapEvent(e); if(m) out.push(m); }); } });
+    return out;
+  }
+  // Carga bajo demanda de un deporte al abrir su chip
+  async function ensureSport(sk){
+    if(loadedSports.has(sk)) return;
+    loadedSports.add(sk);
+    const ids=(SPORT_LEAGUES[sk]||[]).filter(id=>!loadedIds.has(id));
+    if(!ids.length) return;
+    ids.forEach(id=>loadedIds.add(id));
+    const nuevos=await fetchLeagues(ids);
+    if(nuevos.length){
+      const seen=new Set(BASE_EVENTOS.map(e=>e.home.n+"|"+e.utc));
+      nuevos.forEach(e=>{ const k=e.home.n+"|"+e.utc; if(!seen.has(k)){ seen.add(k); BASE_EVENTOS.push(e); } });
+      BASE_EVENTOS.sort((a,b)=>new Date(a.utc)-new Date(b.utc));
+      if(!texto.trim()){ EVENTOS=BASE_EVENTOS.slice(); EVENTOS.forEach((e,i)=>e._id=i); }
+    }
+  }
+  async function cargarDatos(){
+    try{
+      const now=new Date();
+      const ymd=d=>d.toISOString().slice(0,10);
+      const days=[ymd(new Date(now.getTime()-86400000)),ymd(now),ymd(new Date(now.getTime()+86400000))];
+      const urls=[];
+      days.forEach(d=>SPORTS_DAY.forEach(s=>urls.push(API_DAY(d,s))));
+      const res=[];
+      for(let i=0;i<urls.length;i+=10){
+        const part=await Promise.allSettled(urls.slice(i,i+10).map(u=>fetch(u).then(r=>r.ok?r.json():null)));
+        res.push(...part);
+        if(i+10<urls.length) await new Promise(r=>setTimeout(r,150));
+      }
+      const eventos=[];
+      res.forEach(r=>{ if(r.status==="fulfilled"&&r.value&&Array.isArray(r.value.events)){ r.value.events.forEach(e=>{const m=mapEvent(e); if(m) eventos.push(m);}); } });
+      if(eventos.length===0)throw new Error("vacío");
+      const seen=new Set(),uniq=[];
+      eventos.forEach(e=>{const k=e.home.n+"|"+e.utc; if(!seen.has(k)){seen.add(k);uniq.push(e);}});
+      BASE_EVENTOS=uniq.sort((a,b)=>new Date(a.utc)-new Date(b.utc));EVENTOS=BASE_EVENTOS.slice();
+      const s=document.getElementById("status");s.className="status ok";s.textContent=T().statusOk(EVENTOS.length);
+    }catch(err){
+      BASE_EVENTOS=buildDemo();EVENTOS=BASE_EVENTOS.slice();
+      const s=document.getElementById("status");s.className="status warn";s.textContent=T().statusWarn;
+    }
+    renderAll();
+  }
+
+  function setLang(l){lang=l;aplicarIdioma();renderFilters();
+    const s=document.getElementById("status");
+    if(s.classList.contains("ok"))s.textContent=T().statusOk(EVENTOS.length);
+    else s.textContent=T().statusWarn;
+    renderAll();}
+  document.getElementById("btnEs").addEventListener("click",()=>setLang("es"));
+  document.getElementById("btnEn").addEventListener("click",()=>setLang("en"));
+  document.getElementById("zoneSelect").addEventListener("change",e=>{zonaActiva=e.target.value;renderAll();});
+  function fillTz(){
+    const dl=document.getElementById("tzlist"); if(!dl||dl.dataset.done)return;
+    let zones=[]; try{ zones=Intl.supportedValuesOf("timeZone"); }catch(e){ zones=[]; }
+    dl.innerHTML=zones.map(z=>'<option value="'+z+'">').join(""); dl.dataset.done="1";
+  }
+  document.getElementById("zoneSearch").addEventListener("change",e=>{
+    let v=e.target.value.trim(); if(!v)return;
+    let ok=false; try{ new Intl.DateTimeFormat("en",{timeZone:v}); ok=true; }catch(_){}
+    if(!ok){ let zones=[]; try{zones=Intl.supportedValuesOf("timeZone");}catch(_){}
+      const hit=zones.find(z=>z.toLowerCase().replace(/_/g," ").includes(v.toLowerCase()));
+      if(hit){ v=hit; e.target.value=hit; ok=true; } }
+    if(ok){ zonaActiva=v;
+      const sel=document.getElementById("zoneSelect");
+      let opt=sel.querySelector("option[data-custom]");
+      if(!opt){ opt=document.createElement("option"); opt.setAttribute("data-custom","1"); sel.appendChild(opt); }
+      opt.value=v; opt.textContent="📍 "+v.split("/").pop().replace(/_/g," "); sel.value=v;
+      renderAll();
+    }
+  });
+  document.getElementById("search").addEventListener("input",e=>{texto=e.target.value;EVENTOS=BASE_EVENTOS.slice();EVENTOS.forEach((ev,i)=>ev._id=i);renderList();buscarMundial(texto);});
+
+  // muro de marca de fondo: "calaveraSports" en muchas tipografías y tamaños
+  function fillBrandwall(){
+    const el=document.getElementById("brandwall"); if(!el)return;
+    const fonts=['"Archivo Black",sans-serif','Georgia,serif','"Courier New",monospace','"Trebuchet MS",sans-serif','Impact,fantasy','"Times New Roman",serif','Verdana,sans-serif','"Brush Script MT","Segoe Script",cursive','Palatino,"Palatino Linotype",serif','"Arial Black",sans-serif','"Comic Sans MS",cursive'];
+    const cols=['#ffffff','#37e07a','#4aa3ff','#e6c878'];
+    const W=window.innerWidth,H=window.innerHeight;
+    let n=Math.round(W*H/24000); n=Math.max(50,Math.min(180,n));
+    let html="";
+    for(let i=0;i<n;i++){
+      const size=(12+Math.random()*Math.random()*82)|0;
+      const rot=(Math.random()*64-32).toFixed(1);
+      const top=(Math.random()*100).toFixed(2);
+      const left=(Math.random()*100).toFixed(2);
+      const op=Math.max(0.012,Math.min(0.038, 0.014 + (1-size/94)*0.02 + Math.random()*0.01)).toFixed(3);
+      const font=fonts[(Math.random()*fonts.length)|0];
+      const col=cols[(Math.random()*cols.length)|0];
+      const st=Math.random()<0.25?"font-style:italic;":"";
+      html+='<span style="top:'+top+'%;left:'+left+'%;font-size:'+size+'px;font-family:'+font+';color:'+col+';opacity:'+op+';'+st+'transform:translate(-50%,-50%) rotate('+rot+'deg)">calaveraSports</span>';
+    }
+    el.innerHTML=html;
+  }
+  fillBrandwall();
+  { let t; window.addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(fillBrandwall,300);}); }
+
+  // indicador de scroll de la fila de deportes
+  (function(){
+    const box=document.querySelector(".filters-scroll"), fl=document.getElementById("filters");
+    if(!box||!fl)return;
+    const upd=()=>{const end=fl.scrollLeft+fl.clientWidth>=fl.scrollWidth-4;box.classList.toggle("ended",end);};
+    fl.addEventListener("scroll",upd);window.addEventListener("resize",upd);setTimeout(upd,400);
+  })();
+
+  aplicarIdioma();renderFilters();cargarDatos();setInterval(renderAll,60000);
+</script>
+  <section class="about" style="max-width:1160px;margin:8px auto 0;padding:24px 20px 36px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px;line-height:1.62">
+        <h2 style="color:var(--text);font-size:17px;margin:0 0 10px">Qu&eacute; es calaveraSports</h2>
+        <p style="margin:0 0 16px">calaveraSports es una gu&iacute;a de d&oacute;nde ver deporte en directo de forma legal. No retransmitimos nada: indexamos la agenda mundial del d&iacute;a en todos los deportes y, para cada partido, se&ntilde;alamos las opciones leg&iacute;timas disponibles en tu pa&iacute;s, empezando por las gratuitas. Los horarios se ajustan solos a tu zona horaria y la web funciona en espa&ntilde;ol y en ingl&eacute;s.</p>
+    <h2 style="color:var(--text);font-size:17px;margin:0 0 10px">What calaveraSports is</h2>
+    <p style="margin:0 0 16px">calaveraSports is a legal guide to where to watch live sport. We do not stream anything: we index the full worldwide daily schedule across every sport and, for each fixture, we point you to the legitimate options available in your country, free ones first. Kick-off times adjust to your own timezone and the site runs in English and Spanish.</p>
+        <p style="font-size:12.5px;margin:0">F&uacute;tbol, baloncesto, NFL, MLB, NHL, tenis, F1, MotoGP, rugby, ciclismo y m&aacute;s &middot; Football, basketball, NFL, MLB, NHL, tennis, F1, MotoGP, rugby, cycling and more</p>
+  </section>
+</body>
+</html>
