@@ -576,17 +576,40 @@ def parsear_whatsportson(contenido, fecha_base=None):
         })
 
     salida = []
-    vistos = set()
+    vistos = {}
 
-    for evento in eventos:
-        if evento["id"] not in vistos:
-            vistos.add(evento["id"])
-            salida.append(evento)
+    # Ejecutar siempre ambos parsers: el principal puede detectar parte
+    # de las tarjetas y dejar otras fuera por cambios en el HTML.
+    candidatos = eventos + _parsear_whatsportson_flexible(
+        contenido, fecha_base
+    )
 
-    if not salida:
-        salida = _parsear_whatsportson_flexible(contenido, fecha_base)
+    for evento in candidatos:
+        equipos = evento.get("equipos") or []
+        llave = (
+            evento.get("fecha") or fecha_base or "",
+            evento.get("ts") or "",
+            clave(evento) if equipos else norm(evento.get("nombre")),
+        )
 
-    return salida
+        if llave not in vistos:
+            vistos[llave] = dict(evento)
+            continue
+
+        existente = vistos[llave]
+        existente["canales"] = normalizar_canales(
+            (existente.get("canales") or [])
+            + (evento.get("canales") or [])
+        )
+
+        for campo, valor in evento.items():
+            if valor and not existente.get(campo):
+                existente[campo] = valor
+
+        if not existente.get("equipos") and equipos:
+            existente["equipos"] = equipos
+
+    return list(vistos.values())
 
 
 def _fecha_evento_whatsportson(
@@ -896,13 +919,85 @@ def _parsear_whatsportson_flexible(contenido, fecha_base=None):
 
 
 def fuente_whatsportson(fecha):
-    if "eventos" not in _WS_CACHE:
-        contenido = http(
-            WEBS["whatsportson"],
-            30,
-        ).decode("utf-8", "replace")
+    """
+    Descarga la página de WhatSportsOn correspondiente a la fecha pedida.
+    La portada se añade únicamente para el día actual, porque su contenido
+    de eventos no representa necesariamente los días futuros.
+    """
+    if fecha not in _WS_CACHE:
+        eventos_fecha = []
 
-        _WS_CACHE["eventos"] = parsear_whatsportson(contenido)
+        # WhatSportsOn publica una página específica de fútbol por fecha.
+        url_fecha = f"https://www.whatsportson.com/soccer/{fecha}"
+        try:
+            contenido_fecha = http(url_fecha, 30).decode(
+                "utf-8", "replace"
+            )
+            eventos_fecha.extend(
+                parsear_whatsportson(contenido_fecha, fecha)
+            )
+        except Exception as error:
+            print(
+                f"WhatSportsOn {fecha}: error en página por fecha: "
+                f"{type(error).__name__}: {error}",
+                file=sys.stderr,
+            )
+
+        # La portada puede aportar deportes distintos del fútbol para hoy.
+        try:
+            if ZoneInfo:
+                hoy_londres = datetime.now(
+                    ZoneInfo("Europe/London")
+                ).date().isoformat()
+            else:
+                hoy_londres = datetime.now(
+                    timezone.utc
+                ).date().isoformat()
+        except Exception:
+            hoy_londres = datetime.now(timezone.utc).date().isoformat()
+
+        if fecha == hoy_londres:
+            try:
+                contenido_portada = http(
+                    WEBS["whatsportson"], 30
+                ).decode("utf-8", "replace")
+                eventos_fecha.extend(
+                    parsear_whatsportson(
+                        contenido_portada, fecha
+                    )
+                )
+            except Exception as error:
+                print(
+                    f"WhatSportsOn {fecha}: error en portada: "
+                    f"{type(error).__name__}: {error}",
+                    file=sys.stderr,
+                )
+
+        # Deduplicar por equipos y hora, combinando los canales encontrados.
+        unicos = {}
+        for evento in eventos_fecha:
+            if evento.get("fecha") != fecha:
+                continue
+
+            llave = (
+                evento.get("ts") or "",
+                clave(evento) if evento.get("equipos") else
+                norm(evento.get("nombre")),
+            )
+
+            if llave not in unicos:
+                unicos[llave] = dict(evento)
+            else:
+                existente = unicos[llave]
+                existente["canales"] = normalizar_canales(
+                    (existente.get("canales") or [])
+                    + (evento.get("canales") or [])
+                )
+                for campo, valor in evento.items():
+                    if valor and not existente.get(campo):
+                        existente[campo] = valor
+
+        _WS_CACHE[fecha] = list(unicos.values())
 
     return [
         {
@@ -910,8 +1005,7 @@ def fuente_whatsportson(fecha):
             for k, v in evento.items()
             if k not in ("fecha", "id", "detalle")
         }
-        for evento in _WS_CACHE["eventos"]
-        if evento["fecha"] == fecha
+        for evento in _WS_CACHE[fecha]
     ]
 
 
