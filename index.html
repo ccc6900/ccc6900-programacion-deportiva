@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -71,6 +71,40 @@ input,select{
   color:var(--mut);
   font:.9rem system-ui;
 }
+#fuentes{
+  margin:14px 0 20px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  font:.9rem system-ui;
+}
+#fuentes h2{
+  margin:0 0 10px;
+  font-size:1.05rem;
+  border:0;
+}
+.fuentes-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;
+}
+.fuente{
+  padding:9px 10px;
+  border:1px solid var(--line);
+  border-radius:5px;
+  overflow-wrap:anywhere;
+}
+.fuente-nombre{font-weight:bold}
+.fuente-numero{
+  font-size:1.25rem;
+  font-weight:bold;
+  color:var(--acc);
+}
+.fuente-detalle{
+  font-size:.8rem;
+  color:var(--mut);
+}
 h2{
   font-size:1.2rem;
   margin:26px 0 8px;
@@ -99,6 +133,10 @@ h2{
   border-radius:6px;
   color:var(--mut);
 }
+@media(max-width:500px){
+  main{padding:16px 10px 40px}
+  .fuentes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 
@@ -107,7 +145,6 @@ h2{
 <h1>Programación deportiva</h1>
 
 <div class="bar">
-
   <label>
     Fecha
     <input type="date" id="f">
@@ -139,17 +176,21 @@ h2{
 
   <label>
     Buscar
-    <input
-      type="search"
-      id="q"
+    <input type="search" id="q"
       placeholder="Equipo, competición o canal">
   </label>
+</div>
 
+<!-- Estadísticas de las fuentes -->
+<div id="fuentes">
+  <h2>Fuentes de información</h2>
+  <div id="fuentes-contenido">
+    Esperando los datos de las fuentes…
+  </div>
 </div>
 
 <div id="st">Cargando programación…</div>
 <div id="out"></div>
-
 </main>
 
 <script>
@@ -175,21 +216,15 @@ function normalizarDeporte(deporte){
   if(
     d.includes("basketball") ||
     d.includes("baloncesto") ||
-    d === "nba" ||
-    d === "wnba" ||
-    d === "acb"
+    d === "nba" || d === "wnba" || d === "acb"
   ){
     return "Baloncesto";
   }
 
-  if(
-    d.includes("motogp") ||
-    d.includes("moto gp")
-  ){
+  if(d.includes("motogp") || d.includes("moto gp")){
     return "MotoGP";
   }
 
-  /* Separar el fútbol americano del fútbol convencional */
   if(
     d.includes("american football") ||
     d.includes("futbol americano")
@@ -198,10 +233,8 @@ function normalizarDeporte(deporte){
   }
 
   if(
-    d === "football" ||
-    d === "soccer" ||
-    d.includes("football") ||
-    d.includes("soccer") ||
+    d === "football" || d === "soccer" ||
+    d.includes("football") || d.includes("soccer") ||
     d.includes("futbol")
   ){
     return "Fútbol";
@@ -223,7 +256,6 @@ function normalizarDeporte(deporte){
     "golf":"Golf",
     "cricket":"Críquet",
     "baseball":"Béisbol",
-    "american football":"Fútbol americano",
     "athletics":"Atletismo",
     "swimming":"Natación",
     "badminton":"Bádminton",
@@ -238,15 +270,10 @@ function normalizarDeporte(deporte){
   };
 
   if(traducciones[d]) return traducciones[d];
-
-  /* Los deportes desconocidos se conservan */
   return String(deporte || "Otros deportes").trim();
 }
 
-/*
-  Normaliza las competiciones conocidas.
-  Las demás conservan el nombre original de la fuente.
-*/
+/* Normalizar las competiciones conocidas */
 function normalizarCompeticion(liga){
   const original = String(liga ?? "").trim();
   const l = normalizarTexto(original);
@@ -323,12 +350,11 @@ function normalizarCompeticion(liga){
   return original;
 }
 
-/* Obtener una clave estable para cada competición */
 function claveCompeticion(liga){
   return normalizarTexto(normalizarCompeticion(liga));
 }
 
-/* Formato de hora: conserva la conversión de zona horaria anterior */
+/* Mantener el tratamiento de las horas de los eventos */
 function hora(ts){
   if(!ts) return "Hora por confirmar";
 
@@ -346,15 +372,203 @@ function hora(ts){
       });
 }
 
-/* Ordenar texto en castellano */
 function comparar(a,b){
   return a.localeCompare(b,"es",{sensitivity:"base"});
 }
 
 /*
-  Lista fija de competiciones.
-  No cambia la forma de cargar o presentar los datos.
+  Panel de estadísticas:
+  utiliza las estadísticas guardadas por el recopilador.
+  Admite objetos, listas y distintos nombres de campos.
 */
+function mostrarFuentes(){
+  const contenedor = $("fuentes-contenido");
+  contenedor.innerHTML = "";
+
+  const estadisticas =
+    meta.estadisticas_fuentes ??
+    meta.estadisticasFuentes ??
+    meta.resumen?.estadisticas_fuentes ??
+    meta.resumen?.fuentes ??
+    meta.estado?.estadisticas_fuentes ??
+    null;
+
+  const tarjetas = [];
+
+  function extraerNumero(obj){
+    if(typeof obj === "number") return obj;
+
+    if(typeof obj === "string" && obj.trim() !== ""){
+      const n = Number(obj);
+      if(Number.isFinite(n)) return n;
+    }
+
+    if(!obj || typeof obj !== "object") return null;
+
+    const campos = [
+      "eventos",
+      "eventos_recibidos",
+      "recibidos",
+      "total_eventos",
+      "total",
+      "count",
+      "cantidad",
+      "encontrados",
+      "obtenidos"
+    ];
+
+    for(const campo of campos){
+      if(typeof obj[campo] === "number"){
+        return obj[campo];
+      }
+    }
+
+    return null;
+  }
+
+  function nombreFuente(nombre){
+    const n = normalizarTexto(nombre);
+
+    const nombres = {
+      "thesportsdb":"TheSportsDB",
+      "espn":"ESPN",
+      "sofascore":"Sofascore",
+      "whatsportson":"WhatSportsOn",
+      "relevo":"Relevo",
+      "futbolentv":"FutbolEnLaTV",
+      "futbol en la tv":"FutbolEnLaTV",
+      "marca_tv":"MARCA_TV",
+      "marcatv":"MARCA_TV",
+      "marca":"MARCA_TV"
+    };
+
+    return nombres[n] || String(nombre).replace(/_/g," ");
+  }
+
+  function añadirTarjeta(nombre, numero, detalle){
+    tarjetas.push({
+      nombre: nombreFuente(nombre),
+      numero,
+      detalle: detalle || ""
+    });
+  }
+
+  if(Array.isArray(estadisticas)){
+    estadisticas.forEach(item => {
+      if(!item || typeof item !== "object") return;
+
+      const nombre =
+        item.fuente ??
+        item.nombre ??
+        item.source ??
+        item.origen ??
+        "Fuente";
+
+      const numero = extraerNumero(item);
+
+      const detalle =
+        item.detalle ??
+        item.estado ??
+        item.mensaje ??
+        item.error ??
+        "";
+
+      añadirTarjeta(nombre, numero, detalle);
+    });
+  }else if(estadisticas && typeof estadisticas === "object"){
+    Object.entries(estadisticas).forEach(([nombre, dato]) => {
+      if(
+        nombre === "total" ||
+        nombre === "actualizado" ||
+        nombre === "fecha"
+      ) return;
+
+      const numero = extraerNumero(dato);
+
+      let detalle = "";
+
+      if(dato && typeof dato === "object"){
+        detalle =
+          dato.detalle ??
+          dato.estado ??
+          dato.mensaje ??
+          dato.error ??
+          "";
+      }
+
+      añadirTarjeta(nombre, numero, detalle);
+    });
+  }
+
+  /*
+    Si no hay estadísticas de ejecución en el JSON,
+    contar los eventos atribuidos a cada fuente.
+    Se identifica claramente que es un recuento de eventos
+    del archivo, no el número devuelto por el recopilador.
+  */
+  if(!tarjetas.length){
+    const recuentos = {};
+
+    ev.forEach(evento => {
+      (evento.fuentes || []).forEach(fuente => {
+        const nombre = String(fuente).trim();
+        if(!nombre) return;
+        recuentos[nombre] = (recuentos[nombre] || 0) + 1;
+      });
+    });
+
+    Object.entries(recuentos).forEach(([nombre, numero]) => {
+      añadirTarjeta(
+        nombre,
+        numero,
+        "Eventos de esta fuente presentes en el archivo"
+      );
+    });
+  }
+
+  if(!tarjetas.length){
+    contenedor.textContent =
+      "El archivo de esta fecha no contiene estadísticas por fuente ni atribuciones de fuentes en los eventos.";
+    return;
+  }
+
+  const grid = document.createElement("div");
+  grid.className = "fuentes-grid";
+
+  tarjetas.sort((a,b) => comparar(a.nombre,b.nombre));
+
+  tarjetas.forEach(tarjeta => {
+    const caja = document.createElement("div");
+    caja.className = "fuente";
+
+    const nombre = document.createElement("div");
+    nombre.className = "fuente-nombre";
+    nombre.textContent = tarjeta.nombre;
+
+    const numero = document.createElement("div");
+    numero.className = "fuente-numero";
+    numero.textContent =
+      tarjeta.numero === null
+        ? "Sin cifra"
+        : tarjeta.numero;
+
+    caja.appendChild(nombre);
+    caja.appendChild(numero);
+
+    if(tarjeta.detalle){
+      const detalle = document.createElement("div");
+      detalle.className = "fuente-detalle";
+      detalle.textContent = tarjeta.detalle;
+      caja.appendChild(detalle);
+    }
+
+    grid.appendChild(caja);
+  });
+
+  contenedor.appendChild(grid);
+}
+
+/* Actualizar las competiciones disponibles */
 function actualizarCompeticiones(){
   const deporteSeleccionado = $("d").value;
   const anterior = $("c").value;
@@ -386,7 +600,7 @@ function actualizarCompeticiones(){
     const grupo = document.createElement("optgroup");
     grupo.label = nombre;
 
-    competiciones.forEach(([valor, texto]) => {
+    competiciones.forEach(([valor,texto]) => {
       const opcion = document.createElement("option");
       opcion.value = valor;
       opcion.textContent = texto;
@@ -397,14 +611,13 @@ function actualizarCompeticiones(){
   }
 
   if(!deporteSeleccionado || deporteSeleccionado === "Fútbol"){
-    añadirGrupo("Fútbol", futbol);
+    añadirGrupo("Fútbol",futbol);
   }
 
   if(!deporteSeleccionado || deporteSeleccionado === "Baloncesto"){
-    añadirGrupo("Baloncesto", baloncesto);
+    añadirGrupo("Baloncesto",baloncesto);
   }
 
-  /* Conservar la selección si sigue disponible */
   if([...selector.options].some(o => o.value === anterior)){
     selector.value = anterior;
   }else{
@@ -412,7 +625,7 @@ function actualizarCompeticiones(){
   }
 }
 
-/* Actualizar países disponibles para la fecha */
+/* Países de los canales disponibles */
 function actualizarPaises(){
   const anterior = $("p").value;
 
@@ -440,14 +653,10 @@ function actualizarPaises(){
     $("p").appendChild(opcion);
   });
 
-  if(paises.includes(anterior)){
-    $("p").value = anterior;
-  }else{
-    $("p").value = "";
-  }
+  $("p").value = paises.includes(anterior) ? anterior : "";
 }
 
-/* Cargar índice y fecha inicial */
+/* Cargar las fechas disponibles */
 async function init(){
   try{
     const respuesta = await fetch("data/index.json");
@@ -473,15 +682,14 @@ async function init(){
 
     const hoy = ahora.toISOString().slice(0,10);
 
-    $("f").value = fechas.includes(hoy)
-      ? hoy
-      : fechas[0];
+    $("f").value = fechas.includes(hoy) ? hoy : fechas[0];
 
     await cargar();
 
   }catch(error){
     $("st").textContent =
-      "No se han podido cargar los datos. Comprueba que exista data/index.json y que GitHub Pages esté publicado.";
+      "No se han podido cargar los datos. Comprueba data/index.json y GitHub Pages.";
+    $("fuentes-contenido").textContent = error.message;
   }
 }
 
@@ -489,6 +697,7 @@ async function init(){
 async function cargar(){
   $("st").textContent = "Cargando programación…";
   $("out").innerHTML = "";
+  $("fuentes-contenido").textContent = "Cargando estadísticas…";
 
   try{
     if(!$("f").value){
@@ -496,7 +705,8 @@ async function cargar(){
     }
 
     const respuesta = await fetch(
-      `data/${$("f").value}.json`
+      `data/${$("f").value}.json?t=${Date.now()}`,
+      {cache:"no-store"}
     );
 
     if(!respuesta.ok){
@@ -510,15 +720,18 @@ async function cargar(){
 
     actualizarPaises();
     actualizarCompeticiones();
+    mostrarFuentes();
     pintar();
 
   }catch(error){
     $("st").textContent = error.message;
+    $("fuentes-contenido").textContent =
+      "No se han podido leer las estadísticas de esta fecha.";
     $("out").innerHTML = "";
   }
 }
 
-/* Aplicar todos los filtros y dibujar los eventos */
+/* Aplicar filtros */
 function pintar(){
   const deporteSeleccionado = $("d").value;
   const competicionSeleccionada = $("c").value;
@@ -555,8 +768,7 @@ function pintar(){
     ].join(" "));
 
     const coincideBusqueda =
-      !busqueda ||
-      texto.includes(busqueda);
+      !busqueda || texto.includes(busqueda);
 
     return coincideDeporte &&
       coincideCompeticion &&
@@ -575,7 +787,7 @@ function pintar(){
   }
 
   $("st").textContent =
-    `${filtrados.length} eventos · Actualizado: ${actualizado}`;
+    `${filtrados.length} eventos mostrados · Actualizado: ${actualizado}`;
 
   if(!filtrados.length){
     $("out").innerHTML =
@@ -583,24 +795,16 @@ function pintar(){
     return;
   }
 
-  /* Agrupar por deporte, manteniendo todos los deportes encontrados */
   const grupos = {};
 
   filtrados.forEach(evento => {
     const deporte = normalizarDeporte(evento.deporte);
 
-    if(!grupos[deporte]){
-      grupos[deporte] = [];
-    }
-
+    if(!grupos[deporte]) grupos[deporte] = [];
     grupos[deporte].push(evento);
   });
 
-  const ordenPreferido = [
-    "Baloncesto",
-    "Fútbol",
-    "MotoGP"
-  ];
+  const ordenPreferido = ["Baloncesto","Fútbol","MotoGP"];
 
   const nombresGrupos = Object.keys(grupos).sort((a,b) => {
     const ia = ordenPreferido.indexOf(a);
@@ -656,7 +860,7 @@ function pintar(){
         : "";
 
       const fuentes = (evento.fuentes || []).length
-        ? ` · ${esc(evento.fuentes.join(", "))}`
+        ? ` · Fuentes: ${esc(evento.fuentes.join(", "))}`
         : "";
 
       return `
@@ -674,7 +878,7 @@ function pintar(){
   }).join("");
 }
 
-/* Evitar que los nombres de equipos o canales rompan el HTML */
+/* Escapar texto para mostrarlo de forma segura */
 function esc(valor){
   return String(valor ?? "").replace(/[&<>"']/g,caracter => ({
     "&":"&amp;",
@@ -685,7 +889,7 @@ function esc(valor){
   })[caracter]);
 }
 
-/* Eventos de los controles */
+/* Controles */
 $("f").addEventListener("change",cargar);
 
 $("d").addEventListener("change",() => {
@@ -697,8 +901,8 @@ $("c").addEventListener("change",pintar);
 $("p").addEventListener("change",pintar);
 $("q").addEventListener("input",pintar);
 
-/* Iniciar página */
 init();
 </script>
 </body>
 </html>
+```
