@@ -1,5 +1,9 @@
 name: Actualizar programación
 on:
+  push:
+    paths:
+      - "scraper/scrape.py"
+      - ".github/workflows/update.yml"
   schedule:
     - cron: "0 */3 * * *"   # cada 3 horas
   workflow_dispatch:         # botón manual en la pestaña Actions
