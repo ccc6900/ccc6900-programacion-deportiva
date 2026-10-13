@@ -1,619 +1,364 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Programación deportiva</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Programación deportiva</title>
 
-  <style>
-    :root {
-      color-scheme: light dark;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      padding: 18px;
-      background: #f3f5f7;
-      color: #20252b;
-    }
-
-    main {
-      max-width: 1250px;
-      margin: auto;
-    }
-
-    h1 {
-      margin-top: 0;
-      margin-bottom: 18px;
-    }
-
-    .filtros {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      background: white;
-      border: 1px solid #dce1e6;
-      border-radius: 12px;
-    }
-
-    .campo {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    label {
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    select,
-    input {
-      box-sizing: border-box;
-      width: 100%;
-      min-height: 40px;
-      padding: 9px;
-      border: 1px solid #cbd2d9;
-      border-radius: 7px;
-      background: white;
-      color: #20252b;
-      font-size: 14px;
-    }
-
-    .resumen {
-      margin: 12px 0;
-      color: #56616d;
-      font-size: 14px;
-    }
-
-    .grupo {
-      margin: 20px 0;
-      overflow: hidden;
-      border: 1px solid #dce1e6;
-      border-radius: 12px;
-      background: white;
-    }
-
-    .grupo h2 {
-      margin: 0;
-      padding: 13px 16px;
-      background: #e8edf2;
-      font-size: 19px;
-    }
-
-    .evento {
-      display: grid;
-      grid-template-columns: minmax(130px, 180px) minmax(200px, 1fr) minmax(150px, 260px);
-      gap: 12px;
-      align-items: start;
-      padding: 14px 16px;
-      border-top: 1px solid #e5e9ed;
-    }
-
-    .hora {
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .partido {
-      font-weight: bold;
-      overflow-wrap: anywhere;
-    }
-
-    .detalle {
-      margin-top: 5px;
-      color: #626d78;
-      font-size: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    .canales {
-      font-size: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .etiqueta {
-      display: inline-block;
-      margin: 4px 4px 0 0;
-      padding: 4px 7px;
-      border-radius: 5px;
-      background: #eaf2ff;
-      color: #174a8b;
-      font-size: 12px;
-    }
-
-    .vacio,
-    .error {
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      border: 1px solid #dce1e6;
-    }
-
-    .error {
-      color: #a32121;
-    }
-
-    @media (max-width: 700px) {
-      body {
-        padding: 10px;
-      }
-
-      .evento {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-
-      .grupo h2 {
-        font-size: 17px;
-      }
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #15191e;
-        color: #edf0f3;
-      }
-
-      .filtros,
-      .grupo,
-      .vacio,
-      .error {
-        background: #20262d;
-        border-color: #3a434d;
-      }
-
-      select,
-      input {
-        background: #171c21;
-        color: #edf0f3;
-        border-color: #46515d;
-      }
-
-      .grupo h2 {
-        background: #2b343e;
-      }
-
-      .evento {
-        border-color: #3a434d;
-      }
-
-      .detalle,
-      .resumen {
-        color: #b7c0ca;
-      }
-
-      .etiqueta {
-        background: #203a5b;
-        color: #d5e7ff;
-      }
-    }
-  </style>
+<style>
+:root{
+  --bg:#f6f7f4;
+  --fg:#1b2a24;
+  --mut:#5d6b64;
+  --line:#d9ded8;
+  --acc:#0b6b4d;
+  --card:#fff;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#121815;
+    --fg:#e6ece8;
+    --mut:#93a39a;
+    --line:#2a3630;
+    --acc:#4cc795;
+    --card:#1a231f;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font:16px/1.5 Georgia,serif;
+}
+main{
+  max-width:1000px;
+  margin:0 auto;
+  padding:24px 16px 64px;
+}
+h1{margin:0 0 16px}
+.bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:end;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+label{
+  display:flex;
+  flex-direction:column;
+  font:.8rem system-ui;
+  color:var(--mut);
+  gap:4px;
+  flex:1 1 170px;
+}
+input,select{
+  width:100%;
+  min-width:0;
+  font:1rem system-ui;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--bg);
+  color:var(--fg);
+}
+#st{
+  margin:14px 0;
+  color:var(--mut);
+  font:.9rem system-ui;
+}
+h2{
+  font-size:1.2rem;
+  margin:26px 0 8px;
+  border-bottom:2px solid var(--acc);
+}
+.ev{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:12px 14px;
+  margin-bottom:10px;
+}
+.ev h3{margin:0;font-size:1.05rem}
+.meta{
+  font:.85rem system-ui;
+  color:var(--mut);
+  margin-bottom:6px;
+  overflow-wrap:anywhere;
+}
+.ch{font:.9rem system-ui;margin:2px 0}
+.ch b{color:var(--acc)}
+.vacio{
+  padding:18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:6px;
+  color:var(--mut);
+}
+</style>
 </head>
 
 <body>
 <main>
-  <h1>Programación deportiva</h1>
+<h1>Programación deportiva</h1>
 
-  <section class="filtros">
-    <div class="campo">
-      <label for="fecha">Fecha</label>
-      <input type="date" id="fecha">
-    </div>
+<div class="bar">
 
-    <div class="campo">
-      <label for="d">Deporte</label>
-      <select id="d">
-        <option value="">Todos los deportes</option>
-        <option value="Fútbol">Fútbol</option>
-        <option value="Baloncesto">Baloncesto</option>
-        <option value="MotoGP">MotoGP</option>
-      </select>
-    </div>
+  <label>
+    Fecha
+    <input type="date" id="f">
+  </label>
 
-    <div class="campo">
-      <label for="c">Competición</label>
-      <select id="c">
-        <option value="">Todas las competiciones</option>
-      </select>
-    </div>
+  <label>
+    Deporte
+    <select id="d">
+      <option value="">Todos los deportes</option>
+      <option value="Baloncesto">Baloncesto</option>
+      <option value="Fútbol">Fútbol</option>
+      <option value="MotoGP">MotoGP</option>
+    </select>
+  </label>
 
-    <div class="campo">
-      <label for="pais">País / zona del canal</label>
-      <select id="pais">
-        <option value="">Todos los países</option>
-      </select>
-    </div>
+  <label>
+    Competición
+    <select id="c">
+      <option value="">Todas las competiciones</option>
+    </select>
+  </label>
 
-    <div class="campo">
-      <label for="buscar">Buscar partido, competición o canal</label>
-      <input id="buscar" type="search" placeholder="Escribe para buscar...">
-    </div>
-  </section>
+  <label>
+    País del canal
+    <select id="p">
+      <option value="">Todos los países</option>
+    </select>
+  </label>
 
-  <div id="resumen" class="resumen">Cargando programación...</div>
-  <div id="resultados"></div>
+  <label>
+    Buscar
+    <input
+      type="search"
+      id="q"
+      placeholder="Equipo, competición o canal">
+  </label>
+
+</div>
+
+<div id="st">Cargando programación…</div>
+<div id="out"></div>
+
 </main>
 
 <script>
-"use strict";
-
 const $ = id => document.getElementById(id);
 
-let eventos = [];
-let datosCargados = false;
+let ev = [];
+let meta = {};
 
-function normalizarTexto(valor) {
+/* Normalización de texto */
+function normalizarTexto(valor){
   return String(valor ?? "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/\s+/g, " ")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/\s+/g," ")
     .trim();
 }
 
-function sinDuplicados(lista) {
-  return [...new Set(lista.filter(Boolean))];
-}
-
-function normalizarDeporte(deporte) {
+/* Identificar el deporte y traducir su nombre */
+function normalizarDeporte(deporte){
   const d = normalizarTexto(deporte);
 
-  if (!d) return "Otros deportes";
-
-  if (d.includes("motogp") || d.includes("moto gp")) {
-    return "MotoGP";
-  }
-
-  if (
-    d.includes("american football") ||
-    d.includes("futbol americano")
-  ) {
-    return "Fútbol americano";
-  }
-
-  if (
-    d === "football" ||
-    d === "soccer" ||
-    d.includes("soccer") ||
-    d.includes("futbol") ||
-    d.includes("football")
-  ) {
-    return "Fútbol";
-  }
-
-  if (
+  if(
     d.includes("basketball") ||
-    d.includes("baloncesto")
-  ) {
+    d.includes("baloncesto") ||
+    d === "nba" ||
+    d === "wnba" ||
+    d === "acb"
+  ){
     return "Baloncesto";
   }
 
-  const traducciones = [
-    [/tennis|tenis/, "Tenis"],
-    [/cycling|ciclismo/, "Ciclismo"],
-    [/formula ?1|f1 racing/, "Fórmula 1"],
-    [/motor.?sport|motorsport/, "Deportes de motor"],
-    [/handball|balonmano/, "Balonmano"],
-    [/volleyball|voleibol/, "Voleibol"],
-    [/rugby/, "Rugby"],
-    [/ice hockey|hockey sobre hielo/, "Hockey sobre hielo"],
-    [/hockey/, "Hockey"],
-    [/baseball|beisbol/, "Béisbol"],
-    [/cricket/, "Críquet"],
-    [/golf/, "Golf"],
-    [/boxing|boxeo/, "Boxeo"],
-    [/mma|mixed martial arts/, "Artes marciales mixtas"],
-    [/athletics|atletismo/, "Atletismo"],
-    [/swimming|natacion/, "Natación"],
-    [/table tennis|tenis de mesa/, "Tenis de mesa"],
-    [/badminton/, "Bádminton"],
-    [/darts|dardos/, "Dardos"],
-    [/snooker|billiards|billars/, "Billar"],
-    [/esports|e-sports/, "Deportes electrónicos"]
-  ];
-
-  for (const [patron, nombre] of traducciones) {
-    if (patron.test(d)) return nombre;
+  if(
+    d.includes("motogp") ||
+    d.includes("moto gp")
+  ){
+    return "MotoGP";
   }
 
-  return String(deporte).trim() || "Otros deportes";
+  /* Separar el fútbol americano del fútbol convencional */
+  if(
+    d.includes("american football") ||
+    d.includes("futbol americano")
+  ){
+    return "Fútbol americano";
+  }
+
+  if(
+    d === "football" ||
+    d === "soccer" ||
+    d.includes("football") ||
+    d.includes("soccer") ||
+    d.includes("futbol")
+  ){
+    return "Fútbol";
+  }
+
+  const traducciones = {
+    "tennis":"Tenis",
+    "table tennis":"Tenis de mesa",
+    "volleyball":"Voleibol",
+    "handball":"Balonmano",
+    "ice hockey":"Hockey sobre hielo",
+    "field hockey":"Hockey sobre hierba",
+    "rugby":"Rugby",
+    "cycling":"Ciclismo",
+    "formula 1":"Fórmula 1",
+    "formula one":"Fórmula 1",
+    "f1":"Fórmula 1",
+    "boxing":"Boxeo",
+    "golf":"Golf",
+    "cricket":"Críquet",
+    "baseball":"Béisbol",
+    "american football":"Fútbol americano",
+    "athletics":"Atletismo",
+    "swimming":"Natación",
+    "badminton":"Bádminton",
+    "snooker":"Snooker",
+    "darts":"Dardos",
+    "esports":"Deportes electrónicos",
+    "motorcycle racing":"Motociclismo",
+    "motorsport":"Deportes de motor",
+    "horse racing":"Hípica",
+    "mma":"Artes marciales mixtas",
+    "wrestling":"Lucha libre"
+  };
+
+  if(traducciones[d]) return traducciones[d];
+
+  /* Los deportes desconocidos se conservan */
+  return String(deporte || "Otros deportes").trim();
 }
 
-function normalizarCompeticion(liga) {
-  const l = normalizarTexto(liga);
+/*
+  Normaliza las competiciones conocidas.
+  Las demás conservan el nombre original de la fuente.
+*/
+function normalizarCompeticion(liga){
+  const original = String(liga ?? "").trim();
+  const l = normalizarTexto(original);
 
-  if (!l) return "Sin competición";
+  if(!l) return "";
 
-  if (
+  if(
     l.includes("copa del rey") ||
-    l.includes("copa rey")
-  ) {
+    l.includes("king's cup") ||
+    l.includes("copa de s.m. el rey")
+  ){
     return "Copa del Rey";
   }
 
-  if (
+  if(
     l.includes("conference league") ||
     l.includes("uefa conference")
-  ) {
+  ){
     return "UEFA Conference League";
   }
 
-  if (
+  if(
     l.includes("europa league") ||
-    l.includes("europe league")
-  ) {
+    l.includes("europe league") ||
+    l.includes("uefa cup")
+  ){
     return "UEFA Europa League";
   }
 
-  if (
+  if(
     l.includes("champions league") ||
     l.includes("uefa champions")
-  ) {
+  ){
     return "UEFA Champions League";
   }
 
-  if (
-    l === "acb" ||
-    l.includes("liga endesa") ||
-    l.includes("liga acb")
-  ) {
-    return "ACB";
-  }
-
-  if (
-    l.includes("euroliga") ||
-    l.includes("euro liga") ||
-    l.includes("euroleague")
-  ) {
-    return "Euroliga";
-  }
-
-  if (
-    l.includes("premier league") &&
-    (l.includes("england") || l.includes("english") ||
-     l.includes("ingles") || l === "premier league")
-  ) {
-    return "Premier League England";
-  }
-
-  if (l.includes("bundesliga")) {
-    return "Bundesliga";
-  }
-
-  if (
-    l === "la liga" ||
-    l.includes("laliga") ||
+  if(
+    l === "laliga" ||
+    l.includes("la liga") ||
     l.includes("primera division") ||
-    l.includes("spanish la liga")
-  ) {
+    l.includes("spanish primera")
+  ){
     return "La Liga";
   }
 
-  return String(liga).trim() || "Sin competición";
+  if(
+    l.includes("premier league") &&
+    !l.includes("scottish") &&
+    !l.includes("indian")
+  ){
+    return "Premier League England";
+  }
+
+  if(l.includes("bundesliga")){
+    return "Bundesliga";
+  }
+
+  if(
+    l === "acb" ||
+    l.includes("liga endesa") ||
+    l.includes("liga acb")
+  ){
+    return "ACB";
+  }
+
+  if(
+    l.includes("euroleague") ||
+    l.includes("euro liga") ||
+    l.includes("euroliga")
+  ){
+    return "Euroliga";
+  }
+
+  return original;
 }
 
-function claveCompeticion(liga) {
+/* Obtener una clave estable para cada competición */
+function claveCompeticion(liga){
   return normalizarTexto(normalizarCompeticion(liga));
 }
 
-function obtenerDeporte(evento) {
-  return normalizarDeporte(
-    evento.deporte ??
-    evento.sport ??
-    evento.strSport ??
-    evento.categoria ??
-    evento.category ??
-    ""
+/* Formato de hora: conserva la conversión de zona horaria anterior */
+function hora(ts){
+  if(!ts) return "Hora por confirmar";
+
+  const d = new Date(
+    /[zZ]|[+-]\d\d:?\d\d$/.test(ts)
+      ? ts
+      : ts + "Z"
   );
+
+  return isNaN(d)
+    ? "Hora por confirmar"
+    : d.toLocaleTimeString("es-ES",{
+        hour:"2-digit",
+        minute:"2-digit"
+      });
 }
 
-function obtenerLiga(evento) {
-  return normalizarCompeticion(
-    evento.liga ??
-    evento.competicion ??
-    evento.competition ??
-    evento.league ??
-    evento.strLeague ??
-    evento.torneo ??
-    ""
-  );
+/* Ordenar texto en castellano */
+function comparar(a,b){
+  return a.localeCompare(b,"es",{sensitivity:"base"});
 }
 
-function obtenerPartido(evento) {
-  const local =
-    evento.local ??
-    evento.equipo_local ??
-    evento.home ??
-    evento.homeTeam ??
-    evento.strHomeTeam ??
-    "";
-
-  const visitante =
-    evento.visitante ??
-    evento.equipo_visitante ??
-    evento.away ??
-    evento.awayTeam ??
-    evento.strAwayTeam ??
-    "";
-
-  if (local && visitante) {
-    return `${local} - ${visitante}`;
-  }
-
-  return (
-    evento.partido ??
-    evento.evento ??
-    evento.nombre ??
-    evento.name ??
-    evento.strEvent ??
-    evento.titulo ??
-    "Evento deportivo"
-  );
-}
-
-function obtenerFecha(evento) {
-  return (
-    evento.fecha ??
-    evento.date ??
-    evento.fecha_inicio ??
-    evento.start_date ??
-    evento.strTimestamp ??
-    ""
-  );
-}
-
-function obtenerHora(evento) {
-  let valor =
-    evento.hora ??
-    evento.time ??
-    evento.horario ??
-    evento.strTime ??
-    "";
-
-  if (!valor) {
-    const fecha = obtenerFecha(evento);
-    if (typeof fecha === "string" && fecha.includes("T")) {
-      valor = fecha.split("T")[1].slice(0, 5);
-    }
-  }
-
-  if (typeof valor === "string") {
-    const coincidencia = valor.match(/^(\d{1,2}):(\d{2})/);
-    if (coincidencia) {
-      return `${coincidencia[1].padStart(2, "0")}:${coincidencia[2]}`;
-    }
-  }
-
-  return valor || "Hora por confirmar";
-}
-
-function fechaISO(evento) {
-  const valor = obtenerFecha(evento);
-
-  if (!valor) return "";
-
-  if (typeof valor === "string") {
-    const coincidencia = valor.match(/\d{4}-\d{2}-\d{2}/);
-    if (coincidencia) return coincidencia[0];
-
-    const europea = valor.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
-    if (europea) {
-      return `${europea[3]}-${europea[2]}-${europea[1]}`;
-    }
-  }
-
-  return "";
-}
-
-function obtenerCanales(evento) {
-  let canales =
-    evento.canales ??
-    evento.canal ??
-    evento.channels ??
-    evento.tv ??
-    evento.television ??
-    evento.broadcasts ??
-    [];
-
-  if (typeof canales === "string") {
-    return canales
-      .split(/[,;|]/)
-      .map(c => c.trim())
-      .filter(Boolean);
-  }
-
-  if (!Array.isArray(canales)) {
-    if (canales && typeof canales === "object") {
-      canales = Object.values(canales);
-    } else {
-      return [];
-    }
-  }
-
-  return canales.map(canal => {
-    if (typeof canal === "string") return canal;
-
-    if (canal && typeof canal === "object") {
-      const nombre =
-        canal.nombre ??
-        canal.name ??
-        canal.canal ??
-        canal.channel ??
-        canal.strChannel ??
-        "";
-
-      const pais =
-        canal.pais ??
-        canal.country ??
-        canal.zona ??
-        canal.region ??
-        "";
-
-      return pais ? `${nombre} (${pais})` : nombre;
-    }
-
-    return "";
-  }).filter(Boolean);
-}
-
-function obtenerPaises(evento) {
-  const paises =
-    evento.paises ??
-    evento.pais ??
-    evento.country ??
-    evento.countries ??
-    evento.zona ??
-    evento.region ??
-    "";
-
-  let lista = [];
-
-  if (Array.isArray(paises)) {
-    lista = paises;
-  } else if (typeof paises === "string" && paises.trim()) {
-    lista = paises.split(/[,;|]/);
-  }
-
-  obtenerCanales(evento).forEach(canal => {
-    const coincidencia = canal.match(/\(([^)]+)\)/);
-    if (coincidencia) lista.push(coincidencia[1]);
-  });
-
-  return sinDuplicados(lista.map(p => String(p).trim()));
-}
-
-function obtenerTodosLosEventos(datos) {
-  if (Array.isArray(datos)) return datos;
-
-  if (datos && Array.isArray(datos.eventos)) return datos.eventos;
-  if (datos && Array.isArray(datos.events)) return datos.events;
-  if (datos && Array.isArray(datos.partidos)) return datos.partidos;
-  if (datos && Array.isArray(datos.results)) return datos.results;
-
-  if (datos && typeof datos === "object") {
-    const lista = [];
-
-    for (const valor of Object.values(datos)) {
-      if (Array.isArray(valor)) {
-        lista.push(...valor);
-      }
-    }
-
-    return lista;
-  }
-
-  return [];
-}
-
-function crearListaCompeticiones() {
-  const selector = $("c");
+/*
+  Lista fija de competiciones.
+  No cambia la forma de cargar o presentar los datos.
+*/
+function actualizarCompeticiones(){
   const deporteSeleccionado = $("d").value;
-  const anterior = selector.value;
+  const anterior = $("c").value;
+  const selector = $("c");
 
   const futbol = [
     ["la liga", "La Liga"],
@@ -630,103 +375,159 @@ function crearListaCompeticiones() {
     ["euroliga", "Euroliga"]
   ];
 
-  selector.replaceChildren();
+  selector.innerHTML = "";
 
-  const todas = document.createElement("option");
-  todas.value = "";
-  todas.textContent = "Todas las competiciones";
-  selector.appendChild(todas);
+  const primera = document.createElement("option");
+  primera.value = "";
+  primera.textContent = "Todas las competiciones";
+  selector.appendChild(primera);
 
-  function añadirGrupo(nombre, competiciones) {
+  function añadirGrupo(nombre, competiciones){
     const grupo = document.createElement("optgroup");
     grupo.label = nombre;
 
-    for (const [valor, texto] of competiciones) {
+    competiciones.forEach(([valor, texto]) => {
       const opcion = document.createElement("option");
       opcion.value = valor;
       opcion.textContent = texto;
       grupo.appendChild(opcion);
-    }
+    });
 
     selector.appendChild(grupo);
   }
 
-  if (!deporteSeleccionado || deporteSeleccionado === "Fútbol") {
+  if(!deporteSeleccionado || deporteSeleccionado === "Fútbol"){
     añadirGrupo("Fútbol", futbol);
   }
 
-  if (!deporteSeleccionado || deporteSeleccionado === "Baloncesto") {
+  if(!deporteSeleccionado || deporteSeleccionado === "Baloncesto"){
     añadirGrupo("Baloncesto", baloncesto);
   }
 
-  if ([...selector.options].some(opcion => opcion.value === anterior)) {
+  /* Conservar la selección si sigue disponible */
+  if([...selector.options].some(o => o.value === anterior)){
     selector.value = anterior;
-  } else {
+  }else{
     selector.value = "";
   }
 }
 
-function actualizarPaises() {
-  const selector = $("pais");
-  const anterior = selector.value;
-  const paises = sinDuplicados(
-    eventos.flatMap(evento => obtenerPaises(evento))
-  ).sort((a, b) => a.localeCompare(b, "es"));
+/* Actualizar países disponibles para la fecha */
+function actualizarPaises(){
+  const anterior = $("p").value;
 
-  selector.replaceChildren();
+  const paises = [
+    ...new Set(
+      ev.flatMap(evento =>
+        (evento.canales || [])
+          .map(canal => String(canal.pais || "").trim())
+          .filter(Boolean)
+      )
+    )
+  ].sort(comparar);
+
+  $("p").innerHTML = "";
 
   const todos = document.createElement("option");
   todos.value = "";
   todos.textContent = "Todos los países";
-  selector.appendChild(todos);
+  $("p").appendChild(todos);
 
   paises.forEach(pais => {
     const opcion = document.createElement("option");
-    opcion.value = normalizarTexto(pais);
+    opcion.value = pais;
     opcion.textContent = pais;
-    selector.appendChild(opcion);
+    $("p").appendChild(opcion);
   });
 
-  if ([...selector.options].some(opcion => opcion.value === anterior)) {
-    selector.value = anterior;
+  if(paises.includes(anterior)){
+    $("p").value = anterior;
+  }else{
+    $("p").value = "";
   }
 }
 
-function coincidePais(evento, paisSeleccionado) {
-  if (!paisSeleccionado) return true;
+/* Cargar índice y fecha inicial */
+async function init(){
+  try{
+    const respuesta = await fetch("data/index.json");
 
-  return obtenerPaises(evento).some(
-    pais => normalizarTexto(pais) === paisSeleccionado
-  );
+    if(!respuesta.ok){
+      throw new Error("No se ha podido cargar el índice de fechas.");
+    }
+
+    const indice = await respuesta.json();
+    const fechas = (indice.fechas || []).slice().sort();
+
+    if(!fechas.length){
+      throw new Error("Todavía no hay fechas disponibles.");
+    }
+
+    $("f").min = fechas[0];
+    $("f").max = fechas[fechas.length - 1];
+
+    const ahora = new Date();
+    ahora.setMinutes(
+      ahora.getMinutes() - ahora.getTimezoneOffset()
+    );
+
+    const hoy = ahora.toISOString().slice(0,10);
+
+    $("f").value = fechas.includes(hoy)
+      ? hoy
+      : fechas[0];
+
+    await cargar();
+
+  }catch(error){
+    $("st").textContent =
+      "No se han podido cargar los datos. Comprueba que exista data/index.json y que GitHub Pages esté publicado.";
+  }
 }
 
-function coincideBusqueda(evento, busqueda) {
-  if (!busqueda) return true;
+/* Cargar los eventos de la fecha elegida */
+async function cargar(){
+  $("st").textContent = "Cargando programación…";
+  $("out").innerHTML = "";
 
-  const texto = normalizarTexto([
-    obtenerDeporte(evento),
-    obtenerLiga(evento),
-    obtenerPartido(evento),
-    obtenerCanales(evento).join(" "),
-    obtenerPaises(evento).join(" ")
-  ].join(" "));
+  try{
+    if(!$("f").value){
+      throw new Error("Selecciona una fecha.");
+    }
 
-  return texto.includes(busqueda);
+    const respuesta = await fetch(
+      `data/${$("f").value}.json`
+    );
+
+    if(!respuesta.ok){
+      throw new Error("No hay datos disponibles para esa fecha.");
+    }
+
+    const datos = await respuesta.json();
+
+    ev = datos.eventos || [];
+    meta = datos;
+
+    actualizarPaises();
+    actualizarCompeticiones();
+    pintar();
+
+  }catch(error){
+    $("st").textContent = error.message;
+    $("out").innerHTML = "";
+  }
 }
 
-function pintar() {
-  const contenedor = $("resultados");
+/* Aplicar todos los filtros y dibujar los eventos */
+function pintar(){
   const deporteSeleccionado = $("d").value;
   const competicionSeleccionada = $("c").value;
-  const paisSeleccionado = $("pais").value;
-  const busqueda = normalizarTexto($("buscar").value);
-  const fechaSeleccionada = $("fecha").value;
+  const paisSeleccionado = $("p").value;
+  const busqueda = normalizarTexto($("q").value);
 
-  const filtrados = eventos.filter(evento => {
-    const deporte = obtenerDeporte(evento);
-    const liga = obtenerLiga(evento);
-    const clave = claveCompeticion(liga);
-    const fechaEvento = fechaISO(evento);
+  const filtrados = ev.filter(evento => {
+    const deporte = normalizarDeporte(evento.deporte);
+    const clave = claveCompeticion(evento.liga);
 
     const coincideDeporte =
       !deporteSeleccionado ||
@@ -736,222 +537,168 @@ function pintar() {
       !competicionSeleccionada ||
       clave === competicionSeleccionada;
 
-    const coincideFecha =
-      !fechaSeleccionada ||
-      !fechaEvento ||
-      fechaEvento === fechaSeleccionada;
+    const coincidePais =
+      !paisSeleccionado ||
+      (evento.canales || []).some(canal =>
+        String(canal.pais || "").trim() === paisSeleccionado
+      );
 
-    return (
-      coincideDeporte &&
+    const texto = normalizarTexto([
+      evento.nombre,
+      evento.liga,
+      evento.deporte,
+      ...(evento.fuentes || []),
+      ...(evento.canales || []).flatMap(canal => [
+        canal.canal,
+        canal.pais
+      ])
+    ].join(" "));
+
+    const coincideBusqueda =
+      !busqueda ||
+      texto.includes(busqueda);
+
+    return coincideDeporte &&
       coincideCompeticion &&
-      coincidePais(evento, paisSeleccionado) &&
-      coincideBusqueda(evento, busqueda) &&
-      coincideFecha
-    );
+      coincidePais &&
+      coincideBusqueda;
   });
 
-  filtrados.sort((a, b) => {
-    const fechaA = fechaISO(a);
-    const fechaB = fechaISO(b);
-    const horaA = obtenerHora(a);
-    const horaB = obtenerHora(b);
+  let actualizado = "desconocido";
 
-    return `${fechaA} ${horaA}`.localeCompare(`${fechaB} ${horaB}`);
-  });
+  if(meta.actualizado){
+    const fechaActualizacion = new Date(meta.actualizado);
 
-  $("resumen").textContent =
-    `${filtrados.length} eventos encontrados` +
-    (fechaSeleccionada ? ` para el ${fechaSeleccionada}` : "");
+    if(!isNaN(fechaActualizacion)){
+      actualizado = fechaActualizacion.toLocaleString("es-ES");
+    }
+  }
 
-  contenedor.replaceChildren();
+  $("st").textContent =
+    `${filtrados.length} eventos · Actualizado: ${actualizado}`;
 
-  if (!filtrados.length) {
-    const mensaje = document.createElement("div");
-    mensaje.className = "vacio";
-    mensaje.textContent =
-      "No se han encontrado eventos con esos filtros. Prueba con otra fecha o selecciona «Todos los deportes».";
-    contenedor.appendChild(mensaje);
+  if(!filtrados.length){
+    $("out").innerHTML =
+      '<div class="vacio">No hay eventos que coincidan con los filtros seleccionados.</div>';
     return;
   }
 
-  const grupos = new Map();
+  /* Agrupar por deporte, manteniendo todos los deportes encontrados */
+  const grupos = {};
 
   filtrados.forEach(evento => {
-    const deporte = obtenerDeporte(evento);
+    const deporte = normalizarDeporte(evento.deporte);
 
-    if (!grupos.has(deporte)) {
-      grupos.set(deporte, []);
+    if(!grupos[deporte]){
+      grupos[deporte] = [];
     }
 
-    grupos.get(deporte).push(evento);
+    grupos[deporte].push(evento);
   });
 
   const ordenPreferido = [
-    "Fútbol",
     "Baloncesto",
-    "MotoGP",
-    "Fórmula 1",
-    "Tenis",
-    "Ciclismo"
+    "Fútbol",
+    "MotoGP"
   ];
 
-  const nombres = [...grupos.keys()].sort((a, b) => {
+  const nombresGrupos = Object.keys(grupos).sort((a,b) => {
     const ia = ordenPreferido.indexOf(a);
     const ib = ordenPreferido.indexOf(b);
 
-    if (ia !== -1 && ib !== -1) return ia - ib;
-    if (ia !== -1) return -1;
-    if (ib !== -1) return 1;
+    if(ia !== -1 && ib !== -1) return ia - ib;
+    if(ia !== -1) return -1;
+    if(ib !== -1) return 1;
 
-    return a.localeCompare(b, "es");
+    return comparar(a,b);
   });
 
-  nombres.forEach(nombreDeporte => {
-    const seccion = document.createElement("section");
-    seccion.className = "grupo";
+  $("out").innerHTML = nombresGrupos.map(deporte => {
+    const eventos = grupos[deporte].sort((a,b) =>
+      String(a.ts || "").localeCompare(String(b.ts || ""))
+    );
 
-    const titulo = document.createElement("h2");
-    titulo.textContent = nombreDeporte;
-    seccion.appendChild(titulo);
+    const tarjetas = eventos.map(evento => {
+      const canalesPorPais = {};
 
-    grupos.get(nombreDeporte).forEach(evento => {
-      const fila = document.createElement("article");
-      fila.className = "evento";
+      (evento.canales || [])
+        .filter(canal =>
+          !paisSeleccionado ||
+          String(canal.pais || "").trim() === paisSeleccionado
+        )
+        .forEach(canal => {
+          const pais = String(
+            canal.pais || "País sin confirmar"
+          ).trim();
 
-      const columnaHora = document.createElement("div");
-      columnaHora.className = "hora";
-      columnaHora.textContent = obtenerHora(evento);
+          if(!canalesPorPais[pais]){
+            canalesPorPais[pais] = [];
+          }
 
-      const columnaPartido = document.createElement("div");
-
-      const partido = document.createElement("div");
-      partido.className = "partido";
-      partido.textContent = obtenerPartido(evento);
-      columnaPartido.appendChild(partido);
-
-      const detalle = document.createElement("div");
-      detalle.className = "detalle";
-      detalle.textContent = obtenerLiga(evento);
-      columnaPartido.appendChild(detalle);
-
-      const columnaCanales = document.createElement("div");
-      columnaCanales.className = "canales";
-
-      const canales = obtenerCanales(evento);
-
-      if (canales.length) {
-        canales.forEach(nombreCanal => {
-          const etiqueta = document.createElement("span");
-          etiqueta.className = "etiqueta";
-          etiqueta.textContent = nombreCanal;
-          columnaCanales.appendChild(etiqueta);
+          canalesPorPais[pais].push(
+            canal.canal || "Canal sin confirmar"
+          );
         });
-      } else {
-        columnaCanales.textContent = "Canal por confirmar";
-      }
 
-      fila.append(columnaHora, columnaPartido, columnaCanales);
-      seccion.appendChild(fila);
-    });
+      const canalesHtml = Object.keys(canalesPorPais)
+        .sort(comparar)
+        .map(pais => {
+          const nombres = [...new Set(canalesPorPais[pais])];
 
-    contenedor.appendChild(seccion);
-  });
+          return `<div class="ch"><b>${esc(pais)}:</b> ${
+            esc(nombres.join(", "))
+          }</div>`;
+        }).join("") ||
+        '<div class="ch">Canal sin confirmar</div>';
+
+      const competicion = evento.liga
+        ? ` · ${esc(normalizarCompeticion(evento.liga))}`
+        : "";
+
+      const fuentes = (evento.fuentes || []).length
+        ? ` · ${esc(evento.fuentes.join(", "))}`
+        : "";
+
+      return `
+        <div class="ev">
+          <h3>${esc(evento.nombre || "Evento deportivo")}</h3>
+          <div class="meta">
+            ${esc(hora(evento.ts))}${competicion}${fuentes}
+          </div>
+          ${canalesHtml}
+        </div>
+      `;
+    }).join("");
+
+    return `<h2>${esc(deporte)}</h2>${tarjetas}`;
+  }).join("");
 }
 
-async function cargar() {
-  const rutas = [
-    "data/index.json",
-    "data/" + $("fecha").value + ".json"
-  ];
-
-  $("resumen").textContent = "Cargando programación...";
-
-  let lista = [];
-  let errores = [];
-
-  for (const ruta of rutas) {
-    try {
-      const respuesta = await fetch(ruta + "?t=" + Date.now(), {
-        cache: "no-store"
-      });
-
-      if (!respuesta.ok) {
-        errores.push(`${ruta}: HTTP ${respuesta.status}`);
-        continue;
-      }
-
-      const datos = await respuesta.json();
-      const recibidos = obtenerTodosLosEventos(datos);
-
-      if (recibidos.length) {
-        lista.push(...recibidos);
-      }
-    } catch (error) {
-      errores.push(`${ruta}: ${error.message}`);
-    }
-  }
-
-  const vistos = new Set();
-
-  eventos = lista.filter(evento => {
-    const clave = [
-      fechaISO(evento),
-      obtenerHora(evento),
-      normalizarTexto(obtenerDeporte(evento)),
-      normalizarTexto(obtenerLiga(evento)),
-      normalizarTexto(obtenerPartido(evento))
-    ].join("|");
-
-    if (vistos.has(clave)) return false;
-    vistos.add(clave);
-    return true;
-  });
-
-  if (!eventos.length) {
-    $("resumen").textContent = "No se ha podido cargar la programación.";
-
-    const mensaje = document.createElement("div");
-    mensaje.className = "error";
-    mensaje.textContent =
-      "No se han encontrado eventos en los archivos de datos. Comprueba que GitHub Actions haya generado data/index.json y los archivos diarios. " +
-      (errores.length ? "Detalle: " + errores.join(" · ") : "");
-
-    $("resultados").replaceChildren(mensaje);
-    return;
-  }
-
-  datosCargados = true;
-  crearListaCompeticiones();
-  actualizarPaises();
-  pintar();
+/* Evitar que los nombres de equipos o canales rompan el HTML */
+function esc(valor){
+  return String(valor ?? "").replace(/[&<>"']/g,caracter => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[caracter]);
 }
 
-function fechaLocalActual() {
-  const ahora = new Date();
-  const año = ahora.getFullYear();
-  const mes = String(ahora.getMonth() + 1).padStart(2, "0");
-  const dia = String(ahora.getDate()).padStart(2, "0");
+/* Eventos de los controles */
+$("f").addEventListener("change",cargar);
 
-  return `${año}-${mes}-${dia}`;
-}
-
-$("fecha").value = fechaLocalActual();
-
-$("d").addEventListener("change", () => {
-  crearListaCompeticiones();
+$("d").addEventListener("change",() => {
+  actualizarCompeticiones();
   pintar();
 });
 
-$("c").addEventListener("change", pintar);
-$("pais").addEventListener("change", pintar);
-$("buscar").addEventListener("input", pintar);
+$("c").addEventListener("change",pintar);
+$("p").addEventListener("change",pintar);
+$("q").addEventListener("input",pintar);
 
-$("fecha").addEventListener("change", () => {
-  cargar();
-});
-
-cargar();
+/* Iniciar página */
+init();
 </script>
 </body>
 </html>
-```
