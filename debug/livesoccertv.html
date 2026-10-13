@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <h5>Próximos Partidos</h5>
             <ul class='col-2'>
             <li><a href="/es/schedules/" title="Partidos de Hoy">Hoy</a></li>
-            <li><a href="/es/schedules/2026-10-13/" title="Partidos de Mañana">Mañana</a></li>
+            <li><a href="/es/schedules/2026-10-14/" title="Partidos de Mañana">Mañana</a></li>
             <li><a href="/es/schedules/2026-10-17/" title="Partidos del Sábado">Sábado</a></li>
             <li><a href="/es/schedules/2026-10-18/" title="Partidos del Domingo">Domingo</a></li>
             </ul>
@@ -277,6 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </ul>
 <h5>Europa</h5><ul>
 <li><a href="/es/competitions/international/uefa-champions-league/" class="flag europe" title="Liga de Campeones">Liga de Campeones</a></li>
+<li><a href="/es/competitions/international/uefa-nations-league/" class="flag europe" title="Liga de Naciones de la UEFA">Liga de Naciones&hellip;</a></li>
 <li><a href="/es/competitions/international/uefa-europa-league/" class="flag europe" title="Liga Europa de la UEFA">Liga Europa de la&hellip;</a></li>
 <li><a href="/es/competitions/international/uefa-europa-conference-league/" class="flag europe" title="Liga de la Conferencia de la UEFA">Liga de la Confer&hellip;</a></li>
 <li><a href="/es/competitions/england/premier-league/" class="flag england" title="Inglaterra - Premier League">Premier League</a></li>
@@ -292,6 +293,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="/es/competitions/germany/german-cup/" class="flag germany" title="Alemania - DFB Pokal">DFB Pokal</a></li>
 </ul>
 <h5>Norte, Centro y Sudamérica</h5><ul>
+<li><a href="/competitions/international/concacaf-nations-league/" class="flag north-america" title="Liga de Naciones de la CONCACAF">Liga de Naciones de&hellip;</a></li>
 <li><a href="/competitions/mexico/primera-division/" class="flag mexico" title="México - Liga MX">Liga MX</a></li>
 </ul>
 		<div class="bottomLine">
@@ -452,7 +454,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="/es/channels/man-city-for-tv/" class="flag dot" title="CITY+">CITY+</a></li>
 <li><a href="/es/channels/estrella-tv-usa/" class="flag dot" title="Estrella TV">Estrella TV</a></li>
 <li><a href="/es/channels/fandango/" class="flag dot" title="Fandango">Fandango</a></li>
+<li><a href="/es/channels/flo-sports/" class="flag dot" title="FloSports">FloSports</a></li>
 <li><a href="/es/channels/fox-one/" class="flag dot" title="FOX One">FOX One</a></li>
+<li><a href="/es/channels/fubo-latino-2/" class="flag dot" title="fubo Latino 2">fubo Latino 2</a></li>
 <li><a href="/es/channels/hbo-max-us/" class="flag dot" title="HBO Max">HBO Max</a></li>
 <li><a href="/es/channels/ion/" class="flag dot" title="ion">ion</a></li>
 <li><a href="/es/channels/mls-next-pro/" class="flag dot" title="MLS Next Pro">MLS Next Pro</a></li>
@@ -462,6 +466,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="/es/channels/roku-sports-channel/" class="flag dot" title="Roku Sports Channel">Roku Sports Channel</a></li>
 <li><a href="/es/channels/tnt-usa/" class="flag dot" title="TNT USA">TNT USA</a></li>
 <li><a href="/es/channels/tubi/" class="flag dot" title="Tubi">Tubi</a></li>
+<li><a href="/es/channels/univision-deportes-en-vivo/" class="flag dot" title="TUDN.com">TUDN.com</a></li>
 <li><a href="/es/channels/vix/" class="flag dot" title="ViX">ViX</a></li>
 <li><a href="/es/channels/zapping-sportcl/" class="flag dot" title="Zapping Sports">Zapping Sports</a></li>
 </ul>
@@ -486,8 +491,10 @@ document.addEventListener("DOMContentLoaded", function() {
   <div id="competitions_bar">
 	<ul>
 		<li><a href="/es/competitions/international/uefa-champions-league/" class="flag champions" title="Liga de Campeones">Champions L.</a></li>
+<li><a href="/es/competitions/international/uefa-nations-league/" class="flag europe" title="L. Naciones">L. Naciones</a></li>
 <li><a href="/es/competitions/international/uefa-europa-league/" class="flag europa" title="UEL">UEL</a></li>
 <li><a href="/es/competitions/international/uefa-europa-conference-league/" class="flag europe" title="UECL">UECL</a></li>
+<li><a href="/es/competitions/international/concacaf-nations-league/" class="flag north-america" title="Liga de Naciones de la">L. de Nacio</a></li>
 <li><a href="/es/competitions/united-states/major-league-soccer/" class="flag us-ca" title="Estados Unidos - MLS">MLS</a></li>
 <li><a href="/es/competitions/mexico/primera-division/" class="flag mexico" title="México - Liga MX">Liga MX</a></li>
 <li><a href="/es/competitions/england/premier-league/" class="flag england" title="Inglaterra - PL">EPL</a></li>
@@ -497,8 +504,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <li><a href="/es/competitions/france/ligue-1/" class="flag france" title="Francia - Ligue 1">Ligue 1</a></li>
 <li><a href="/es/competitions/portugal/liga-sagres/" class="flag portugal" title="Portugal - Primeira Liga">Primeira L</a></li>
 <li><a href="/es/competitions/portugal/taca-de-portugal/" class="flag portugal" title="Portugal - Copa de P.">Copa de P</a></li>
-<li><a href="/es/competitions/portugal/taca-da-liga-portugal/" class="flag portugal" title="Portugal - Copa de la Liga">Copa de la</a></li>
-<li><a href="/es/competitions/england/football-league-cup/" class="flag england" title="Inglaterra - EFL Cup">EFL Cup</a></li>
     </ul>
   </div> <!-- competitions_bar -->
 
@@ -887,12 +892,28 @@ document.addEventListener("DOMContentLoaded", function() {
           >Fandango</a>
         </li>
               <li class="lc-ch-extra">
+          <a href="/es/channels/flo-sports/"
+             class="lc-ch-link"
+             data-channel-id="3597"
+             data-channel-slug="flo-sports"
+             data-channel-name="FloSports"
+          >FloSports</a>
+        </li>
+              <li class="lc-ch-extra">
           <a href="/es/channels/fox-one/"
              class="lc-ch-link"
              data-channel-id="5611"
              data-channel-slug="fox-one"
              data-channel-name="FOX One"
           >FOX One</a>
+        </li>
+              <li class="lc-ch-extra">
+          <a href="/es/channels/fubo-latino-2/"
+             class="lc-ch-link"
+             data-channel-id="5590"
+             data-channel-slug="fubo-latino-2"
+             data-channel-name="fubo Latino 2"
+          >fubo Latino 2</a>
         </li>
               <li class="lc-ch-extra">
           <a href="/es/channels/hbo-max-us/"
@@ -965,6 +986,14 @@ document.addEventListener("DOMContentLoaded", function() {
              data-channel-slug="tubi"
              data-channel-name="Tubi"
           >Tubi</a>
+        </li>
+              <li class="lc-ch-extra">
+          <a href="/es/channels/univision-deportes-en-vivo/"
+             class="lc-ch-link"
+             data-channel-id="2451"
+             data-channel-slug="univision-deportes-en-vivo"
+             data-channel-name="TUDN.com"
+          >TUDN.com</a>
         </li>
               <li class="lc-ch-extra">
           <a href="/es/channels/vix/"
@@ -2777,14 +2806,14 @@ $(function() {
 
 <div class="daily">
 
-    <a href="/es/schedules/2026-10-11/" title="Oct 11"><div class="daily-item chevron previous"></div>Oct 11</a>
+    <a href="/es/schedules/2026-10-12/" title="Oct 12"><div class="daily-item chevron previous"></div>Oct 12</a>
 
     <div class="daily-item daily-item-title">	
-		<h1 title="Fútbol en Vivo por TV y en Línea Lunes, 12 oct" id="cal-open">
-		Lunes, 12 oct		</h1><div class="down"></div>
+		<h1 title="Fútbol en Vivo por TV y en Línea Martes, 13 oct" id="cal-open">
+		Martes, 13 oct		</h1><div class="down"></div>
 	</div>
 
-    <a href="/es/schedules/2026-10-13/" title="Oct 13">Oct 13<div class="daily-item chevron next"></div></a>
+    <a href="/es/schedules/2026-10-14/" title="Oct 14">Oct 14<div class="daily-item chevron next"></div></a>
 	
 	
 	<div id="cal-modal" class="modal">
@@ -2810,14 +2839,14 @@ $(function() {
 
         <div class="weekdays">
         <!--[if IE 7 ]> <table><tr> <![endif]-->
-        <ul><![if !IE 7]><li><a href="/es/schedules/2026-10-10/" title="Sábado, Octubre 10">Sáb<br><span class="date">10</span></a></li>
-<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-10/">Sáb<br>10/10</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-11/" title="Domingo, Octubre 11">Dom<br><span class="date">11</span></a></li>
-<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-11/">Dom<br>10/11</a></td><![endif]--><![if !IE 7]><li class="current"><a href="/es/schedules/2026-10-12/" title="Lunes, Octubre 12">Lun<br><span class="date">12</span></a></li>
-<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-12/">Lun<br>10/12</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-13/" title="Martes, Octubre 13">Mar<br><span class="date">13</span></a></li>
+        <ul><![if !IE 7]><li><a href="/es/schedules/2026-10-11/" title="Domingo, Octubre 11">Dom<br><span class="date">11</span></a></li>
+<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-11/">Dom<br>10/11</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-12/" title="Lunes, Octubre 12">Lun<br><span class="date">12</span></a></li>
+<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-12/">Lun<br>10/12</a></td><![endif]--><![if !IE 7]><li class="current"><a href="/es/schedules/2026-10-13/" title="Martes, Octubre 13">Mar<br><span class="date">13</span></a></li>
 <![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-13/">Mar<br>10/13</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-14/" title="Miércoles, Octubre 14">Mié<br><span class="date">14</span></a></li>
 <![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-14/">Mié<br>10/14</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-15/" title="Jueves, Octubre 15">Jue<br><span class="date">15</span></a></li>
 <![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-15/">Jue<br>10/15</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-16/" title="Viernes, Octubre 16">Vie<br><span class="date">16</span></a></li>
-<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-16/">Vie<br>10/16</a></td><![endif]-->			<!--[if IE 7 ]> </tr></table> <![endif]-->
+<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-16/">Vie<br>10/16</a></td><![endif]--><![if !IE 7]><li><a href="/es/schedules/2026-10-17/" title="Sábado, Octubre 17">Sáb<br><span class="date">17</span></a></li>
+<![endif]><!--[if IE 7 ]><td align='center'><a href="/es/schedules/2026-10-17/">Sáb<br>10/17</a></td><![endif]-->			<!--[if IE 7 ]> </tr></table> <![endif]-->
 			<![if !IE 7]>
             <li class="clickable calendar"><a href="">&nbsp;</a>
                 <div class="calHolder calCol calLeft">        
@@ -2855,474 +2884,234 @@ function submit_prefs() {
 
 	<div id=_live class="r_tab_content r_active">        <table width="100%" cellspacing="0" cellpadding="0" class="schedules">
         <colgroup><col class="col-time"><col class="col-match"><col class="col-ch"></colgroup>
-                            <tr class="drow"><td colspan="3" class="dcellhome hide-mobile"><a href="/es/schedules/2026-10-12/" title="Programación de TV y partidos en línea para Lunes, 12 Octubre">Lunes, 12 Octubre</a>
+                            <tr class="drow"><td colspan="3" class="dcellhome hide-mobile"><a href="/es/schedules/2026-10-13/" title="Programación de TV y partidos en línea para Martes, 13 Octubre">Martes, 13 Octubre</a>
 					                    </td></tr>
-                                    <tr class="sortable_comp" id="6" rank="50" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
+                                    <tr class="sortable_comp" id="50" rank="30" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
 					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/england/premier-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag england">Inglaterra - Premier League</span></a>
+                    <a href="/es/competitions/international/uefa-champions-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag europe">Europa - UEFA Champions League</span></a>
                     </td></tr>
     
                 
-                <tr id="5661083" class="matchrow" data-timer="FT" data-t1="1145" data-t2="1152" data-ko="2026-10-12 15:00:00" data-cid="6" data-has-tv="1">
+                <tr id="5774571" class="matchrow" data-timer="" data-t1="1080" data-t2="1071" data-ko="2026-10-13 12:45:00" data-cid="50" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5661083" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5661083','1145','1152','2026-10-12 15:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774571" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5661083' title="Partido terminado" class='ts started' dv='1791831600000' df='H:MM'>15:00</span></span><span id="t5661083" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5774571'  class='ts' dv='1791909900000' df='H:MM'>12:45</span></span><span id="t5774571" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/coventry-city-vs-newcastle-united/1klcl#5661083" title="Coventry City vs Newcastle United" id="g5661083">Coventry City <score>4 - 1</score> Newcastle United</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/usa-network/" title="USA Network" class="homech">USA Network</a>, <a href="/es/channels/sirius-xm/" title="SiriusXM FC" class="homech">SiriusXM FC</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/espn-play-caribbean/" title="Disney+ Premium Caribbean" class="">Disney+ Premium Caribbean</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a></div></div></div></td>
+                  <a href="/es/match/sporting-cp-vs-lens/1dmp0#5774571" title="Lens vs Sporting CP" id="g5774571">Lens vs Sporting CP</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/cbs-sports-network/" title="CBS Sports Network (Transmisión en línea disponible)" class="homech flag ministream">CBS Sports Network</a>, <a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/univision-deportes-usa/" title="TUDN USA" class="homech">TUDN USA</a>, <a href="/es/channels/unimas/" title="UniMás" class="homech">UniMás</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
-                            <tr class="sortable_comp" id="8" rank="60" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
+        
+                <tr id="5774572" class="matchrow" data-timer="" data-t1="11452" data-t2="1393" data-ko="2026-10-13 12:45:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774572" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774572'  class='ts' dv='1791909900000' df='H:MM'>12:45</span></span><span id="t5774572" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/slavia-praha-vs-sabah/1d4kw7#5774572" title="Sabah vs Slavia Praha" id="g5774572">Sabah vs Slavia Praha</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/starplus-latam/" title="Disney+ Premium Norte" class="">Disney+ Premium Norte</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774579" class="matchrow" data-timer="" data-t1="1058" data-t2="1273" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774579" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774579'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774579" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/villarreal-vs-napoli/1ma5v#5774579" title="Villarreal vs Napoli" id="g5774579">Villarreal vs Napoli</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/dazn-usa/" title="DAZN USA (Transmisión en línea disponible)" class="homech flag ministream">DAZN USA</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/onesoccer-canada/" title="OneSoccer" class="">OneSoccer</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774578" class="matchrow" data-timer="" data-t1="2323" data-t2="1025" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774578" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774578'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774578" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/bayern-munchen-vs-viking/3c7l1#5774578" title="Viking vs Bayern München"class='topmatch' id="g5774578">Viking vs Bayern München</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/fox-play-norte/" title="FOX Mexico" class="">FOX Mexico</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774577" class="matchrow" data-timer="" data-t1="3516" data-t2="1132" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774577" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774577'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774577" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/psv-vs-rb-leipzig/6fncg#5774577" title="RB Leipzig vs PSV" id="g5774577">RB Leipzig vs PSV</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/cbs-sports-network/" title="CBS Sports Network (Transmisión en línea disponible)" class="homech flag ministream">CBS Sports Network</a>, <a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774576" class="matchrow" data-timer="" data-t1="1270" data-t2="1849" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774576" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774576'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774576" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/internazionale-vs-club-brugge/2wbs1#5774576" title="Internazionale vs Club Brugge"class='topmatch' id="g5774576">Internazionale vs Club Brugge</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/hbo-max/" title="Max Mexico" class="">Max Mexico</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774573" class="matchrow" data-timer="" data-t1="1001" data-t2="1081" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774573" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774573'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774573" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/arsenal-vs-lille/1ahzg#5774573" title="Arsenal vs Lille"class='topmatch' id="g5774573">Arsenal vs Lille</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/hbo-max/" title="Max Mexico" class="">Max Mexico</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774574" class="matchrow" data-timer="" data-t1="1041" data-t2="1013" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774574" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774574'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774574" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/manchester-united-vs-atletico-madrid/1999i#5774574" title="Atlético Madrid vs Manchester United"class='topmatch' id="g5774574">Atlético Madrid vs Manchester United</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/univision-deportes-usa/" title="TUDN USA" class="homech">TUDN USA</a>, <a href="/es/channels/unimas/" title="UniMás" class="homech">UniMás</a>, <a href="/es/channels/univision-deportes-en-vivo/" title="TUDN.com (Transmisión en línea disponible)" class="homech flag ministream">TUDN.com</a>, <a href="/es/channels/univision-now-en-vivo/" title="Univision NOW (Transmisión en línea disponible)" class="homech flag ministream">Univision NOW</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+        
+                <tr id="5774575" class="matchrow" data-timer="" data-t1="1346" data-t2="1042" data-ko="2026-10-13 15:00:00" data-cid="50" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5774575" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5774575'  class='ts' dv='1791918000000' df='H:MM'>15:00</span></span><span id="t5774575" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/barcelona-vs-galatasaray/1p60k#5774575" title="Galatasaray vs Barcelona"class='topmatch' id="g5774575">Galatasaray vs Barcelona</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/dazn-usa/" title="DAZN USA (Transmisión en línea disponible)" class="homech flag ministream">DAZN USA</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/tnt-mexico/" title="TNT Sports" class="">TNT Sports</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+                            <tr class="sortable_comp" id="34" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
 					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/spain/primera-division/" class="r_complink" onclick="event.stopPropagation()"><span class="flag spain">España - LaLiga</span></a>
+                    <a href="/es/competitions/colombia/primera-a/" class="r_complink" onclick="event.stopPropagation()"><span class="flag colombia">Colombia - Categoría Primera A</span></a>
                     </td></tr>
     
                 
-                <tr id="5786462" class="" data-timer="FT" data-t1="1768" data-t2="1055" data-ko="2026-10-12 15:00:00" data-cid="8" data-has-tv="1">
+                <tr id="5787561" class="" data-timer="" data-t1="6278" data-t2="2848" data-ko="2026-10-13 19:30:00" data-cid="34" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786462" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786462','1768','1055','2026-10-12 15:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5787561" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5786462' title="Partido terminado" class='ts started' dv='1791831600000' df='H:MM'>15:00</span></span><span id="t5786462" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5787561'  class='ts' dv='1791934200000' df='H:MM'>19:30</span></span><span id="t5787561" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/sevilla-vs-levante/2dh1g#5786462" title="Levante vs Sevilla" id="g5786462">Levante <score>3 - 3</score> Sevilla</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/sevilla-vs-levante/2dh1g#5786462" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
+                  <a href="/es/match/rionegro-aguilas-vs-atletico-bucaramanga/osrhn#5787561" title="Atlético Bucaramanga vs Rionegro Águilas" id="g5787561">Atlético Bucaramanga vs Rionegro Águilas</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/fubo-latino-2/" title="fubo Latino 2 (Transmisión en línea disponible)" class="homech flag ministream">fubo Latino 2</a>, <a href="/es/channels/fanatiz-canada/" title="Fanatiz Canada" class="">Fanatiz Canada</a>, <a href="/es/channels/viasat-sport-east/" title="Viju+ Sport" class="">Viju+ Sport</a>, <a href="/es/channels/sporttvby/" title="Sporttv" class="">Sporttv</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
-                            <tr class="sortable_comp" id="39" rank="70" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
+        
+                <tr id="5804585" class="matchrow" data-timer="" data-t1="1209" data-t2="1215" data-ko="2026-10-13 21:30:00" data-cid="34" data-has-tv="1">
+				<td class='timecol'>
+				<div class='meta'>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5804585" class='expand-events'></div>
+					
+
+                <span class="timecell"><span id='ko5804585'  class='ts' dv='1791941400000' df='H:MM'>21:30</span></span><span id="t5804585" class="inprogress"></span>				</div> <!-- meta -->
+
+				</td>
+                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
+                  <a href="/es/match/millonarios-vs-once-caldas/1r0rf#5804585" title="Millonarios vs Once Caldas" id="g5804585">Millonarios vs Once Caldas</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/tv-colombia/" title="RCN Nuestra Tele" class="homech">RCN Nuestra Tele</a>, <a href="/es/channels/fanatiz-canada/" title="Fanatiz Canada" class="">Fanatiz Canada</a>, <a href="/es/channels/sporttvby/" title="Sporttv" class="">Sporttv</a><br><span class='grey'></div></div></div></td>
+    
+    
+                   
+                
+                </tr>
+                            <tr class="sortable_comp" id="22" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
 					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/italy/serie-a/" class="r_complink" onclick="event.stopPropagation()"><span class="flag italy">Italia - Serie A</span></a>
+                    <a href="/es/competitions/international/copa-sudamericana/" class="r_complink" onclick="event.stopPropagation()"><span class="flag south-america">Sudamérica - Copa Sudamericana</span></a>
                     </td></tr>
     
                 
-                <tr id="5786468" class="" data-timer="FT" data-t1="1263" data-t2="3959" data-ko="2026-10-12 12:30:00" data-cid="39" data-has-tv="1">
+                <tr id="5793949" class="" data-timer="" data-t1="2012" data-t2="1477" data-ko="2026-10-13 20:30:00" data-cid="22" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786468" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786468','1263','3959','2026-10-12 12:30:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5793949" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5786468' title="Partido terminado" class='ts started' dv='1791822600000' df='H:MM'>12:30</span></span><span id="t5786468" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5793949'  class='ts' dv='1791937800000' df='H:MM'>20:30</span></span><span id="t5793949" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/atalanta-vs-venezia/84dmk#5786468" title="Atalanta vs Venezia" id="g5786468">Atalanta <score>3 - 1</score> Venezia</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/atalanta-vs-venezia/84dmk#5786468" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5786469" class="matchrow" data-timer="FT" data-t1="1996" data-t2="1278" data-ko="2026-10-12 14:45:00" data-cid="39" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786469" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786469','1996','1278','2026-10-12 14:45:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786469' title="Partido terminado" class='ts started' dv='1791830700000' df='H:MM'>14:45</span></span><span id="t5786469" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/udinese-vs-torino/36y8z#5786469" title="Torino vs Udinese" id="g5786469">Torino <score>2 - 1</score> Udinese</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/udinese-vs-torino/36y8z#5786469" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="9" rank="100" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/portugal/liga-sagres/" class="r_complink" onclick="event.stopPropagation()"><span class="flag portugal">Portugal - Primeira Liga</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786463" class=" livematch" data-timer="90" data-t1="4357" data-t2="12040" data-ko="2026-10-12 15:15:00" data-cid="9" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'>En Vivo</span><div id="exp5786463" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786463','4357','12040','2026-10-12 15:15:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786463'  class='ts started' dv='1791832500000' df='H:MM'>15:15</span></span><span id="t5786463" class="inprogress">90<blink>'</blink></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/famalicao-vs-alverca/281r37#5786463" title="Famalicão vs Alverca" id="g5786463">Famalicão <score>1 - 4</score> Alverca</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/sport-tv1/" title="Sport TV1" class="">Sport TV1</a>, <a href="/es/channels/ote-sport-2/" title="MagentaSport 2" class="">MagentaSport 2</a>, <a href="/es/channels/sport-tv-live/" title="Sport TV Multiscreen" class="">Sport TV Multiscreen</a>, <a href="/es/channels/sport-tv-africa/" title="Sport.TV África" class="">Sport.TV África</a>, <a href="/es/channels/zap-la-liga-africa/" title="ZAP" class="">ZAP</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="30" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/argentina/primera-division/" class="r_complink" onclick="event.stopPropagation()"><span class="flag argentina">Argentina - Liga Profesional</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5504222" class="" data-timer="FT" data-t1="2006" data-t2="2010" data-ko="2026-10-12 15:00:00" data-cid="30" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5504222" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5504222','2006','2010','2026-10-12 15:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5504222' title="Partido terminado" class='ts started' dv='1791831600000' df='H:MM'>15:00</span></span><span id="t5504222" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/lanus-vs-velez-sarsfield/4sxf6#5504222" title="Lanús vs Vélez Sarsfield" id="g5504222">Lanús <score>2 - 0</score> Vélez Sarsfield</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/lanus-vs-velez-sarsfield/4sxf6#5504222" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5504220" class="matchrow" data-timer="" data-t1="9181" data-t2="2008" data-ko="2026-10-12 17:30:00" data-cid="30" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5504220" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5504220'  class='ts' dv='1791840600000' df='H:MM'>17:30</span></span><span id="t5504220" class="inprogress"></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/newells-old-boys-vs-gimnasia-mendoza/119zg4#5504220" title="Gimnasia Mendoza vs Newell's Old Boys" id="g5504220">Gimnasia Mendoza vs Newell's Old Boys</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/tyc-sports/" title="TyC Sports Internacional USA (Transmisión en línea disponible)" class="homech flag ministream">TyC Sports Internacional</a>, <a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/fanatiz-canada/" title="Fanatiz Canada" class="">Fanatiz Canada</a>, <a href="/es/channels/tyc-sports-internacional-norte/" title="TyC Sports Internacional" class="">TyC Sports Internacional</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="31" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/brazil/serie-a-brasileirao/" class="r_complink" onclick="event.stopPropagation()"><span class="flag brazil">Brasil - Brasileirão</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5504585" class="" data-timer="FT" data-t1="1175" data-t2="1181" data-ko="2026-10-12 15:00:00" data-cid="31" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5504585" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5504585' title="Partido terminado" class='ts ft' dv='1791831600000' df='H:MM'>15:00</span></span><span id="t5504585" class="inprogress">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/coritiba-vs-botafogo/1njb3#5504585" title="Coritiba vs Botafogo" id="g5504585">Coritiba vs Botafogo</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/coritiba-vs-botafogo/1njb3#5504585" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5786465" class="matchrow" data-timer="" data-t1="5004" data-t2="1178" data-ko="2026-10-12 18:30:00" data-cid="31" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5786465" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5786465'  class='ts' dv='1791844200000' df='H:MM'>18:30</span></span><span id="t5786465" class="inprogress"></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/athletico-pr-vs-chapecoense/bdqi9#5786465" title="Chapecoense vs Athletico-PR" id="g5786465">Chapecoense vs Athletico-PR</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/premiere-fc-brasil/" title="Premiere (Transmisión en línea disponible)" class="homech flag ministream">Premiere</a>, <a href="/es/channels/azteca-deportes-en-vivo-mexico/" title="Azteca Deportes En Vivo" class="">Azteca Deportes En Vivo</a>, <a href="/es/channels/starplus-norte/" title="Disney+ Premium Mexico" class="">Disney+ Premium Mexico</a>, <a href="/es/channels/starplus-latam/" title="Disney+ Premium Norte" class="">Disney+ Premium Norte</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5787027" class="matchrow" data-timer="" data-t1="1485" data-t2="1180" data-ko="2026-10-12 20:00:00" data-cid="31" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5787027" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5787027'  class='ts' dv='1791849600000' df='H:MM'>20:00</span></span><span id="t5787027" class="inprogress"></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/cruzeiro-vs-rb-bragantino/2468a#5787027" title="RB Bragantino vs Cruzeiro" id="g5787027">RB Bragantino vs Cruzeiro</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/premiere-fc-brasil/" title="Premiere (Transmisión en línea disponible)" class="homech flag ministream">Premiere</a>, <a href="/es/channels/azteca-deportes-en-vivo-mexico/" title="Azteca Deportes En Vivo" class="">Azteca Deportes En Vivo</a>, <a href="/es/channels/starplus-norte/" title="Disney+ Premium Mexico" class="">Disney+ Premium Mexico</a>, <a href="/es/channels/starplus-latam/" title="Disney+ Premium Norte" class="">Disney+ Premium Norte</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="89" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/chile/primera-division/" class="r_complink" onclick="event.stopPropagation()"><span class="flag chile">Chile - Primera División de Chile</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5798737" class=" livematch" data-timer="HT" data-t1="4396" data-t2="1914" data-ko="2026-10-12 16:00:00" data-cid="89" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'>En Vivo</span><div id="exp5798737" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5798737','4396','1914','2026-10-12 16:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5798737'  class='ts started' dv='1791835200000' df='H:MM'>16:00</span></span><span id="t5798737" class="inprogress" title="Medio tiempo">MT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/nublense-vs-universidad-chile/buuz5#5798737" title="Universidad Chile vs Ñublense" id="g5798737">Universidad Chile <score>2 - 0</score> Ñublense</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/estadio-tnt-sports/" title="max chile" class="">max chile</a>, <a href="/es/channels/tnt-sports-2/" title="TNT SPORTS Premium" class="">TNT SPORTS Premium</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="61" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/denmark/super-ligaen/" class="r_complink" onclick="event.stopPropagation()"><span class="flag denmark">Dinamarca - Superliga danesa</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786472" class="" data-timer="FT" data-t1="1363" data-t2="1356" data-ko="2026-10-12 13:00:00" data-cid="61" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786472" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786472','1363','1356','2026-10-12 13:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786472' title="Partido terminado" class='ts started' dv='1791824400000' df='H:MM'>13:00</span></span><span id="t5786472" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/sonderjyske-vs-agf/27abn#5786472" title="AGF vs SønderjyskE" id="g5786472">AGF <score>3 - 0</score> SønderjyskE</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/one-sport/" title="One Sport" class="">One Sport</a>, <a href="/es/channels/tv-2-play-denmark/" title="TV2 Play Denmark" class="">TV2 Play Denmark</a>, <a href="/es/channels/tv2-sport-x/" title="TV2 Sport X" class="">TV2 Sport X</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="165" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/egypt/premier-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag egypt">Egipto - Liga Premier de Egipto</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5736459" class="" data-timer="FT" data-t1="12497" data-t2="1577" data-ko="2026-10-12 10:00:00" data-cid="165" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5736459" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5736459','12497','1577','2026-10-12 10:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5736459' title="Partido terminado" class='ts started' dv='1791813600000' df='H:MM'>10:00</span></span><span id="t5736459" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/enppi-vs-future/1mz5uo#5736459" title="Future vs ENPPI" id="g5736459">Future <score>3 - 2</score> ENPPI</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/on-sport-max/" title="ON Sport Max (Egipto)" class="">ON Sport Max</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5736458" class="matchrow" data-timer="FT" data-t1="1575" data-t2="13037" data-ko="2026-10-12 10:00:00" data-cid="165" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5736458" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5736458','1575','13037','2026-10-12 10:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5736458' title="Partido terminado" class='ts started' dv='1791813600000' df='H:MM'>10:00</span></span><span id="t5736458" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-mokawloon-vs-zed/1rkklb#5736458" title="Al Mokawloon vs ZED" id="g5736458">Al Mokawloon <score>1 - 1</score> ZED</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/on-sport-plus/" title="ON Sport Plus (Egipto)" class="">ON Sport Plus</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5736461" class="matchrow" data-timer="FT" data-t1="2158" data-t2="1585" data-ko="2026-10-12 13:00:00" data-cid="165" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5736461" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5736461','2158','1585','2026-10-12 13:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5736461' title="Partido terminado" class='ts started' dv='1791824400000' df='H:MM'>13:00</span></span><span id="t5736461" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/ghazl-el-mehalla-vs-smouha/4687y#5736461" title="Smouha vs Ghazl El Mehalla" id="g5736461">Smouha <score>1 - 0</score> Ghazl El Mehalla</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/on-sport-max/" title="ON Sport Max (Egipto)" class="">ON Sport Max</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5736460" class="matchrow" data-timer="FT" data-t1="11189" data-t2="13770" data-ko="2026-10-12 13:00:00" data-cid="165" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5736460" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5736460','11189','13770','2026-10-12 13:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5736460' title="Partido terminado" class='ts started' dv='1791824400000' df='H:MM'>13:00</span></span><span id="t5736460" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/pyramids-fc-vs-ceramica-cleopatra/55gkju#5736460" title="Pyramids FC vs Ceramica Cleopatra" id="g5736460">Pyramids FC <score>4 - 1</score> Ceramica Cleopatra</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/on-sport-egypt/" title="ON Sport 1 (Egipto)" class="">ON Sport 1</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        						<tr><td colspan="3"><div class='mobile-ad-container' align='center'>
-						<script>if (window.innerWidth < 768) { document.write('<div id="newAdHere"></div>');}</script>
-						</div></td></tr>                    <tr class="sortable_comp" id="12" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/greece/super-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag greece">Grecia - Superliga de Grecia</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786464" class="" data-timer="FT" data-t1="1118" data-t2="6349" data-ko="2026-10-12 11:00:00" data-cid="12" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786464" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786464','1118','6349','2026-10-12 11:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786464' title="Partido terminado" class='ts started' dv='1791817200000' df='H:MM'>11:00</span></span><span id="t5786464" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/paok-vs-kalamata/glqm7#5786464" title="PAOK vs Kalamata" id="g5786464">PAOK <score>1 - 3</score> Kalamata</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/ant1-satellite/" title="ANT1 Satellite" class="homech">ANT1 Satellite</a>, <a href="/es/channels/sportklub-4-croatia/" title="Sportklub 4 Croatia" class="">Sportklub 4 Croatia</a>, <a href="/es/channels/sportklub-4-slovenia/" title="SportKlub 4 Slovenia" class="">SportKlub 4 Slovenia</a>, <a href="/es/channels/gong-play-bulgaria/" title="Play Diema Xtra" class="">Play Diema Xtra</a>, <a href="/es/channels/diema-sport-2-bulgaria/" title="Diema Sport 2" class="">Diema Sport 2</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="115" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/international/afc-champions-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag asia">Asia - AFC Champions League Elite</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5778445" class="" data-timer="FT" data-t1="3073" data-t2="2943" data-ko="2026-10-12 09:45:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778445" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778445','3073','2943','2026-10-12 09:45:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778445' title="Partido terminado" class='ts started' dv='1791812700000' df='H:MM'> 9:45</span></span><span id="t5778445" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-quadisiya-vs-pakhtakor/arzr5#5778445" title="Pakhtakor vs Al Quadisiya" id="g5778445">Pakhtakor <score>1 - 1</score> Al Quadisiya</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/espn-latin-america-norte/" title="ESPN Mexico" class="">ESPN Mexico</a>, <a href="/es/channels/espn-guatemala/" title="ESPN Norte" class="">ESPN Norte</a>, <a href="/es/channels/nova-sport-bulgaria/" title="Nova Sport Bulgaria" class="">Nova Sport Bulgaria</a>, <a href="/es/channels/sport-klub-croatia/" title="Sportklub 1 Croatia" class="">Sportklub 1 Croatia</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5778447" class="matchrow" data-timer="FT" data-t1="2888" data-t2="10325" data-ko="2026-10-12 12:00:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778447" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778447','2888','10325','2026-10-12 12:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778447' title="Partido terminado" class='ts started' dv='1791820800000' df='H:MM'>12:00</span></span><span id="t5778447" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/tractor-sazi-vs-al-shamal/1fzbrc#5778447" title="Tractor Sazi vs Al Shamal" id="g5778447">Tractor Sazi <score>0 - 0</score> Al Shamal</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/sportklub-5-slovenia/" title="SportKlub 5 Slovenia" class="">SportKlub 5 Slovenia</a>, <a href="/es/channels/sportklub-7-croatia/" title="Sportklub 7 Croatia" class="">Sportklub 7 Croatia</a>, <a href="/es/channels/sport-1-baltic/" title="Sport 1 Baltic" class="">Sport 1 Baltic</a>, <a href="/es/channels/dazn-japan/" title="DAZN Japan" class="">DAZN Japan</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5778446" class="matchrow" data-timer="FT" data-t1="1826" data-t2="2939" data-ko="2026-10-12 12:00:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778446" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778446','1826','2939','2026-10-12 12:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778446' title="Partido terminado" class='ts started' dv='1791820800000' df='H:MM'>12:00</span></span><span id="t5778446" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-wasl-vs-al-ahli/6rfu6#5778446" title="Al Wasl vs Al-Ahli" id="g5778446">Al Wasl <score>1 - 3</score> Al-Ahli</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/starplus-norte/" title="Disney+ Premium Mexico" class="">Disney+ Premium Mexico</a>, <a href="/es/channels/starplus-latam/" title="Disney+ Premium Norte" class="">Disney+ Premium Norte</a>, <a href="/es/channels/nova-sport-bulgaria/" title="Nova Sport Bulgaria" class="">Nova Sport Bulgaria</a>, <a href="/es/channels/sport-klub-croatia/" title="Sportklub 1 Croatia" class="">Sportklub 1 Croatia</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5778448" class="matchrow" data-timer="FT" data-t1="1674" data-t2="2885" data-ko="2026-10-12 14:15:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778448" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778448','1674','2885','2026-10-12 14:15:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778448' title="Partido terminado" class='ts started' dv='1791828900000' df='H:MM'>14:15</span></span><span id="t5778448" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-gharafa-vs-esteghlal/66uot#5778448" title="Al Gharafa vs Esteghlal" id="g5778448">Al Gharafa <score>1 - 2</score> Esteghlal</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/nova-sport-bulgaria/" title="Nova Sport Bulgaria" class="">Nova Sport Bulgaria</a>, <a href="/es/channels/sport-2-ukraine/" title="Cпорт 2" class="">Cпорт 2</a>, <a href="/es/channels/smart-spor-2/" title="Spor Smart 2" class="">Spor Smart 2</a>, <a href="/es/channels/sportklub-4-croatia/" title="Sportklub 4 Croatia" class="">Sportklub 4 Croatia</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5778449" class="matchrow livematch" data-timer="FT" data-t1="2946" data-t2="3074" data-ko="2026-10-12 14:15:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778449" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778449','2946','3074','2026-10-12 14:15:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778449' title="Partido terminado" class='ts started' dv='1791828900000' df='H:MM'>14:15</span></span><span id="t5778449" class="inprogress">90<blink>'</blink></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-nassr-vs-neftchi/asibw#5778449" title="Al Nassr vs Neftchi" id="g5778449">Al Nassr <score>3 - 1</score> Neftchi</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/espn-dos/" title="ESPN2 Mexico" class="">ESPN2 Mexico</a>, <a href="/es/channels/espn2-guatemala/" title="ESPN2 Norte" class="">ESPN2 Norte</a>, <a href="/es/channels/sport-2-israel/" title="Sport 2" class="">Sport 2</a>, <a href="/es/channels/sport-klub-croatia/" title="Sportklub 1 Croatia" class="">Sportklub 1 Croatia</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5778450" class="matchrow" data-timer="FT" data-t1="3031" data-t2="1820" data-ko="2026-10-12 14:15:00" data-cid="115" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5778450" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5778450','3031','1820','2026-10-12 14:15:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5778450' title="Partido terminado" class='ts started' dv='1791828900000' df='H:MM'>14:15</span></span><span id="t5778450" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-ain-vs-al-quwa-al-jawiya/70azp#5778450" title="Al Quwa Al Jawiya vs Al Ain" id="g5778450">Al Quwa Al Jawiya <score>1 - 4</score> Al Ain</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/youtube/" title="YouTube" class="homech">YouTube</a>, <a href="/es/channels/sportklub-3-croatia/" title="Sportklub 3 Croatia" class="">Sportklub 3 Croatia</a>, <a href="/es/channels/sportklub-5-slovenia/" title="SportKlub 5 Slovenia" class="">SportKlub 5 Slovenia</a>, <a href="/es/channels/tv-start-triumph/" title="TV Start Triumph" class="">TV Start Triumph</a>, <a href="/es/channels/sport-1-baltic/" title="Sport 1 Baltic" class="">Sport 1 Baltic</a></div></div></div></td>
+                  <a href="/es/match/vasco-da-gama-vs-boca-juniors/3mjbh#5793949" title="Boca Juniors vs Vasco da Gama" id="g5793949">Boca Juniors vs Vasco da Gama</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/bein-sport-1-usa/" title="beIN SPORTS USA (Transmisión en línea disponible)" class="homech flag ministream">beIN SPORTS</a>, <a href="/es/channels/bein-sport-en-espanol/" title="beIN SPORTS en Español (Transmisión en línea disponible)" class="homech flag ministream">beIN SPORTS en Español</a>, <a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/bein-sport-connect/" title="beIN SPORTS CONNECT U.S.A. (Transmisión en línea disponible)" class="homech flag ministream">beIN SPORTS CONNECT</a>, <a href="/es/channels/bein-sports-canada/" title="beIN Sports Canada" class="">beIN Sports Canada</a><br><span class='grey'></div></div></div></td>
     
     
                    
@@ -3334,169 +3123,100 @@ function submit_prefs() {
                     </td></tr>
     
                 
-                <tr id="5758855" class=" livematch" data-timer="70" data-t1="661" data-t2="612" data-ko="2026-10-12 15:30:00" data-cid="488" data-has-tv="1">
+                <tr id="5758856" class="" data-timer="" data-t1="620" data-t2="569" data-ko="2026-10-13 11:45:00" data-cid="488" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'>En Vivo</span><div id="exp5758855" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5758855','661','612','2026-10-12 15:30:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5758856" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5758855'  class='ts started' dv='1791833400000' df='H:MM'>15:30</span></span><span id="t5758855" class="inprogress">70<blink>'</blink></span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5758856'  class='ts' dv='1791906300000' df='H:MM'>11:45</span></span><span id="t5758856" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/denmark-vs-canada/he7e#5758855" title="Canadá vs Dinamarca" id="g5758855">Canadá <score>2 - 4</score> Dinamarca</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fox-sports-2-usa/" title="Fox Sports 2 USA (Transmisión en línea disponible)" class="homech flag ministream">Fox Sports 2</a>, <a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/fox-one/" title="FOX One" class="homech">FOX One</a>, <a href="/es/channels/onesoccer-canada/" title="OneSoccer" class="">OneSoccer</a>, <a href="/es/channels/naicom/" title="NAICOM" class="">NAICOM</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="547" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/international/uefa-u17-euro-qualification/" class="r_complink" onclick="event.stopPropagation()"><span class="flag europe">Europa - Clasificación para la Eurocopa Sub-17 de la UEFA</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5657719" class="" data-timer="FT" data-t1="21922" data-t2="22679" data-ko="2026-10-12 06:00:00" data-cid="547" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5657719" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5657719','21922','22679','2026-10-12 06:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5657719' title="Partido terminado" class='ts started' dv='1791799200000' df='H:MM'> 6:00</span></span><span id="t5657719" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/israel-u17-vs-switzerland-u17/gg77yk#5657719" title="Israel Sub-17 vs Suiza Sub-17" id="g5657719">Israel Sub-17 <score>0 - 0</score> Suiza Sub-17</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/israel-u17-vs-switzerland-u17/gg77yk#5657719" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
+                  <a href="/es/match/japan-vs-germany/f6cr#5758856" title="Alemania vs Japón" id="g5758856">Alemania vs Japón</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/cbs-sports-golazo/" title="CBS Sports Golazo (Transmisión en línea disponible)" class="homech flag ministream">CBS Sports Golazo</a>, <a href="/es/channels/dfb-play/" title="DFB Play" class="homech">DFB Play</a>, <a href="/es/channels/ard-das-erste/" title="Das Erste" class="">Das Erste</a>, <a href="/es/channels/nova-sport-2-czech/" title="Nova Sport 2 CZ" class="">Nova Sport 2 CZ</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
         
-                <tr id="5657720" class="matchrow" data-timer="FT" data-t1="22623" data-t2="22086" data-ko="2026-10-12 11:00:00" data-cid="547" data-has-tv="1">
+                <tr id="5723128" class="matchrow" data-timer="" data-t1="687" data-t2="647" data-ko="2026-10-13 19:00:00" data-cid="488" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5657720" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5657720','22623','22086','2026-10-12 11:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5723128" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5657720' title="Partido terminado" class='ts started' dv='1791817200000' df='H:MM'>11:00</span></span><span id="t5657720" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5723128'  class='ts' dv='1791932400000' df='H:MM'>19:00</span></span><span id="t5723128" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/liechtenstein-u17-vs-spain-u17/gj2l7i#5657720" title="España Sub-17 vs Liechtenstein Sub-17" id="g5657720">España Sub-17 <score>8 - 0</score> Liechtenstein Sub-17</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/liechtenstein-u17-vs-spain-u17/gj2l7i#5657720" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
+                  <a href="/es/match/spain-vs-usa/j3lo#5723128" title="EE. UU. vs España" id="g5723128">EE. UU. vs España</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/fubo-tv/" title="fuboTV (Transmisión en línea disponible)" class="homech flag ministream">fuboTV</a>, <a href="/es/channels/peacock/" title="Peacock (Transmisión en línea disponible)" class="homech flag ministream">Peacock</a>, <a href="/es/channels/telemundo-deportes/" title="Telemundo Deportes En Vivo (Transmisión en línea disponible)" class="homech flag ministream">Telemundo Deportes En Vivo</a>, <a href="/es/channels/nbc-universo/" title="UNIVERSO" class="homech">UNIVERSO</a>, <a href="/es/channels/nbc-universo-now/" title="UNIVERSO NOW" class="homech">UNIVERSO NOW</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
-                            <tr class="sortable_comp" id="155" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
+                            <tr class="sortable_comp" id="527" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
 					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/ireland-republic/football-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag ireland-republic">República de Irlanda - Premier Division</span></a>
+                    <a href="/es/competitions/international/uefa-youth-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag europe">Europa - UEFA Youth League</span></a>
                     </td></tr>
     
                 
-                <tr id="5786481" class="" data-timer="FT" data-t1="1809" data-t2="1808" data-ko="2026-10-12 15:00:00" data-cid="155" data-has-tv="1">
+                <tr id="5787066" class="" data-timer="" data-t1="17379" data-t2="27058" data-ko="2026-10-13 08:00:00" data-cid="527" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786481" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786481','1809','1808','2026-10-12 15:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5787066" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5786481' title="Partido terminado" class='ts started' dv='1791831600000' df='H:MM'>15:00</span></span><span id="t5786481" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5787066'  class='ts' dv='1791892800000' df='H:MM'> 8:00</span></span><span id="t5787066" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/bohemians-vs-shamrock-rovers/3wa4i#5786481" title="Shamrock Rovers vs Bohemians" id="g5786481">Shamrock Rovers <score>2 - 1</score> Bohemians</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/watchloi/" title="LOITV" class="homech">LOITV</a>, <a href="/es/channels/virgin-media-two/" title="Virgin Media Two" class="">Virgin Media Two</a>, <a href="/es/channels/watchloi-uk/" title="LOITV" class="">LOITV</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="143" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/israel/premier-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag israel">Israel - Ligat Ha'Al</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786476" class="" data-timer="FT" data-t1="8758" data-t2="2192" data-ko="2026-10-12 13:30:00" data-cid="143" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786476" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786476','8758','2192','2026-10-12 13:30:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786476' title="Partido terminado" class='ts started' dv='1791826200000' df='H:MM'>13:30</span></span><span id="t5786476" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/maccabi-haifa-vs-hapoel-katamon/zp9nv#5786476" title="Hapoel Katamon vs Maccabi Haifa" id="g5786476">Hapoel Katamon <score>1 - 4</score> Maccabi Haifa</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/sport-5-israel/" title="5Sport (Israel)" class="">5Sport</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="600" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/jamaica/premier-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag jamaica">Jamaica - National Premier League</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5811908" class="" data-timer="" data-t1="7269" data-t2="26951" data-ko="2026-10-12 18:05:00" data-cid="600" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5811908" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5811908'  class='ts' dv='1791842700000' df='H:MM'>18:05</span></span><span id="t5811908" class="inprogress"></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/tivoli-gardens-vs-racing-united/9ombxh#5811908" title="Tivoli Gardens vs Racing United" id="g5811908">Tivoli Gardens vs Racing United</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/television-jamaica/" title="Television Jamaica (Jamaica)" class="">Television Jamaica</a></div></div></div></td>
+                  <a href="/es/match/rb-leipzig-u19-vs-psv-u19/gbutp5#5787066" title="RB Leipzig Sub-19 vs PSV Sub-19" id="g5787066">RB Leipzig Sub-19 vs PSV Sub-19</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/uefa/" title="UEFA.tv" class="">UEFA.tv</a>, <a href="/es/channels/dazn-europe/" title="DAZN Deutschland" class="">DAZN Deutschland</a>, <a href="/es/channels/dazn1-germany/" title="DAZN1 Germany" class="">DAZN1 Germany</a>, <a href="/es/channels/viaplay-denmark/" title="Viaplay Denmark" class="">Viaplay Denmark</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
         
-                <tr id="5811909" class="matchrow" data-timer="" data-t1="7272" data-t2="31072" data-ko="2026-10-12 21:00:00" data-cid="600" data-has-tv="0">
+                <tr id="5787069" class="matchrow" data-timer="" data-t1="17397" data-t2="17414" data-ko="2026-10-13 10:00:00" data-cid="527" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5811909" class='expand-events'></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5787069" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5811909'  class='ts' dv='1791853200000' df='H:MM'>21:00</span></span><span id="t5811909" class="inprogress"></span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5787069'  class='ts' dv='1791900000000' df='H:MM'>10:00</span></span><span id="t5787069" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/waterhouse-vs-tru-juice/c5phlw#5811909" title="Waterhouse vs Tru-Juice" id="g5811909">Waterhouse vs Tru-Juice</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/television-jamaica/" title="Television Jamaica (Jamaica)" class="">Television Jamaica</a></div></div></div></td>
+                  <a href="/es/match/villarreal-u19-vs-napoli-u19/a0rci8#5787069" title="Villarreal Sub-19 vs Napoli Sub-19" id="g5787069">Villarreal Sub-19 vs Napoli Sub-19</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/vix/" title="ViX (Transmisión en línea disponible)" class="homech flag ministream">ViX</a>, <a href="/es/channels/uefa/" title="UEFA.tv" class="">UEFA.tv</a>, <a href="/es/channels/fox-onemx/" title="FOX One" class="">FOX One</a>, <a href="/es/channels/eleven-sports-portugal/" title="DAZN1 Portugal" class="">DAZN1 Portugal</a>, <a href="/es/channels/sky-sport-austria/" title="Sky Sport Austria 1" class="">Sky Sport Austria 1</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
-                            <tr class="sortable_comp" id="298" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
+                            <tr class="sortable_comp" id="728" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
 					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/latvia/virsliga/" class="r_complink" onclick="event.stopPropagation()"><span class="flag latvia">Letonia - Virsliga</span></a>
+                    <a href="/es/competitions/international/caribbean-club-championship/" class="r_complink" onclick="event.stopPropagation()"><span class="flag north-america">Norteamérica - Campeonato de Clubes del Caribe</span></a>
                     </td></tr>
     
                 
-                <tr id="5561948" class="" data-timer="FT" data-t1="7226" data-t2="9650" data-ko="2026-10-12 11:00:00" data-cid="298" data-has-tv="1">
+                <tr id="5813251" class="" data-timer="" data-t1="7267" data-t2="10515" data-ko="2026-10-13 20:00:00" data-cid="728" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5561948" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5561948','7226','9650','2026-10-12 11:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5813251" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5561948' title="Partido terminado" class='ts started' dv='1791817200000' df='H:MM'>11:00</span></span><span id="t5561948" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5813251'  class='ts' dv='1791936000000' df='H:MM'>20:00</span></span><span id="t5813251" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/liepaja-vs-auda/2csi9c#5561948" title="Liepāja vs Auda" id="g5561948">Liepāja <score>2 - 3</score> Auda</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/onefootball-uk/" title="Onefootball" class="homech">Onefootball</a>, <a href="/es/channels/sportacentrs-tv/" title="Sportacentrs TV" class="">Sportacentrs TV</a>, <a href="/es/channels/tv4-latvia/" title="TV4 Latvia" class="">TV4 Latvia</a></div></div></div></td>
+                  <a href="/es/match/portmore-united-vs-violette-ac/2m51j4#5813251" title="Portmore United vs Violette AC" id="g5813251">Portmore United vs Violette AC</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/paramountplus/" title="Paramount+ (Transmisión en línea disponible)" class="homech flag ministream">Paramount+</a>, <a href="/es/channels/espn-play-caribbean/" title="Disney+ Premium Caribbean" class="">Disney+ Premium Caribbean</a>, <a href="/es/channels/starplus-latam/" title="Disney+ Premium Norte" class="">Disney+ Premium Norte</a>, <a href="/es/channels/fox-onemx/" title="FOX One" class="">FOX One</a>, <a href="/es/channels/starplus-sur/" title="Disney+ Premium Argentina" class="">Disney+ Premium Argentina</a><br><span class='grey'></div></div></div></td>
     
     
                    
@@ -3508,228 +3228,54 @@ function submit_prefs() {
                     </td></tr>
     
                 
-                <tr id="5800770" class=" repeatrow" data-timer="FT" data-t1="4562" data-t2="4559" data-ko="2026-10-12 08:00:00" data-cid="373" data-has-tv="1">
+                <tr id="5800771" class="" data-timer="" data-t1="4560" data-t2="4557" data-ko="2026-10-13 08:00:00" data-cid="373" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5800770" class='expand-events'></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5800771" class='expand-events'></div>
 					
 
-                <span class='timecell' title='Partido Pospuesto'>Posp.</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5800771'  class='ts' dv='1791892800000' df='H:MM'> 8:00</span></span><span id="t5800771" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-akhaa-al-ahli-vs-tripoli/orqyr#5800770" title="Tripoli vs Al Akhaa Al Ahli" id="g5800770">Tripoli vs Al Akhaa Al Ahli</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/al-akhaa-al-ahli-vs-tripoli/orqyr#5800770" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
+                  <a href="/es/match/safa-vs-shabab-al-sahel/oqytf#5800771" title="Shabab Al Sahel vs Safa" id="g5800771">Shabab Al Sahel vs Safa</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/dazn-usa/" title="DAZN USA (Transmisión en línea disponible)" class="homech flag ministream">DAZN USA</a>, <a href="/es/channels/dazn-global/" title="DAZN International" class="">DAZN International</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/dazn-europe/" title="DAZN Deutschland" class="">DAZN Deutschland</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
         
-                <tr id="5800768" class="matchrow repeatrow" data-timer="FT" data-t1="26861" data-t2="4558" data-ko="2026-10-12 08:00:00" data-cid="373" data-has-tv="1">
+                <tr id="5800772" class="matchrow" data-timer="" data-t1="29829" data-t2="18617" data-ko="2026-10-13 09:30:00" data-cid="373" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5800768" class='expand-events'></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5800772" class='expand-events'></div>
 					
 
-                <span class='timecell' title='Partido Pospuesto'>Posp.</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5800772'  class='ts' dv='1791898200000' df='H:MM'> 9:30</span></span><span id="t5800772" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-ansar-vs-reyady-abaseya/85vz4n#5800768" title="Reyady Abaseya vs Al Ansar" id="g5800768">Reyady Abaseya vs Al Ansar</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/al-ansar-vs-reyady-abaseya/85vz4n#5800768" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
+                  <a href="/es/match/al-hikma-vs-jwayya/jephuu#5800772" title="Jwayya vs Al Hikma" id="g5800772">Jwayya vs Al Hikma</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/dazn-usa/" title="DAZN USA (Transmisión en línea disponible)" class="homech flag ministream">DAZN USA</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/mtv-sports-libya/" title="MTV Sports" class="">MTV Sports</a><br><span class='grey'></div></div></div></td>
     
     
                    
                 
                 </tr>
         
-                <tr id="5800769" class="matchrow" data-timer="FT" data-t1="4555" data-t2="4563" data-ko="2026-10-12 09:00:00" data-cid="373" data-has-tv="1">
+                <tr id="5800773" class="matchrow" data-timer="" data-t1="4556" data-t2="4566" data-ko="2026-10-13 14:00:00" data-cid="373" data-has-tv="1">
 				<td class='timecol'>
 				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5800769" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5800769','4555','4563','2026-10-12 09:00:00','schedule')" title="Incidencias del partido">+</span></div>
+                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5800773" class='expand-events'></div>
 					
 
-                <span class="timecell"><span id='ko5800769' title="Partido terminado" class='ts started' dv='1791810000000' df='H:MM'> 9:00</span></span><span id="t5800769" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
+                <span class="timecell"><span id='ko5800773'  class='ts' dv='1791914400000' df='H:MM'>14:00</span></span><span id="t5800773" class="inprogress"></span>				</div> <!-- meta -->
 
 				</td>
                   <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/al-nejmeh-vs-tadamon-sour/or5us#5800769" title="Al Nejmeh vs Tadamon Sour" id="g5800769">Al Nejmeh <score>3 - 3</score> Tadamon Sour</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/al-nejmeh-vs-tadamon-sour/or5us#5800769" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="223" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/norway/tippeligaen/" class="r_complink" onclick="event.stopPropagation()"><span class="flag norway">Noruega - Eliteserien</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786486" class="" data-timer="FT" data-t1="8016" data-t2="2314" data-ko="2026-10-12 13:00:00" data-cid="223" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786486" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786486','8016','2314','2026-10-12 13:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786486' title="Partido terminado" class='ts started' dv='1791824400000' df='H:MM'>13:00</span></span><span id="t5786486" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/valerenga-vs-kfum/vruq7#5786486" title="KFUM vs Vålerenga" id="g5786486">KFUM <score>2 - 1</score> Vålerenga</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/tv2-sport-1/" title="TV2 Sport" class="">TV2 Sport </a>, <a href="/es/channels/tv-2-sumo-norway/" title="TV 2 Play" class="">TV 2 Play</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="217" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/paraguay/division-profesional/" class="r_complink" onclick="event.stopPropagation()"><span class="flag paraguay">Paraguay - Primera División de Paraguay</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5787624" class=" livematch" data-timer="48" data-t1="12909" data-t2="12916" data-ko="2026-10-12 16:00:00" data-cid="217" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'>En Vivo</span><div id="exp5787624" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5787624','12909','12916','2026-10-12 16:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5787624'  class='ts started' dv='1791835200000' df='H:MM'>16:00</span></span><span id="t5787624" class="inprogress">48<blink>'</blink></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/2-de-mayo-vs-sportivo-ameliano/5ijvet#5787624" title="2 de Mayo vs Sportivo Ameliano" id="g5787624">2 de Mayo <score>0 - 0</score> Sportivo Ameliano</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/directv-argentina/" title="DIRECTV Sports Argentina" class="">DIRECTV Sports Argentina</a>, <a href="/es/channels/tigo-sports-paraguay/" title="Tigo Sports Paraguay" class="">Tigo Sports Paraguay</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5787626" class="matchrow" data-timer="" data-t1="2265" data-t2="13891" data-ko="2026-10-12 18:20:00" data-cid="217" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell live' title='Transmisión en vivo'></span><div id="exp5787626" class='expand-events'></div>
-					
-
-                <span class="timecell"><span id='ko5787626'  class='ts' dv='1791843600000' df='H:MM'>18:20</span></span><span id="t5787626" class="inprogress"></span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/nacional-asuncion-vs-deportivo-recoleta/25ppp5#5787626" title="Nacional Asunción vs Deportivo Recoleta" id="g5787626">Nacional Asunción vs Deportivo Recoleta</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/fanatiz-futbol/" title="Fanatiz (Transmisión en línea disponible)" class="homech flag ministream">Fanatiz</a>, <a href="/es/channels/directv-argentina/" title="DIRECTV Sports Argentina" class="">DIRECTV Sports Argentina</a>, <a href="/es/channels/tigo-sports-paraguay/" title="Tigo Sports Paraguay" class="">Tigo Sports Paraguay</a><br><span class='grey'></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="62" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/poland/ekstraklasa/" class="r_complink" onclick="event.stopPropagation()"><span class="flag poland">Polonia - Ekstraklasa</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5786474" class="" data-timer="FT" data-t1="8776" data-t2="8784" data-ko="2026-10-12 12:00:00" data-cid="62" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786474" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786474','8776','8784','2026-10-12 12:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786474' title="Partido terminado" class='ts started' dv='1791820800000' df='H:MM'>12:00</span></span><span id="t5786474" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/radomiak-radom-vs-motor-lublin/2jsx4s#5786474" title="Radomiak Radom vs Motor Lublin" id="g5786474">Radomiak Radom <score>2 - 3</score> Motor Lublin</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/radomiak-radom-vs-motor-lublin/2jsx4s#5786474" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-        
-                <tr id="5786473" class="matchrow" data-timer="FT" data-t1="4747" data-t2="18362" data-ko="2026-10-12 14:30:00" data-cid="62" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5786473" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5786473','4747','18362','2026-10-12 14:30:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5786473' title="Partido terminado" class='ts started' dv='1791829800000' df='H:MM'>14:30</span></span><span id="t5786473" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/katowice-vs-wieczysta-krakow/4eznl5#5786473" title="Katowice vs Wieczysta Kraków" id="g5786473">Katowice <score>2 - 1</score> Wieczysta Kraków</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/match/katowice-vs-wieczysta-krakow/4eznl5#5786473" style='color:#63897c'>Disponible sobre pedido </a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="64" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/romania/liga-1/" class="r_complink" onclick="event.stopPropagation()"><span class="flag romania">Rumania - Liga I</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5681015" class="" data-timer="FT" data-t1="2208" data-t2="1407" data-ko="2026-10-12 14:00:00" data-cid="64" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5681015" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5681015','2208','1407','2026-10-12 14:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5681015' title="Partido terminado" class='ts started' dv='1791828000000' df='H:MM'>14:00</span></span><span id="t5681015" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/rapid-bucuresti-vs-universitatea-cluj/3w4uo#5681015" title="Universitatea Cluj vs Rapid Bucureşti" id="g5681015">Universitatea Cluj <score>3 - 4</score> Rapid Bucureşti</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/digi-sport-1-romania/" title="Digi Sport 1 Romania" class="">Digi Sport 1 Romania</a>, <a href="/es/channels/digi-sport-live-romania/" title="Digi Online" class="">Digi Online</a>, <a href="/es/channels/look-plus-romania/" title="Prima Sport 1" class="">Prima Sport 1</a>, <a href="/es/channels/telekom-tv-romania-live/" title="Orange TV Go" class="">Orange TV Go</a>, <a href="/es/channels/prima-play-ro/" title="Prima Play" class="">Prima Play</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="358" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/singapore/s-league/" class="r_complink" onclick="event.stopPropagation()"><span class="flag singapore">Singapur - Singapore Premier League</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5750711" class="" data-timer="FT" data-t1="4474" data-t2="4475" data-ko="2026-10-12 07:30:00" data-cid="358" data-has-tv="0">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5750711" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5750711','4474','4475','2026-10-12 07:30:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5750711' title="Partido terminado" class='ts started' dv='1791804600000' df='H:MM'> 7:30</span></span><span id="t5750711" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/hougang-united-vs-balestier-khalsa/nufqq#5750711" title="Hougang United vs Balestier Khalsa" id="g5750711">Hougang United <score>1 - 2</score> Balestier Khalsa</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/starhub-tv-com-singapore/" title="StarHub TV+" class="">StarHub TV+</a>, <a href="/es/channels/mio-sports-1-singapore/" title="111 mio Sports 1" class="">111 mio Sports 1</a>, <a href="/es/channels/singtel-tv-go-singapore/" title="Singtel TV GO" class="">Singtel TV GO</a>, <a href="/es/channels/toggle-singapore/" title="meWATCH" class="">meWATCH</a></div></div></div></td>
-    
-    
-                   
-                
-                </tr>
-                            <tr class="sortable_comp" id="59" rank="0" onclick="togglePrimaryComp(this)"><td colspan="3" class="r_comprow">
-					<span class="comp_chevron">&#9652;</span>
-                    <a href="/es/competitions/turkey/super-lig/" class="r_complink" onclick="event.stopPropagation()"><span class="flag turkey">Turquía - Super Lig</span></a>
-                    </td></tr>
-    
-                
-                <tr id="5680494" class="" data-timer="FT" data-t1="3855" data-t2="3232" data-ko="2026-10-12 13:00:00" data-cid="59" data-has-tv="1">
-				<td class='timecol'>
-				<div class='meta'>
-                <span class='livecell ft' title='Partido terminado'>En Vivo</span><div id="exp5680494" class='expand-events'><span class="rbutton blueb clickable" onclick="loadEvents('5680494','3855','3232','2026-10-12 13:00:00','schedule')" title="Incidencias del partido">+</span></div>
-					
-
-                <span class="timecell"><span id='ko5680494' title="Partido terminado" class='ts started' dv='1791824400000' df='H:MM'>13:00</span></span><span id="t5680494" class="inprogress" title="Fin del juego">FT</span>				</div> <!-- meta -->
-
-				</td>
-                  <td valign="top" id="match" class="matchcol"><div class="match-ch-flex"><div class="match-name-col">
-                  <a href="/es/match/goztepe-vs-eyupspor/eyeuv#5680494" title="Eyüpspor vs Göztepe" id="g5680494">Eyüpspor <score>0 - 4</score> Göztepe</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
-						<a href="/es/channels/gigiturk-playglobal/" title="Digiturk Play" class="homech">Digiturk Play</a>, <a href="/es/channels/digiturk-play/" title="Digiturk Play" class="">Digiturk Play</a>, <a href="/es/channels/bein-sports-1-turkey/" title="beIN Sports 1 Turkey " class="">beIN Sports 1 Turkey</a>, <a href="/es/channels/bein-connect-turkey/" title="beIN CONNECT Turkey" class="">beIN CONNECT Turkey</a>, <a href="/es/channels/tod-tr/" title="TOD" class="">TOD</a></div></div></div></td>
+                  <a href="/es/match/al-ahed-vs-al-mabarrah/ory09#5800773" title="Al Ahed vs Al Mabarrah" id="g5800773">Al Ahed vs Al Mabarrah</a></div><div id="channels" class="channels-col"><div class="mchannels disable-link">
+						<a href="/es/channels/dazn-usa/" title="DAZN USA (Transmisión en línea disponible)" class="homech flag ministream">DAZN USA</a>, <a href="/es/channels/dazn-global/" title="DAZN International" class="">DAZN International</a>, <a href="/es/channels/dazn-canada/" title="DAZN Canada" class="">DAZN Canada</a>, <a href="/es/channels/fubo-tv-canada/" title="fuboTV Canada" class="">fuboTV Canada</a>, <a href="/es/channels/dazn-europe/" title="DAZN Deutschland" class="">DAZN Deutschland</a><br><span class='grey'></div></div></div></td>
     
     
                    
@@ -3759,6 +3305,36 @@ function submit_prefs() {
 
 			<div class='home-news'>
 
+					<a href="/es/news/600506/el-infierno-turco-del-galatasaray-pone-a-prueba-a-un-barca-infalible/" class="home-news-item">						
+
+			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600506-el-infierno-turco-del-galatasaray-pone-a-prueba-a-un-barca-i.jpeg?q=75&w=188"
+				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600506-el-infierno-turco-del-galatasaray-pone-a-prueba-a-un-barca-i.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600506-el-infierno-turco-del-galatasaray-pone-a-prueba-a-un-barca-i.jpeg?q=75&w=188 188w"
+				sizes="(max-width: 767px) 634px, 188px"
+				style="max-width: 100%; height: auto;"
+				alt="El infierno turco del Galatasaray pone a prueba a un Barça infalible" border="0" />	
+
+			<p class='news-item'>El infierno turco del Galatasaray pone a prueba a un Barça infalible</p>
+			</a>
+					<a href="/es/news/600493/el-ascenso-de-gabriel-jesus-al-cielo-azulgrana/" class="home-news-item">						
+
+			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600493-el-ascenso-de-gabriel-jesus-al-cielo-azulgrana.jpeg?q=75&w=188"
+				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600493-el-ascenso-de-gabriel-jesus-al-cielo-azulgrana.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600493-el-ascenso-de-gabriel-jesus-al-cielo-azulgrana.jpeg?q=75&w=188 188w"
+				sizes="(max-width: 767px) 634px, 188px"
+				style="max-width: 100%; height: auto;"
+				alt="El ascenso de Gabriel Jesus al cielo azulgrana" border="0" />	
+
+			<p class='news-item'>El ascenso de Gabriel Jesus al cielo azulgrana</p>
+			</a>
+					<a href="/es/news/600458/tomas-aranda-reacciona-a-su-inclusion-en-la-lista-de-promesas-elegidas-por-messi/" class="home-news-item">						
+
+			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600458-tomas-aranda-reacciona-a-su-inclusion-en-la-lista-de-promesa.jpeg?q=75&w=188"
+				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600458-tomas-aranda-reacciona-a-su-inclusion-en-la-lista-de-promesa.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600458-tomas-aranda-reacciona-a-su-inclusion-en-la-lista-de-promesa.jpeg?q=75&w=188 188w"
+				sizes="(max-width: 767px) 634px, 188px"
+				style="max-width: 100%; height: auto;"
+				alt="Tomás Aranda reacciona a su inclusión en la lista de promesas elegidas por Messi" border="0" />	
+
+			<p class='news-item'>Tomás Aranda reacciona a su inclusión en la lista de promesas elegidas por Messi</p>
+			</a>
 					<a href="/es/news/600449/luken-beitia-tendra-que-descansar-forzosamente-parte-medico/" class="home-news-item">						
 
 			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600449-luken-beitia-tendra-que-descansar-forzosamente-parte-medico.jpeg?q=75&w=188"
@@ -3849,36 +3425,6 @@ function submit_prefs() {
 
 			<p class='news-item'>Sonia Bermúdez confirma la presencia de Alexia Putellas: "Cumplirá los 150 partidos"</p>
 			</a>
-					<a href="/es/news/600363/inigo-perez-y-la-necesidad-emocional-del-villarreal-por-ganar-en-champions/" class="home-news-item">						
-
-			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600363-inigo-perez-y-la-necesidad-emocional-del-villarreal-por-gana.jpeg?q=75&w=188"
-				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600363-inigo-perez-y-la-necesidad-emocional-del-villarreal-por-gana.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600363-inigo-perez-y-la-necesidad-emocional-del-villarreal-por-gana.jpeg?q=75&w=188 188w"
-				sizes="(max-width: 767px) 634px, 188px"
-				style="max-width: 100%; height: auto;"
-				alt="Iñigo Pérez y la "necesidad emocional" del Villarreal por ganar en Champions" border="0" />	
-
-			<p class='news-item'>Iñigo Pérez y la "necesidad emocional" del Villarreal por ganar en Champions</p>
-			</a>
-					<a href="/es/news/600364/cuti-romero-un-seguro-multitarea-para-el-atletico-de-madrid/" class="home-news-item">						
-
-			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600364-cuti-romero-un-seguro-multitarea-para-el-atletico-de-madrid.jpeg?q=75&w=188"
-				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600364-cuti-romero-un-seguro-multitarea-para-el-atletico-de-madrid.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600364-cuti-romero-un-seguro-multitarea-para-el-atletico-de-madrid.jpeg?q=75&w=188 188w"
-				sizes="(max-width: 767px) 634px, 188px"
-				style="max-width: 100%; height: auto;"
-				alt="Cuti Romero, un seguro multitarea para el Atlético de Madrid" border="0" />	
-
-			<p class='news-item'>Cuti Romero, un seguro multitarea para el Atlético de Madrid</p>
-			</a>
-					<a href="/es/news/600365/moleiro-el-equipo-es-mas-fuerte-porque-tenemos-el-aprendizaje-y-la-mentalidad/" class="home-news-item">						
-
-			<img loading="lazy" src="https://cdn.livesoccertv.com/tt/images/articles/600/600365-moleiro-el-equipo-es-mas-fuerte-porque-tenemos-el-aprendizaj.jpeg?q=75&w=188"
-				srcset="https://cdn.livesoccertv.com/tt/images/articles/600/600365-moleiro-el-equipo-es-mas-fuerte-porque-tenemos-el-aprendizaj.jpeg?q=75&w=634 634w, https://cdn.livesoccertv.com/tt/images/articles/600/600365-moleiro-el-equipo-es-mas-fuerte-porque-tenemos-el-aprendizaj.jpeg?q=75&w=188 188w"
-				sizes="(max-width: 767px) 634px, 188px"
-				style="max-width: 100%; height: auto;"
-				alt="Moleiro: "El equipo es más fuerte porque tenemos el aprendizaje y la mentalidad"" border="0" />	
-
-			<p class='news-item'>Moleiro: "El equipo es más fuerte porque tenemos el aprendizaje y la mentalidad"</p>
-			</a>
 					
 		</div>
 		<div class="promolink2"><a href="/es/news/">Más Noticias &raquo;</a></div>
@@ -3954,6 +3500,7 @@ function submit_prefs() {
 <li><a href="/es/competitions/united-states/us-open-cup/" title="US Open Cup">US Open Cup</a></li>
 <li><a href="/es/competitions/united-states/nwsl/" title="NWSL">NWSL</a></li>
 <li><a href="/es/competitions/international/uefa-champions-league/" title="Liga de Campeones">Liga de Campeones</a></li>
+<li><a href="/es/competitions/international/uefa-nations-league/" title="Liga de Naciones de la UEFA">Liga de Naciones de&hellip;</a></li>
 <li><a href="/es/competitions/international/uefa-europa-league/" title="Liga Europa de la UEFA">Liga Europa de la UE&hellip;</a></li>
 <li><a href="/es/competitions/international/uefa-europa-conference-league/" title="Liga de la Conferencia de la UEFA">Liga de la Conferenc&hellip;</a></li>
 <li><a href="/es/competitions/england/premier-league/" title="Inglaterra - Premier League">Premier League</a></li>
@@ -3967,6 +3514,7 @@ function submit_prefs() {
 <li><a href="/es/competitions/england/football-league-cup/" title="Inglaterra - EFL Cup">EFL Cup</a></li>
 <li><a href="/es/competitions/spain/copa-del-rey/" title="España - Copa del Rey">Copa del Rey</a></li>
 <li><a href="/es/competitions/germany/german-cup/" title="Alemania - DFB Pokal">DFB Pokal</a></li>
+<li><a href="/es/competitions/international/concacaf-nations-league/" title="Liga de Naciones de la CONCACAF">Liga de Naciones de&hellip;</a></li>
 <li><a href="/es/competitions/mexico/primera-division/" title="Liga MX">Liga MX</a></li>
         </ul>
     </div>
@@ -4061,7 +3609,9 @@ function submit_prefs() {
 <li><a href="/es/channels/man-city-for-tv/" title="CITY+">CITY+</a></li>
 <li><a href="/es/channels/estrella-tv-usa/" title="Estrella TV">Estrella TV</a></li>
 <li><a href="/es/channels/fandango/" title="Fandango">Fandango</a></li>
+<li><a href="/es/channels/flo-sports/" title="FloSports">FloSports</a></li>
 <li><a href="/es/channels/fox-one/" title="FOX One">FOX One</a></li>
+<li><a href="/es/channels/fubo-latino-2/" title="fubo Latino 2">fubo Latino 2</a></li>
 <li><a href="/es/channels/hbo-max-us/" title="HBO Max">HBO Max</a></li>
 <li><a href="/es/channels/ion/" title="ion">ion</a></li>
 <li><a href="/es/channels/mls-next-pro/" title="MLS Next Pro">MLS Next Pro</a></li>
@@ -4071,6 +3621,7 @@ function submit_prefs() {
 <li><a href="/es/channels/roku-sports-channel/" title="Roku Sports Channel">Roku Sports Channel</a></li>
 <li><a href="/es/channels/tnt-usa/" title="TNT USA">TNT USA</a></li>
 <li><a href="/es/channels/tubi/" title="Tubi">Tubi</a></li>
+<li><a href="/es/channels/univision-deportes-en-vivo/" title="TUDN.com">TUDN.com</a></li>
 <li><a href="/es/channels/vix/" title="ViX">ViX</a></li>
 <li><a href="/es/channels/zapping-sportcl/" title="Zapping Sports">Zapping Sports</a></li>
         
@@ -4166,7 +3717,7 @@ function submit_prefs() {
     </div> <!-- footer -->
 
 	<div class="g10" style="text-align:center;padding:30px;justify-content: center;">
-            <div class="ascenter">Gambling Problem? Call 1-800-BETS OFF 21+</div>
+            <div class="ascenter">Gamble Responsibly. <a href="https://www.gamblingtherapy.org/" target="_blank">Gambling Therapy</a>. 21+<br>Gambling Problem? Call 1-800-GAMBLER in the U.S.</div>
             </div>    
 
     <div align="center" style="padding:50px 0;">&copy; 2005-2026 Live Soccer TV</div>
