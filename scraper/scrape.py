@@ -33,7 +33,6 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 DIAS = 7
-TSDB_KEY = os.environ.get("THESPORTSDB_KEY") or "3"
 
 UA = {
     "User-Agent": (
@@ -199,77 +198,6 @@ def fecha_desde_ts(ts):
         return dt.astimezone(timezone.utc).date().isoformat()
     except (ValueError, TypeError):
         return None
-
-
-# ============================================================
-# THESPORTSDB
-# ============================================================
-
-def fuente_thesportsdb(fecha):
-    url = (
-        "https://www.thesportsdb.com/api/v1/json/"
-        f"{TSDB_KEY}/eventstv.php?d={fecha}"
-    )
-
-    # TheSportsDB puede responder temporalmente con HTTP 503/429.
-    # Reintentar con pausas crecientes evita perder toda la fuente por
-    # una caída puntual del servicio.
-    ultimo_error = None
-    datos = None
-    for intento in range(1, 4):
-        try:
-            datos = get_json(url)
-            break
-        except Exception as error:
-            ultimo_error = error
-            print(
-                f"TheSportsDB {fecha}: intento {intento}/3 fallido: "
-                f"{type(error).__name__}: {error}",
-                file=sys.stderr,
-            )
-            if intento < 3:
-                time.sleep(2 ** intento)
-
-    if datos is None:
-        raise RuntimeError(
-            f"TheSportsDB no respondió tras 3 intentos: {ultimo_error}"
-        )
-
-    salida = {}
-
-    for item in datos.get("tvevents") or []:
-        identificador = (
-            item.get("idEvent")
-            or item.get("strEvent")
-        )
-
-        evento = salida.setdefault(
-            identificador,
-            {
-                "nombre": item.get("strEvent") or "",
-                "deporte": item.get("strSport") or "Otros",
-                "liga": item.get("strLeague") or "",
-                "ts": (
-                    item.get("strTimestamp")
-                    or item.get("strTimeStamp")
-                ),
-                "equipos": [
-                    item.get("strHomeTeam"),
-                    item.get("strAwayTeam"),
-                ],
-                "canales": [],
-            },
-        )
-
-        canal = item.get("strChannel") or item.get("strTVStation")
-
-        if canal:
-            evento["canales"].append({
-                "canal": canal,
-                "pais": item.get("strCountry") or "Internacional",
-            })
-
-    return list(salida.values())
 
 
 # ============================================================
@@ -1832,7 +1760,6 @@ def fuente_marca_tv(fecha):
 # ============================================================
 
 FUENTES = {
-    "TheSportsDB": fuente_thesportsdb,
     "ESPN": fuente_espn,
     "WhatSportsOn": fuente_whatsportson,
     "Relevo": fuente_relevo,
