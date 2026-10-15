@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -312,6 +311,7 @@ function normalizarCompeticion(liga){
 
   if(
     l === "laliga" ||
+    l.includes("laliga") ||
     l.includes("la liga") ||
     l.includes("primera division") ||
     l.includes("spanish primera")
@@ -741,10 +741,20 @@ function pintar(){
   const filtrados = ev.filter(evento => {
     const deporte = normalizarDeporte(evento.deporte);
     const clave = claveCompeticion(evento.liga);
+    const ligaOriginal = normalizarTexto(evento.liga);
+
+    // Excluir los partidos de la MLS del apartado Fútbol.
+    const esMLS =
+      ligaOriginal === "mls" ||
+      ligaOriginal.includes("major league soccer") ||
+      /(^|\\s)mls($|\\s)/.test(ligaOriginal);
 
     const coincideDeporte =
       !deporteSeleccionado ||
       deporte === deporteSeleccionado;
+
+    const coincideMLS =
+      !(deporte === "Fútbol" && esMLS);
 
     const coincideCompeticion =
       !competicionSeleccionada ||
@@ -771,6 +781,7 @@ function pintar(){
       !busqueda || texto.includes(busqueda);
 
     return coincideDeporte &&
+      coincideMLS &&
       coincideCompeticion &&
       coincidePais &&
       coincideBusqueda;
