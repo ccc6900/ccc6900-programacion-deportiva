@@ -7,11 +7,15 @@ on:
   schedule:
     - cron: "0 */3 * * *"   # cada 3 horas
   workflow_dispatch:         # botón manual en la pestaña Actions
+concurrency:
+  group: actualizar-programacion
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
