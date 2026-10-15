@@ -493,6 +493,135 @@ EMOJI_DEPORTE = {
 _WS_CACHE = {}
 
 
+def _parsear_whatsportson_jsonld(contenido, fecha_base=None):
+    """Extrae eventos del JSON-LD SportsEvent que publica WhatSportsOn."""
+    salida = []
+    vistos = set()
+
+    bloques = re.findall(
+        r'<script\b[^>]*type=["\']application/ld\+json["\'][^>]*>'
+        r'(.*?)</script>',
+        contenido or "",
+        flags=re.I | re.S,
+    )
+
+    def recorrer(objeto):
+        if isinstance(objeto, list):
+            for elemento in objeto:
+                recorrer(elemento)
+            return
+
+        if not isinstance(objeto, dict):
+            return
+
+        grafo = objeto.get("@graph")
+        if isinstance(grafo, (list, dict)):
+            recorrer(grafo)
+
+        tipos = objeto.get("@type") or []
+        if isinstance(tipos, str):
+            tipos = [tipos]
+
+        if "SportsEvent" not in tipos:
+            return
+
+        inicio = objeto.get("startDate")
+        fecha = fecha_desde_ts(inicio)
+        if not inicio or not fecha or (fecha_base and fecha != fecha_base):
+            return
+
+        nombre = texto_html(str(objeto.get("name") or ""))
+        if not nombre:
+            return
+
+        try:
+            dt = datetime.fromisoformat(str(inicio).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            ts = dt.astimezone(timezone.utc).isoformat()
+        except (ValueError, TypeError):
+            return
+
+        deporte_obj = objeto.get("sport") or {}
+        deporte = (
+            deporte_obj.get("name", "Otros")
+            if isinstance(deporte_obj, dict)
+            else str(deporte_obj or "Otros")
+        )
+
+        organizador = objeto.get("organizer") or {}
+        liga = (
+            organizador.get("name", "")
+            if isinstance(organizador, dict)
+            else ""
+        )
+
+        interpretes = objeto.get("performer") or []
+        if isinstance(interpretes, dict):
+            interpretes = [interpretes]
+        equipos = [
+            str(x.get("name") or "").strip()
+            for x in interpretes
+            if isinstance(x, dict) and x.get("name")
+        ]
+
+        canales = []
+        ofertas = objeto.get("offers") or []
+        if isinstance(ofertas, dict):
+            ofertas = [ofertas]
+
+        for oferta in ofertas:
+            if not isinstance(oferta, dict):
+                continue
+            canal = str(oferta.get("name") or "").strip()
+            canal = re.sub(r"^\s*watch\s+on\s+", "", canal, flags=re.I).strip()
+            if not canal:
+                continue
+            url_canal = str(oferta.get("url") or "")
+            if "whatsportson.com/events/" in url_canal.lower():
+                pais = "Internacional"
+            elif url_canal:
+                pais = pais_por_dominio(url_canal)
+            else:
+                pais = "Internacional"
+            canales.append({"canal": canal, "pais": pais})
+
+        if not canales:
+            descripcion = str(objeto.get("description") or "")
+            m = re.search(r"\bon\s+(.+?)(?:[.!]?$)", descripcion, re.I)
+            if m:
+                for canal in re.split(r"\s*,\s*", m.group(1).strip()):
+                    canal = canal.strip(" .")
+                    if canal:
+                        canales.append({"canal": canal, "pais": "Internacional"})
+
+        url_evento = str(objeto.get("url") or objeto.get("@id") or "")
+        id_match = re.search(r"/events/(\d+)/", url_evento)
+        evento = {
+            "fecha": fecha,
+            "nombre": nombre,
+            "deporte": normalizar_deporte(deporte),
+            "liga": texto_html(str(liga)),
+            "ts": ts,
+            "equipos": equipos[:2] if len(equipos) >= 2 else [],
+            "canales": normalizar_canales(canales),
+            "id": id_match.group(1) if id_match else "",
+        }
+
+        llave = (fecha, ts, norm(nombre))
+        if llave not in vistos:
+            vistos.add(llave)
+            salida.append(evento)
+
+    for bloque in bloques:
+        try:
+            recorrer(json.loads(html.unescape(bloque)))
+        except (json.JSONDecodeError, TypeError, ValueError):
+            continue
+
+    return salida
+
+
 def parsear_whatsportson(contenido, fecha_base=None):
     eventos = []
 
@@ -604,8 +733,10 @@ def parsear_whatsportson(contenido, fecha_base=None):
 
     # Ejecutar siempre ambos parsers: el principal puede detectar parte
     # de las tarjetas y dejar otras fuera por cambios en el HTML.
-    candidatos = eventos + _parsear_whatsportson_flexible(
-        contenido, fecha_base
+    candidatos = (
+        eventos
+        + _parsear_whatsportson_flexible(contenido, fecha_base)
+        + _parsear_whatsportson_jsonld(contenido, fecha_base)
     )
 
     for evento in candidatos:
