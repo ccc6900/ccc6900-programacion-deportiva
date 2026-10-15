@@ -16,6 +16,7 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 import urllib.request
 
@@ -210,7 +211,30 @@ def fuente_thesportsdb(fecha):
         f"{TSDB_KEY}/eventstv.php?d={fecha}"
     )
 
-    datos = get_json(url)
+    # TheSportsDB puede responder temporalmente con HTTP 503/429.
+    # Reintentar con pausas crecientes evita perder toda la fuente por
+    # una caída puntual del servicio.
+    ultimo_error = None
+    datos = None
+    for intento in range(1, 4):
+        try:
+            datos = get_json(url)
+            break
+        except Exception as error:
+            ultimo_error = error
+            print(
+                f"TheSportsDB {fecha}: intento {intento}/3 fallido: "
+                f"{type(error).__name__}: {error}",
+                file=sys.stderr,
+            )
+            if intento < 3:
+                time.sleep(2 ** intento)
+
+    if datos is None:
+        raise RuntimeError(
+            f"TheSportsDB no respondió tras 3 intentos: {ultimo_error}"
+        )
+
     salida = {}
 
     for item in datos.get("tvevents") or []:
@@ -927,21 +951,50 @@ def fuente_whatsportson(fecha):
     if fecha not in _WS_CACHE:
         eventos_fecha = []
 
-        # WhatSportsOn publica una página específica de fútbol por fecha.
-        url_fecha = f"https://www.whatsportson.com/soccer/{fecha}"
-        try:
-            contenido_fecha = http(url_fecha, 30).decode(
-                "utf-8", "replace"
-            )
-            eventos_fecha.extend(
-                parsear_whatsportson(contenido_fecha, fecha)
-            )
-        except Exception as error:
-            print(
-                f"WhatSportsOn {fecha}: error en página por fecha: "
-                f"{type(error).__name__}: {error}",
-                file=sys.stderr,
-            )
+        # Consultar la página específica del día. Si la web redirige
+        # o sirve una variante de URL, probar también la versión con barra.
+        urls_fecha = [
+            f"https://www.whatsportson.com/soccer/{fecha}",
+            f"https://www.whatsportson.com/soccer/{fecha}/",
+        ]
+        html_fecha = ""
+        for intento_url, url_fecha in enumerate(urls_fecha, start=1):
+            try:
+                contenido_fecha = http(url_fecha, 30).decode(
+                    "utf-8", "replace"
+                )
+                if len(contenido_fecha) > len(html_fecha):
+                    html_fecha = contenido_fecha
+                candidatos = parsear_whatsportson(
+                    contenido_fecha, fecha
+                )
+                eventos_fecha.extend(candidatos)
+                if candidatos:
+                    break
+                print(
+                    f"WhatSportsOn {fecha}: URL {intento_url} devolvió "
+                    f"0 eventos; HTML={len(contenido_fecha)} caracteres, "
+                    f"time={len(re.findall(r'<time\\b', contenido_fecha, re.I))}, "
+                    f"article={len(re.findall(r'<article\\b', contenido_fecha, re.I))}",
+                    file=sys.stderr,
+                )
+            except Exception as error:
+                print(
+                    f"WhatSportsOn {fecha}: error en {url_fecha}: "
+                    f"{type(error).__name__}: {error}",
+                    file=sys.stderr,
+                )
+
+        # Guardar la respuesta de la fecha para poder inspeccionar los
+        # cambios de HTML de la web si vuelve a devolver cero eventos.
+        if html_fecha:
+            try:
+                (ROOT / "debug").mkdir(exist_ok=True)
+                (ROOT / "debug" / f"whatsportson-{fecha}.html").write_text(
+                    html_fecha[:1_500_000], encoding="utf-8"
+                )
+            except Exception:
+                pass
 
         # La portada puede aportar deportes distintos del fútbol para hoy.
         try:
