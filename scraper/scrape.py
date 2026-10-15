@@ -971,11 +971,16 @@ def fuente_whatsportson(fecha):
                 eventos_fecha.extend(candidatos)
                 if candidatos:
                     break
+                n_tiempos = len(re.findall(
+                    r"<time\\b", contenido_fecha, re.I
+                ))
+                n_articulos = len(re.findall(
+                    r"<article\\b", contenido_fecha, re.I
+                ))
                 print(
                     f"WhatSportsOn {fecha}: URL {intento_url} devolvió "
                     f"0 eventos; HTML={len(contenido_fecha)} caracteres, "
-                    f"time={len(re.findall(r'<time\\b', contenido_fecha, re.I))}, "
-                    f"article={len(re.findall(r'<article\\b', contenido_fecha, re.I))}",
+                    f"time={n_tiempos}, article={n_articulos}",
                     file=sys.stderr,
                 )
             except Exception as error:
