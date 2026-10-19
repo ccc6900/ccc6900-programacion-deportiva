@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="content-language" content="en">
-<title>Where to watch live sport on TV today in United States</title>
+<title>Where to watch live sport on TV today in the United States</title>
 <meta name="description" content="Where to watch live sport on TV in United States today: 5 matches with the exact channel for each. Free-to-air games are marked.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://livesportsin.com/watch">
@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="live sport on TV in United States today">
 <meta name="twitter:description" content="5 matches on TV in United States today, with the channel for each.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://livesportsin.com/"},{"@type":"ListItem","position":2,"name":"Where to watch","item":"https://livesportsin.com/watch"},{"@type":"ListItem","position":3,"name":"United States","item":"https://livesportsin.com/watch"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Live sport on TV today in United States","numberOfItems":5,"itemListElement":[{"@type":"ListItem","position":1,"name":"Al-Fayha vs Al-Ahli","url":"https://livesportsin.com/sport/soccer/international/saudi-arabian-pro-league/al-fayha-vs-al-ahli-19-10-2026-2573388"},{"@type":"ListItem","position":2,"name":"Monza vs Cagliari","url":"https://livesportsin.com/sport/soccer/italy/italian-serie-a/monza-vs-cagliari-18-10-2026-2482207"},{"@type":"ListItem","position":3,"name":"Al-Hilal vs Al-Hazem","url":"https://livesportsin.com/sport/soccer/international/saudi-arabian-pro-league/al-hilal-vs-al-hazem-19-10-2026-2573383"},{"@type":"ListItem","position":4,"name":"Getafe vs Rayo Vallecano","url":"https://livesportsin.com/sport/soccer/spain/spanish-la-liga/getafe-vs-rayo-vallecano-19-10-2026-2506257"},{"@type":"ListItem","position":5,"name":"Tottenham Hotspur vs Coventry City","url":"https://livesportsin.com/sport/soccer/england/english-premier-league/tottenham-hotspur-vs-coventry-city-17-10-2026-2494064"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Live sport on TV today in the United States","numberOfItems":5,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://livesportsin.com/sport/soccer/spain/spanish-la-liga/getafe-vs-rayo-vallecano-19-10-2026-2506257"},{"@type":"ListItem","position":2,"url":"https://livesportsin.com/sport/soccer/england/english-premier-league/tottenham-hotspur-vs-coventry-city-17-10-2026-2494064"},{"@type":"ListItem","position":3,"url":"https://livesportsin.com/sport/soccer/international/saudi-arabian-pro-league/al-hilal-vs-al-hazem-19-10-2026-2573383"},{"@type":"ListItem","position":4,"name":"Monza vs Cagliari","url":"https://livesportsin.com/sport/soccer/italy/italian-serie-a/monza-vs-cagliari-18-10-2026-2482207"},{"@type":"ListItem","position":5,"name":"Al-Fayha vs Al-Ahli","url":"https://livesportsin.com/sport/soccer/international/saudi-arabian-pro-league/al-fayha-vs-al-ahli-19-10-2026-2573388"}]}</script>
 <link rel="icon" href="https://livesportsin.com/favicon.svg?v=2" type="image/svg+xml">
 <link rel="icon" href="https://livesportsin.com/favicon.ico?v=2" sizes="32x32">
 <link rel="apple-touch-icon" href="https://livesportsin.com/apple-touch-icon.png?v=2">
@@ -119,8 +119,11 @@ this.open = !this.open;
 if (this.open) this.$nextTick(() => this.$refs.search?.focus());
 },
 go() {
-const first = this.$el.querySelector('[data-country-option]:not([style*=\'none\']) a');
-if (first) window.location.href = first.href;
+// An option is a form (the cookie route) or a link (a page that
+// names its market in the path); Enter takes whichever comes first.
+const first = this.$el.querySelector('[data-country-option]:not([style*=\'none\']) :is(a, form)');
+if (first?.tagName === 'FORM') first.submit();
+else if (first) window.location.href = first.href;
 },
 }"
 @keydown.escape.window="open = false"
@@ -154,14 +157,7 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><path d="m6 9 6 6 6-6"/></svg>
 </button>
-<a
-href="/watch/soccer/global"
-role="switch"
-aria-checked="true"
-title="Show every country"
-class="flex items-center gap-2 border-l border-border-c px-2.5 transition-colors hover:bg-surface-sunken"
->
-<span class="sr-only">Only United States</span>
+<a href="/watch/soccer/global" role="switch" aria-checked="true" title="Show every country" class="flex items-center gap-2 border-l border-border-c px-2.5 transition-colors hover:bg-surface-sunken"><span class="sr-only">Only United States</span>
 <span class="hidden text-[0.6875rem] font-semibold uppercase tracking-wide text-text-subtle lg:inline">
 United States
 </span>
@@ -173,8 +169,7 @@ width="12" height="12"
 class="absolute top-[3px] size-3 rounded-full object-cover transition-[left,right] duration-[140ms] left-[3px]"
 >
 <span class="absolute top-0.5 size-[14px] rounded-full bg-white shadow-xs transition-[left] duration-[140ms] left-4"></span>
-</span>
-</a>
+</span></a>
 </div>
 <div
 x-show="open"
@@ -208,11 +203,7 @@ placeholder:text-text-subtle focus:border-primary focus:outline-none"
 </div>
 </div>
 <div class="border-b border-border-c p-1">
-<a
-href="/watch/soccer/global"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<svg
+<a href="/watch/soccer/global" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><svg
 class="shrink-0" aria-hidden="true" focusable="false"
 width="16"
 height="16"
@@ -224,847 +215,496 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/></svg>
 <span>Every country</span>
-<span class="ml-auto text-[0.6875rem] text-text-subtle">Worldwide</span>
-</a>
+<span class="ml-auto text-[0.6875rem] text-text-subtle">Worldwide</span></a>
 </div>
 <ul class="scrollbar-brand max-h-72 overflow-y-auto p-1">
 <li
 x-show="!query || 'albania'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/albania"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Albania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Albania</span>
-</a>
+<a href="/watch/soccer/albania" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Albania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Albania</span></a>
 </li>
 <li
 x-show="!query || 'argentina'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/argentina"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Argentina.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Argentina</span>
-</a>
+<a href="/watch/soccer/argentina" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Argentina.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Argentina</span></a>
 </li>
 <li
 x-show="!query || 'australia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/australia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Australia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Australia</span>
-</a>
+<a href="/watch/soccer/australia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Australia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Australia</span></a>
 </li>
 <li
 x-show="!query || 'austria'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/austria"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Austria.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Austria</span>
-</a>
+<a href="/watch/soccer/austria" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Austria.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Austria</span></a>
 </li>
 <li
 x-show="!query || 'azerbaijan'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/azerbaijan"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Azerbaijan.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Azerbaijan</span>
-</a>
+<a href="/watch/soccer/azerbaijan" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Azerbaijan.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Azerbaijan</span></a>
 </li>
 <li
 x-show="!query || 'belarus'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/belarus"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Belarus.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Belarus</span>
-</a>
+<a href="/watch/soccer/belarus" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Belarus.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Belarus</span></a>
 </li>
 <li
 x-show="!query || 'belgium'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/belgium"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Belgium.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Belgium</span>
-</a>
+<a href="/watch/soccer/belgium" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Belgium.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Belgium</span></a>
 </li>
 <li
 x-show="!query || 'bolivia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/bolivia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bolivia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Bolivia</span>
-</a>
+<a href="/watch/soccer/bolivia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bolivia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Bolivia</span></a>
 </li>
 <li
 x-show="!query || 'bosnia and herzegovina'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/bosnia-and-herzegovina"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bosnia-and-Herzegovina.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Bosnia and Herzegovina</span>
-</a>
+<a href="/watch/soccer/bosnia-and-herzegovina" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bosnia-and-Herzegovina.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Bosnia and Herzegovina</span></a>
 </li>
 <li
 x-show="!query || 'brazil'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/brazil"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Brazil.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Brazil</span>
-</a>
+<a href="/watch/soccer/brazil" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Brazil.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Brazil</span></a>
 </li>
 <li
 x-show="!query || 'bulgaria'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/bulgaria"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bulgaria.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Bulgaria</span>
-</a>
+<a href="/watch/soccer/bulgaria" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Bulgaria.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Bulgaria</span></a>
 </li>
 <li
 x-show="!query || 'canada'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/canada"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Canada.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Canada</span>
-</a>
+<a href="/watch/soccer/canada" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Canada.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Canada</span></a>
 </li>
 <li
 x-show="!query || 'china'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/china"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/China.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">China</span>
-</a>
+<a href="/watch/soccer/china" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/China.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">China</span></a>
 </li>
 <li
 x-show="!query || 'colombia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/colombia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Colombia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Colombia</span>
-</a>
+<a href="/watch/soccer/colombia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Colombia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Colombia</span></a>
 </li>
 <li
 x-show="!query || 'costa rica'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/costa-rica"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Costa-Rica.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Costa Rica</span>
-</a>
+<a href="/watch/soccer/costa-rica" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Costa-Rica.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Costa Rica</span></a>
 </li>
 <li
 x-show="!query || 'croatia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/croatia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Croatia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Croatia</span>
-</a>
+<a href="/watch/soccer/croatia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Croatia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Croatia</span></a>
 </li>
 <li
 x-show="!query || 'czechia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/czechia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Czechia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Czechia</span>
-</a>
+<a href="/watch/soccer/czechia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Czechia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Czechia</span></a>
 </li>
 <li
 x-show="!query || 'denmark'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/denmark"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Denmark.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Denmark</span>
-</a>
+<a href="/watch/soccer/denmark" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Denmark.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Denmark</span></a>
 </li>
 <li
 x-show="!query || 'el salvador'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/el-salvador"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/El-Salvador.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">El Salvador</span>
-</a>
+<a href="/watch/soccer/el-salvador" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/El-Salvador.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">El Salvador</span></a>
 </li>
 <li
 x-show="!query || 'europe'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/europe"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Europe.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Europe</span>
-</a>
+<a href="/watch/soccer/europe" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Europe.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Europe</span></a>
 </li>
 <li
 x-show="!query || 'finland'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/finland"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Finland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Finland</span>
-</a>
+<a href="/watch/soccer/finland" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Finland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Finland</span></a>
 </li>
 <li
 x-show="!query || 'france'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/france"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/France.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">France</span>
-</a>
+<a href="/watch/soccer/france" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/France.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">France</span></a>
 </li>
 <li
 x-show="!query || 'germany'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/germany"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Germany.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Germany</span>
-</a>
+<a href="/watch/soccer/germany" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Germany.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Germany</span></a>
 </li>
 <li
 x-show="!query || 'greece'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/greece"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Greece.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Greece</span>
-</a>
+<a href="/watch/soccer/greece" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Greece.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Greece</span></a>
 </li>
 <li
 x-show="!query || 'guatemala'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/guatemala"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Guatemala.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Guatemala</span>
-</a>
+<a href="/watch/soccer/guatemala" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Guatemala.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Guatemala</span></a>
 </li>
 <li
 x-show="!query || 'honduras'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/honduras"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Honduras.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Honduras</span>
-</a>
+<a href="/watch/soccer/honduras" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Honduras.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Honduras</span></a>
 </li>
 <li
 x-show="!query || 'hong kong'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/hong-kong"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Hong-Kong.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Hong Kong</span>
-</a>
+<a href="/watch/soccer/hong-kong" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Hong-Kong.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Hong Kong</span></a>
 </li>
 <li
 x-show="!query || 'hungary'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/hungary"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Hungary.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Hungary</span>
-</a>
+<a href="/watch/soccer/hungary" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Hungary.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Hungary</span></a>
 </li>
 <li
 x-show="!query || 'iceland'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/iceland"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Iceland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Iceland</span>
-</a>
+<a href="/watch/soccer/iceland" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Iceland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Iceland</span></a>
 </li>
 <li
 x-show="!query || 'india'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/india"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/India.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">India</span>
-</a>
+<a href="/watch/soccer/india" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/India.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">India</span></a>
 </li>
 <li
 x-show="!query || 'indonesia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/indonesia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Indonesia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Indonesia</span>
-</a>
+<a href="/watch/soccer/indonesia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Indonesia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Indonesia</span></a>
 </li>
 <li
 x-show="!query || 'international'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/international"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/International.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">International</span>
-</a>
+<a href="/watch/soccer/international" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/International.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">International</span></a>
 </li>
 <li
 x-show="!query || 'ireland'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/ireland"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Ireland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Ireland</span>
-</a>
+<a href="/watch/soccer/ireland" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Ireland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Ireland</span></a>
 </li>
 <li
 x-show="!query || 'israel'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/israel"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Israel.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Israel</span>
-</a>
+<a href="/watch/soccer/israel" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Israel.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Israel</span></a>
 </li>
 <li
 x-show="!query || 'italy'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/italy"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Italy.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Italy</span>
-</a>
+<a href="/watch/soccer/italy" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Italy.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Italy</span></a>
 </li>
 <li
 x-show="!query || 'japan'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/japan"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Japan.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Japan</span>
-</a>
+<a href="/watch/soccer/japan" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Japan.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Japan</span></a>
 </li>
 <li
 x-show="!query || 'kenya'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/kenya"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Kenya.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Kenya</span>
-</a>
+<a href="/watch/soccer/kenya" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Kenya.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Kenya</span></a>
 </li>
 <li
 x-show="!query || 'kosovo'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/kosovo"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Kosovo.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Kosovo</span>
-</a>
+<a href="/watch/soccer/kosovo" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Kosovo.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Kosovo</span></a>
 </li>
 <li
 x-show="!query || 'latin america'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/latin-america"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<span class="truncate">Latin America</span>
-</a>
+<a href="/watch/soccer/latin-america" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><span class="truncate">Latin America</span></a>
 </li>
 <li
 x-show="!query || 'lithuania'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/lithuania"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Lithuania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Lithuania</span>
-</a>
+<a href="/watch/soccer/lithuania" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Lithuania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Lithuania</span></a>
 </li>
 <li
 x-show="!query || 'malaysia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/malaysia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Malaysia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Malaysia</span>
-</a>
+<a href="/watch/soccer/malaysia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Malaysia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Malaysia</span></a>
 </li>
 <li
 x-show="!query || 'malta'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/malta"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Malta.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Malta</span>
-</a>
+<a href="/watch/soccer/malta" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Malta.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Malta</span></a>
 </li>
 <li
 x-show="!query || 'mexico'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/mexico"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Mexico.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Mexico</span>
-</a>
+<a href="/watch/soccer/mexico" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Mexico.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Mexico</span></a>
 </li>
 <li
 x-show="!query || 'new zealand'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/new-zealand"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/New-Zealand.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">New Zealand</span>
-</a>
+<a href="/watch/soccer/new-zealand" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/New-Zealand.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">New Zealand</span></a>
 </li>
 <li
 x-show="!query || 'norway'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/norway"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Norway.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Norway</span>
-</a>
+<a href="/watch/soccer/norway" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Norway.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Norway</span></a>
 </li>
 <li
 x-show="!query || 'paraguay'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/paraguay"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Paraguay.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Paraguay</span>
-</a>
+<a href="/watch/soccer/paraguay" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Paraguay.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Paraguay</span></a>
 </li>
 <li
 x-show="!query || 'poland'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/poland"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Poland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Poland</span>
-</a>
+<a href="/watch/soccer/poland" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Poland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Poland</span></a>
 </li>
 <li
 x-show="!query || 'portugal'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/portugal"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Portugal.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Portugal</span>
-</a>
+<a href="/watch/soccer/portugal" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Portugal.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Portugal</span></a>
 </li>
 <li
 x-show="!query || 'qatar'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/qatar"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Qatar.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Qatar</span>
-</a>
+<a href="/watch/soccer/qatar" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Qatar.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Qatar</span></a>
 </li>
 <li
 x-show="!query || 'romania'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/romania"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Romania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Romania</span>
-</a>
+<a href="/watch/soccer/romania" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Romania.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Romania</span></a>
 </li>
 <li
 x-show="!query || 'russia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/russia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Russia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Russia</span>
-</a>
+<a href="/watch/soccer/russia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Russia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Russia</span></a>
 </li>
 <li
 x-show="!query || 'saudi arabia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/saudi-arabia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Saudi-Arabia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Saudi Arabia</span>
-</a>
+<a href="/watch/soccer/saudi-arabia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Saudi-Arabia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Saudi Arabia</span></a>
 </li>
 <li
 x-show="!query || 'serbia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/serbia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Serbia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Serbia</span>
-</a>
+<a href="/watch/soccer/serbia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Serbia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Serbia</span></a>
 </li>
 <li
 x-show="!query || 'singapore'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/singapore"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Singapore.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Singapore</span>
-</a>
+<a href="/watch/soccer/singapore" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Singapore.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Singapore</span></a>
 </li>
 <li
 x-show="!query || 'slovakia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/slovakia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Slovakia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Slovakia</span>
-</a>
+<a href="/watch/soccer/slovakia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Slovakia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Slovakia</span></a>
 </li>
 <li
 x-show="!query || 'slovenia'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/slovenia"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Slovenia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Slovenia</span>
-</a>
+<a href="/watch/soccer/slovenia" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Slovenia.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Slovenia</span></a>
 </li>
 <li
 x-show="!query || 'south africa'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/south-africa"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/South-Africa.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">South Africa</span>
-</a>
+<a href="/watch/soccer/south-africa" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/South-Africa.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">South Africa</span></a>
 </li>
 <li
 x-show="!query || 'spain'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/spain"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Spain.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Spain</span>
-</a>
+<a href="/watch/soccer/spain" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Spain.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Spain</span></a>
 </li>
 <li
 x-show="!query || 'sweden'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/sweden"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Sweden.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Sweden</span>
-</a>
+<a href="/watch/soccer/sweden" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Sweden.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Sweden</span></a>
 </li>
 <li
 x-show="!query || 'switzerland'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/switzerland"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Switzerland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Switzerland</span>
-</a>
+<a href="/watch/soccer/switzerland" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Switzerland.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Switzerland</span></a>
 </li>
 <li
 x-show="!query || 'thailand'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/thailand"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Thailand.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Thailand</span>
-</a>
+<a href="/watch/soccer/thailand" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Thailand.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Thailand</span></a>
 </li>
 <li
 x-show="!query || 'the netherlands'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/the-netherlands"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/The-Netherlands.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">The Netherlands</span>
-</a>
+<a href="/watch/soccer/the-netherlands" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/The-Netherlands.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">The Netherlands</span></a>
 </li>
 <li
 x-show="!query || 'turkey'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/turkey"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Türkiye.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Turkey</span>
-</a>
+<a href="/watch/soccer/turkey" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Türkiye.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Turkey</span></a>
 </li>
 <li
 x-show="!query || 'ukraine'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/ukraine"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Ukraine.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Ukraine</span>
-</a>
+<a href="/watch/soccer/ukraine" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Ukraine.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Ukraine</span></a>
 </li>
 <li
 x-show="!query || 'united kingdom'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/united-kingdom"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/United-Kingdom.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">United Kingdom</span>
-</a>
+<a href="/watch/soccer/united-kingdom" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/United-Kingdom.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">United Kingdom</span></a>
 </li>
 <li
 x-show="!query || 'united states'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/united-states"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors bg-brand-50 font-semibold text-primary dark:bg-brand-500/15"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/United-States.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">United States</span>
-</a>
+<a href="/watch/soccer/united-states" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors bg-brand-50 font-semibold text-primary dark:bg-brand-500/15"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/United-States.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">United States</span></a>
 </li>
 <li
 x-show="!query || 'usa'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/usa"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<span class="truncate">usa</span>
-</a>
+<a href="/watch/soccer/usa" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><span class="truncate">usa</span></a>
 </li>
 <li
 x-show="!query || 'venezuela'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/venezuela"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Venezuela.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Venezuela</span>
-</a>
+<a href="/watch/soccer/venezuela" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Venezuela.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Venezuela</span></a>
 </li>
 <li
 x-show="!query || 'vietnam'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/vietnam"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Vietnam.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">Vietnam</span>
-</a>
+<a href="/watch/soccer/vietnam" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Vietnam.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">Vietnam</span></a>
 </li>
 <li
 x-show="!query || 'world'.includes(query.trim().toLowerCase())"
 data-country-option
 >
-<a
-href="/watch/soccer/world"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Worldwide.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
-<span class="truncate">World</span>
-</a>
+<a href="/watch/soccer/world" class="flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><img src="https://www.thesportsdb.com/images/icons/flags/shiny/32/Worldwide.png" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 rounded-[2px] object-contain">
+<span class="truncate">World</span></a>
 </li>
 <li x-show="query && ! $el.parentElement.querySelector('[data-country-option]:not([style*=none])')"
 x-cloak
@@ -1276,7 +916,7 @@ stroke-linejoin="round"
 <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 <div class="max-w-2xl">
 <p class="text-label mb-2 text-primary">Where to watch</p>
-<h1 class="text-h1 text-text">Where to watch live sport on TV today in United States</h1>
+<h1 class="text-h1 text-text">Where to watch live sport on TV today in the United States</h1>
 <p class="mt-3 text-[0.9375rem] leading-relaxed text-text-muted">
 <span class="font-semibold text-text tnum">5</span>
 matches
@@ -1339,13 +979,9 @@ class="absolute right-0 z-40 mt-2 w-full min-w-[16rem] overflow-hidden rounded-l
 bg-surface-raised shadow-lg sm:w-72"
 role="listbox"
 >
-<a
-href="/market/global?back=%2Fwatch"
-role="switch"
-aria-checked="true"
-class="flex items-center gap-3 border-b border-border-c px-3 py-2.5 transition-colors hover:bg-surface-sunken"
->
-<span class="min-w-0 flex-1">
+<form method="GET" action="/market/global">
+<input type="hidden" name="back" value="/watch">
+<button type="submit" class="cursor-pointer flex w-full items-center gap-3 border-b border-border-c px-3 py-2.5 text-left transition-colors hover:bg-surface-sunken" role="switch" aria-checked="true"><span class="min-w-0 flex-1">
 <span class="block truncate text-sm font-medium text-text">Only United States</span>
 <span class="block text-xs text-text-subtle">
 Turn off for worldwide
@@ -1359,8 +995,8 @@ width="12" height="12"
 class="absolute top-[3px] size-3 rounded-full object-cover transition-[left,right] duration-[140ms] left-[3px]"
 >
 <span class="absolute top-0.5 size-[14px] rounded-full bg-white shadow-xs transition-[left] duration-[140ms] left-4"></span>
-</span>
-</a>
+</span></button>
+</form>
 <div class="border-b border-border-c p-2">
 <div class="relative">
 <svg
@@ -1385,11 +1021,9 @@ placeholder:text-text-subtle focus:border-primary focus:outline-none"
 </div>
 </div>
 <div class="border-b border-border-c p-1">
-<a
-href="/market/global?back=%2Fwatch"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"
->
-<svg
+<form method="GET" action="/market/global">
+<input type="hidden" name="back" value="/watch">
+<button type="submit" class="cursor-pointer flex w-full items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors text-text-muted hover:bg-surface-sunken hover:text-text"><svg
 class="shrink-0" aria-hidden="true" focusable="false"
 width="16"
 height="16"
@@ -1401,23 +1035,26 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/></svg>
 <span class="truncate">Every country</span>
-<span class="ml-auto shrink-0 text-[0.6875rem] text-text-subtle">Global</span>
-</a>
+<span class="ml-auto shrink-0 text-[0.6875rem] text-text-subtle">Global</span></button>
+</form>
 </div>
 <ul class="scrollbar-brand max-h-64 overflow-y-auto p-1">
 <template x-for="c in filtered" :key="c.slug">
 <li>
-<a
-:href="'/market/' + c.slug + '?back=%2Fwatch'"
-class="flex items-center gap-2 rounded-xs px-2 py-2 text-sm transition-colors"
-:class="c.slug === 'united-states'                            ? 'bg-brand-50 font-semibold text-primary dark:bg-brand-500/15'
+<form method="GET" :action="'/market/' + c.slug">
+<input type="hidden" name="back" value="/watch">
+<button
+type="submit"
+class="flex w-full cursor-pointer items-center gap-2 rounded-xs px-2 py-2 text-left text-sm transition-colors"
+:class="c.slug === 'united-states'                                ? 'bg-brand-50 font-semibold text-primary dark:bg-brand-500/15'
 : 'text-text-muted hover:bg-surface-sunken hover:text-text'"
 >
 <template x-if="c.flag">
 <img :src="c.flag" alt="" width="16" height="16" class="size-4 shrink-0 rounded-[2px] object-contain">
 </template>
 <span class="truncate" x-text="c.name"></span>
-</a>
+</button>
+</form>
 </li>
 </template>
 <li x-show="filtered.length === 0" class="px-2 py-6 text-center text-sm text-text-subtle">
@@ -1601,23 +1238,6 @@ stroke-linejoin="round"
 Soccer
 </a>
 <a
-href="/watch/tennis"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><circle cx="12" cy="12" r="9"/><path d="M5 5a10 10 0 0 1 0 14M19 5a10 10 0 0 0 0 14"/></svg>
-Tennis
-</a>
-<a
 href="/watch/rugby"
 class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
 >
@@ -1667,23 +1287,6 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
 Athletics
-</a>
-<a
-href="/watch/esports"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-ESports
 </a>
 <a
 href="/watch/australian-football"
@@ -1754,57 +1357,6 @@ stroke-linejoin="round"
 Cycling
 </a>
 <a
-href="/watch/darts"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>
-Darts
-</a>
-<a
-href="/watch/extreme-sports"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Extreme Sports
-</a>
-<a
-href="/watch/field-hockey"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M4 5v9a6 6 0 0 0 6 6h4"/><ellipse cx="18" cy="18" rx="3" ry="1.6"/></svg>
-Field Hockey
-</a>
-<a
 href="/watch/fighting"
 class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
 >
@@ -1820,40 +1372,6 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><path d="M6 11V7.5a1.5 1.5 0 0 1 3 0V11"/><path d="M9 10.5V6a1.5 1.5 0 0 1 3 0v4.5"/><path d="M12 10.5V7a1.5 1.5 0 0 1 3 0v4"/><path d="M15 11V9a1.5 1.5 0 0 1 3 0v5a6 6 0 0 1-6 6h-1a5 5 0 0 1-5-5v-3"/></svg>
 Fighting
-</a>
-<a
-href="/watch/gaelic"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Gaelic
-</a>
-<a
-href="/watch/gambling"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Gambling
 </a>
 <a
 href="/watch/golf"
@@ -1890,23 +1408,6 @@ stroke-linejoin="round"
 Handball
 </a>
 <a
-href="/watch/lacrosse"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Lacrosse
-</a>
-<a
 href="/watch/motorsport"
 class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
 >
@@ -1922,74 +1423,6 @@ stroke-linecap="round"
 stroke-linejoin="round"
 ><path d="M3 15h18l-2-5H5Z"/><circle cx="7.5" cy="18" r="1.8"/><circle cx="16.5" cy="18" r="1.8"/><path d="M8 10V7h8v3"/></svg>
 Motorsport
-</a>
-<a
-href="/watch/netball"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Netball
-</a>
-<a
-href="/watch/snooker"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Snooker
-</a>
-<a
-href="/watch/watersports"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Watersports
-</a>
-<a
-href="/watch/wintersports"
-class="inline-flex shrink-0 items-center gap-2 rounded-full border px-3.5 py-2 text-[0.8125rem] font-medium transition-colors border-border-c bg-surface text-text-muted hover:border-border-strong hover:text-text"
->
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="15"
-height="15"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M12 14v4M9 21h6"/></svg>
-Wintersports
 </a>
 </nav>
 </div>
@@ -2610,42 +2043,42 @@ Free-to-air only
 href="/watch/channel/espn-deportes"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/ESPN_Deportes.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/ESPN_Deportes.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 ESPN Deportes
 </a>
 <a
 href="/watch/channel/fox-deportes"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/aebosn1641133426.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/aebosn1641133426.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 Fox Deportes
 </a>
 <a
 href="/watch/channel/fox-soccer-plus"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/FOX_Soccer_Plus.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/FOX_Soccer_Plus.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 Fox Soccer Plus
 </a>
 <a
 href="/watch/channel/paramount-us"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/ofbrd91659624007.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/ofbrd91659624007.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 Paramount+ US
 </a>
 <a
 href="/watch/channel/universo"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/Universo.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/Universo.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 Universo
 </a>
 <a
 href="/watch/channel/usa-network"
 class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border-c bg-surface px-3.5 py-1.5 text-[0.8125rem] font-medium text-text-muted transition-colors hover:border-border-strong hover:text-text"
 >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/yswxwr1433432126.png" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/yswxwr1433432126.png/tiny" alt="" width="15" height="15" loading="lazy" class="size-[15px] rounded-[2px] object-contain">
 USA Network
 </a>
 </div>
@@ -2654,541 +2087,13 @@ USA Network
 </div>
 <div class="pb-[clamp(3.5rem,7vw,6rem)] pt-8 md:pt-10">
 <div class="container-site">
+<div class="mb-8">
+<h3 class="mb-3 flex items-center gap-2 text-label text-live">
+<span class="size-1.5 shrink-0 rounded-full bg-live motion-safe:animate-[live-pulse_2s_cubic-bezier(.65,0,.35,1)_infinite]" aria-hidden="true"></span>
+Playing now
+<span class="tnum text-text-subtle">· 2</span>
+</h3>
 <div class="space-y-3">
-<article class="@container/card relative rounded-lg border border-border-c bg-surface shadow-xs transition-[border-color,box-shadow] duration-[220ms] hover:border-border-strong hover:shadow-md">
-<div class="flex items-center gap-2 border-b border-border-c px-4 pb-2.5 pt-3 @3xl/card:hidden">
-<a
-href="/sport/soccer/international/saudi-arabian-pro-league"
-class="relative z-10 min-w-0 truncate text-xs font-semibold text-text-muted transition-colors hover:text-primary"
->Saudi-Arabian Pro League</a>
-<span class="shrink-0 text-text-subtle" aria-hidden="true">·</span>
-<a
-href="/sport/soccer"
-class="relative z-10 shrink-0 text-xs text-text-subtle transition-colors hover:text-primary"
->Soccer</a>
-</div>
-<div class="grid grid-cols-[minmax(0,1fr)] gap-4 p-4 @3xl/card:grid-cols-[minmax(0,1fr)_26rem] @3xl/card:items-center @3xl/card:gap-8 @3xl/card:p-5">
-<div class="flex min-w-0 items-center gap-4">
-<div class="flex w-[4.5rem] shrink-0 flex-col items-start gap-0.5">
-<time
-datetime="2026-10-19T15:05:00+00:00"
-data-localtime="time"
-class="text-[0.9375rem] font-semibold text-text tnum"
->17:05</time>
-<time
-datetime="2026-10-19T15:05:00+00:00"
-data-localtime="date"
-class="text-[0.6875rem] leading-tight text-text-subtle"
->Mon 19 Oct</time>
-</div>
-<div class="min-w-0 flex-1">
-<p class="mb-1.5 hidden truncate text-[0.6875rem] font-medium uppercase tracking-wider text-text-subtle @3xl/card:block">
-Saudi-Arabian Pro League
-</p>
-<a href="/sport/soccer/international/saudi-arabian-pro-league/al-fayha-vs-al-ahli-19-10-2026-2573388" class="block space-y-1.5 after:absolute after:inset-0 after:content-['']">
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/jl3spp1677530565.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Al-Fayha</span>
-</span>
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/1bbtgb1755192301.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Al-Ahli</span>
-</span>
-</a>
-</div>
-</div>
-<div class="relative z-10 min-w-0 space-y-3 border-t border-border-c pt-3 @3xl/card:border-l @3xl/card:border-t-0 @3xl/card:pl-8 @3xl/card:pt-0">
-<div
-x-data="{
-extra: 0,
-hidden: 0,
-init() {
-this.$nextTick(() => this.fit());
-// The row is inside container-query cards, so a viewport listener is
-// not enough: the box can change width on its own.
-//
-// The pills are observed too, and that is the important half. A pill
-// carries a channel logo, and until that image loads it measures
-// narrower than it will end up. Measuring once on init therefore
-// hides too few, and because the row's own width never changes,
-// nothing would ever correct it: the overflow just sat there,
-// clipped, with pills spilling past the edge of the card.
-const observer = new ResizeObserver(() => this.fit());
-observer.observe(this.$refs.row);
-this.$refs.row.querySelectorAll('[data-pill]').forEach(pill => observer.observe(pill));
-// The logos carry explicit width and height, so a pill's box never
-// changes when its image arrives and the observer above never
-// fires. The text beside it does reflow once the font is ready,
-// though, and that is enough to push the last pill past the edge.
-// So measure again when the images and fonts have settled.
-this.$refs.row.querySelectorAll('img').forEach(img => {
-if (! img.complete) img.addEventListener('load', () => this.fit(), { once: true });
-});
-document.fonts?.ready.then(() => this.fit());
-window.addEventListener('load', () => this.fit(), { once: true });
-},
-fit() {
-const row = this.$refs.row;
-const pills = [...row.querySelectorAll('[data-pill]')];
-// Measure from a clean slate, or a row that grew stays trimmed.
-//
-// display is set inline rather than by adding a `hidden` class: the
-// pills are `inline-flex`, and both are display utilities in the
-// same Tailwind layer, so whichever is emitted last wins. `hidden`
-// lost, every pill stayed visible, and the row overflowed its card
-// while the counter cheerfully reported them as hidden.
-pills.forEach(pill => { pill.style.display = ''; });
-this.hidden = 0;
-const limit = row.clientWidth;
-const gap = 6;
-let used = 0;
-let overflowing = false;
-for (const pill of pills) {
-const width = pill.offsetWidth + (used ? gap : 0);
-if (! overflowing && used + width <= limit) {
-used += width;
-continue;
-}
-// Once one pill does not fit, every later pill is hidden too.
-// Keeping a narrow one that happens to fit would reorder the
-// list, and the order is the ranking.
-overflowing = true;
-pill.style.display = 'none';
-this.hidden++;
-}
-},
-}"
-class="min-w-0"
->
-<p class="text-label mb-1.5 flex items-center gap-1.5 text-text-subtle">
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="14"
-height="14"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><rect x="2" y="6" width="20" height="13" rx="2"/><path d="m8 3 4 3 4-3"/></svg>
-<span class="truncate">Where to watch</span>
-<a
-href="/sport/soccer/international/saudi-arabian-pro-league/al-fayha-vs-al-ahli-19-10-2026-2573388"
-x-show="hidden + extra > 0"
-x-cloak
-class="ml-auto shrink-0 whitespace-nowrap font-semibold normal-case tracking-normal text-primary hover:underline"
-x-text="`+${hidden + extra} more`"
->+0 more</a>
-</p>
-<div x-ref="row" class="flex h-7 min-w-0 flex-nowrap items-center gap-1.5 overflow-hidden">
-<a
-data-pill
-href="/watch/channel/fox-deportes"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/aebosn1641133426.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Fox Deportes</span>
-<span class="sr-only">, showing in your country</span>
-</a>
-<a
-data-pill
-href="/watch/channel/sport-tv-1"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-dashed border-border-c bg-transparent text-text-subtle"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/vy9kl11700902598.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Sport TV 1</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</article>
-<article class="@container/card relative rounded-lg border border-border-c bg-surface shadow-xs transition-[border-color,box-shadow] duration-[220ms] hover:border-border-strong hover:shadow-md">
-<div class="flex items-center gap-2 border-b border-border-c px-4 pb-2.5 pt-3 @3xl/card:hidden">
-<img src="https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png/tiny" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 object-contain">
-<a
-href="/sport/soccer/italy/italian-serie-a"
-class="relative z-10 min-w-0 truncate text-xs font-semibold text-text-muted transition-colors hover:text-primary"
->Italian Serie A</a>
-<span class="shrink-0 text-text-subtle" aria-hidden="true">·</span>
-<a
-href="/sport/soccer"
-class="relative z-10 shrink-0 text-xs text-text-subtle transition-colors hover:text-primary"
->Soccer</a>
-</div>
-<div class="grid grid-cols-[minmax(0,1fr)] gap-4 p-4 @3xl/card:grid-cols-[minmax(0,1fr)_26rem] @3xl/card:items-center @3xl/card:gap-8 @3xl/card:p-5">
-<div class="flex min-w-0 items-center gap-4">
-<div class="flex w-[4.5rem] shrink-0 flex-col items-start gap-0.5">
-<time
-datetime="2026-10-19T16:30:00+00:00"
-data-localtime="time"
-class="text-[0.9375rem] font-semibold text-text tnum"
->18:30</time>
-<time
-datetime="2026-10-19T16:30:00+00:00"
-data-localtime="date"
-class="text-[0.6875rem] leading-tight text-text-subtle"
->Mon 19 Oct</time>
-</div>
-<div class="min-w-0 flex-1">
-<p class="mb-1.5 hidden truncate text-[0.6875rem] font-medium uppercase tracking-wider text-text-subtle @3xl/card:block">
-<img src="https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png/tiny" alt="" width="14" height="14" loading="lazy" class="mr-1 inline size-3.5 object-contain align-[-2px]">Italian Serie A
-</p>
-<a href="/sport/soccer/italy/italian-serie-a/monza-vs-cagliari-18-10-2026-2482207" class="block space-y-1.5 after:absolute after:inset-0 after:content-['']">
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/bxearg1603170113.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Monza</span>
-</span>
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/wvsvxt1447534471.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Cagliari</span>
-</span>
-</a>
-</div>
-</div>
-<div class="relative z-10 min-w-0 space-y-3 border-t border-border-c pt-3 @3xl/card:border-l @3xl/card:border-t-0 @3xl/card:pl-8 @3xl/card:pt-0">
-<div
-x-data="{
-extra: 14,
-hidden: 0,
-init() {
-this.$nextTick(() => this.fit());
-// The row is inside container-query cards, so a viewport listener is
-// not enough: the box can change width on its own.
-//
-// The pills are observed too, and that is the important half. A pill
-// carries a channel logo, and until that image loads it measures
-// narrower than it will end up. Measuring once on init therefore
-// hides too few, and because the row's own width never changes,
-// nothing would ever correct it: the overflow just sat there,
-// clipped, with pills spilling past the edge of the card.
-const observer = new ResizeObserver(() => this.fit());
-observer.observe(this.$refs.row);
-this.$refs.row.querySelectorAll('[data-pill]').forEach(pill => observer.observe(pill));
-// The logos carry explicit width and height, so a pill's box never
-// changes when its image arrives and the observer above never
-// fires. The text beside it does reflow once the font is ready,
-// though, and that is enough to push the last pill past the edge.
-// So measure again when the images and fonts have settled.
-this.$refs.row.querySelectorAll('img').forEach(img => {
-if (! img.complete) img.addEventListener('load', () => this.fit(), { once: true });
-});
-document.fonts?.ready.then(() => this.fit());
-window.addEventListener('load', () => this.fit(), { once: true });
-},
-fit() {
-const row = this.$refs.row;
-const pills = [...row.querySelectorAll('[data-pill]')];
-// Measure from a clean slate, or a row that grew stays trimmed.
-//
-// display is set inline rather than by adding a `hidden` class: the
-// pills are `inline-flex`, and both are display utilities in the
-// same Tailwind layer, so whichever is emitted last wins. `hidden`
-// lost, every pill stayed visible, and the row overflowed its card
-// while the counter cheerfully reported them as hidden.
-pills.forEach(pill => { pill.style.display = ''; });
-this.hidden = 0;
-const limit = row.clientWidth;
-const gap = 6;
-let used = 0;
-let overflowing = false;
-for (const pill of pills) {
-const width = pill.offsetWidth + (used ? gap : 0);
-if (! overflowing && used + width <= limit) {
-used += width;
-continue;
-}
-// Once one pill does not fit, every later pill is hidden too.
-// Keeping a narrow one that happens to fit would reorder the
-// list, and the order is the ranking.
-overflowing = true;
-pill.style.display = 'none';
-this.hidden++;
-}
-},
-}"
-class="min-w-0"
->
-<p class="text-label mb-1.5 flex items-center gap-1.5 text-text-subtle">
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="14"
-height="14"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><rect x="2" y="6" width="20" height="13" rx="2"/><path d="m8 3 4 3 4-3"/></svg>
-<span class="truncate">Where to watch</span>
-<a
-href="/sport/soccer/italy/italian-serie-a/monza-vs-cagliari-18-10-2026-2482207"
-x-show="hidden + extra > 0"
-x-cloak
-class="ml-auto shrink-0 whitespace-nowrap font-semibold normal-case tracking-normal text-primary hover:underline"
-x-text="`+${hidden + extra} more`"
->+14 more</a>
-</p>
-<div x-ref="row" class="flex h-7 min-w-0 flex-nowrap items-center gap-1.5 overflow-hidden">
-<a
-data-pill
-href="/watch/channel/paramount-us"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/ofbrd91659624007.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Paramount+ US</span>
-<span class="sr-only">, showing in your country</span>
-</a>
-<a
-data-pill
-href="/watch/channel/tsn-malta"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-border-c bg-surface-sunken text-text-muted"
->
-<img src="https://www.melita.com/wp-content/plugins/melita-tv-pages/img/sports/tsn-logos/tsn-logo.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">TSN Malta</span>
-</a>
-<a
-data-pill
-href="/watch/channel/arena-sport-2-premium-rs"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-dashed border-border-c bg-transparent text-text-subtle"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/l4y8gt1643205498.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Arena Sport 2 Premium RS</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</article>
-<article class="@container/card relative rounded-lg border border-border-c bg-surface shadow-xs transition-[border-color,box-shadow] duration-[220ms] hover:border-border-strong hover:shadow-md">
-<div class="flex items-center gap-2 border-b border-border-c px-4 pb-2.5 pt-3 @3xl/card:hidden">
-<a
-href="/sport/soccer/international/saudi-arabian-pro-league"
-class="relative z-10 min-w-0 truncate text-xs font-semibold text-text-muted transition-colors hover:text-primary"
->Saudi-Arabian Pro League</a>
-<span class="shrink-0 text-text-subtle" aria-hidden="true">·</span>
-<a
-href="/sport/soccer"
-class="relative z-10 shrink-0 text-xs text-text-subtle transition-colors hover:text-primary"
->Soccer</a>
-</div>
-<div class="grid grid-cols-[minmax(0,1fr)] gap-4 p-4 @3xl/card:grid-cols-[minmax(0,1fr)_26rem] @3xl/card:items-center @3xl/card:gap-8 @3xl/card:p-5">
-<div class="flex min-w-0 items-center gap-4">
-<div class="flex w-[4.5rem] shrink-0 flex-col items-start gap-0.5">
-<time
-datetime="2026-10-19T18:00:00+00:00"
-data-localtime="time"
-class="text-[0.9375rem] font-semibold text-text tnum"
->20:00</time>
-<time
-datetime="2026-10-19T18:00:00+00:00"
-data-localtime="date"
-class="text-[0.6875rem] leading-tight text-text-subtle"
->Mon 19 Oct</time>
-</div>
-<div class="min-w-0 flex-1">
-<p class="mb-1.5 hidden truncate text-[0.6875rem] font-medium uppercase tracking-wider text-text-subtle @3xl/card:block">
-Saudi-Arabian Pro League
-</p>
-<a href="/sport/soccer/international/saudi-arabian-pro-league/al-hilal-vs-al-hazem-19-10-2026-2573383" class="block space-y-1.5 after:absolute after:inset-0 after:content-['']">
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/w0b80d1661656916.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Al-Hilal</span>
-</span>
-<span class="flex items-center gap-2.5">
-<span
-class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
-style="width: 22px; height: 22px;"
->
-<img
-src="https://r2.thesportsdb.com/images/media/team/badge/3uy27p1635871755.png/tiny"
-alt=""
-width="22"
-height="22"
-loading="lazy"
-decoding="async"
-class="size-full object-contain p-0.5"
->
-</span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Al-Hazem</span>
-</span>
-</a>
-</div>
-</div>
-<div class="relative z-10 min-w-0 space-y-3 border-t border-border-c pt-3 @3xl/card:border-l @3xl/card:border-t-0 @3xl/card:pl-8 @3xl/card:pt-0">
-<div
-x-data="{
-extra: 1,
-hidden: 0,
-init() {
-this.$nextTick(() => this.fit());
-// The row is inside container-query cards, so a viewport listener is
-// not enough: the box can change width on its own.
-//
-// The pills are observed too, and that is the important half. A pill
-// carries a channel logo, and until that image loads it measures
-// narrower than it will end up. Measuring once on init therefore
-// hides too few, and because the row's own width never changes,
-// nothing would ever correct it: the overflow just sat there,
-// clipped, with pills spilling past the edge of the card.
-const observer = new ResizeObserver(() => this.fit());
-observer.observe(this.$refs.row);
-this.$refs.row.querySelectorAll('[data-pill]').forEach(pill => observer.observe(pill));
-// The logos carry explicit width and height, so a pill's box never
-// changes when its image arrives and the observer above never
-// fires. The text beside it does reflow once the font is ready,
-// though, and that is enough to push the last pill past the edge.
-// So measure again when the images and fonts have settled.
-this.$refs.row.querySelectorAll('img').forEach(img => {
-if (! img.complete) img.addEventListener('load', () => this.fit(), { once: true });
-});
-document.fonts?.ready.then(() => this.fit());
-window.addEventListener('load', () => this.fit(), { once: true });
-},
-fit() {
-const row = this.$refs.row;
-const pills = [...row.querySelectorAll('[data-pill]')];
-// Measure from a clean slate, or a row that grew stays trimmed.
-//
-// display is set inline rather than by adding a `hidden` class: the
-// pills are `inline-flex`, and both are display utilities in the
-// same Tailwind layer, so whichever is emitted last wins. `hidden`
-// lost, every pill stayed visible, and the row overflowed its card
-// while the counter cheerfully reported them as hidden.
-pills.forEach(pill => { pill.style.display = ''; });
-this.hidden = 0;
-const limit = row.clientWidth;
-const gap = 6;
-let used = 0;
-let overflowing = false;
-for (const pill of pills) {
-const width = pill.offsetWidth + (used ? gap : 0);
-if (! overflowing && used + width <= limit) {
-used += width;
-continue;
-}
-// Once one pill does not fit, every later pill is hidden too.
-// Keeping a narrow one that happens to fit would reorder the
-// list, and the order is the ranking.
-overflowing = true;
-pill.style.display = 'none';
-this.hidden++;
-}
-},
-}"
-class="min-w-0"
->
-<p class="text-label mb-1.5 flex items-center gap-1.5 text-text-subtle">
-<svg
-class="shrink-0" aria-hidden="true" focusable="false"
-width="14"
-height="14"
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.5"
-stroke-linecap="round"
-stroke-linejoin="round"
-><rect x="2" y="6" width="20" height="13" rx="2"/><path d="m8 3 4 3 4-3"/></svg>
-<span class="truncate">Where to watch</span>
-<a
-href="/sport/soccer/international/saudi-arabian-pro-league/al-hilal-vs-al-hazem-19-10-2026-2573383"
-x-show="hidden + extra > 0"
-x-cloak
-class="ml-auto shrink-0 whitespace-nowrap font-semibold normal-case tracking-normal text-primary hover:underline"
-x-text="`+${hidden + extra} more`"
->+1 more</a>
-</p>
-<div x-ref="row" class="flex h-7 min-w-0 flex-nowrap items-center gap-1.5 overflow-hidden">
-<a
-data-pill
-href="/watch/channel/fox-soccer-plus"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/FOX_Soccer_Plus.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Fox Soccer Plus</span>
-<span class="sr-only">, showing in your country</span>
-</a>
-<a
-data-pill
-href="/watch/channel/sport-tv-3"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-dashed border-border-c bg-transparent text-text-subtle"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/fjy5d31700902671.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Sport TV 3</span>
-</a>
-<a
-data-pill
-href="/watch/channel/super-sport-4-hd-albania"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-dashed border-border-c bg-transparent text-text-subtle"
-title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/wazzeh1592206123.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
-<span class="whitespace-nowrap">Super Sport 4 HD (Albania)</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</article>
 <article class="@container/card relative rounded-lg border border-border-c bg-surface shadow-xs transition-[border-color,box-shadow] duration-[220ms] hover:border-border-strong hover:shadow-md">
 <div class="flex items-center gap-2 border-b border-border-c px-4 pb-2.5 pt-3 @3xl/card:hidden">
 <img src="https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png/tiny" alt="" width="16" height="16" loading="lazy" class="size-4 shrink-0 object-contain">
@@ -3205,16 +2110,10 @@ class="relative z-10 shrink-0 text-xs text-text-subtle transition-colors hover:t
 <div class="grid grid-cols-[minmax(0,1fr)] gap-4 p-4 @3xl/card:grid-cols-[minmax(0,1fr)_26rem] @3xl/card:items-center @3xl/card:gap-8 @3xl/card:p-5">
 <div class="flex min-w-0 items-center gap-4">
 <div class="flex w-[4.5rem] shrink-0 flex-col items-start gap-0.5">
-<time
-datetime="2026-10-19T19:00:00+00:00"
-data-localtime="time"
-class="text-[0.9375rem] font-semibold text-text tnum"
->21:00</time>
-<time
-datetime="2026-10-19T19:00:00+00:00"
-data-localtime="date"
-class="text-[0.6875rem] leading-tight text-text-subtle"
->Mon 19 Oct</time>
+<span class="inline-flex items-center gap-1.5 text-[0.8125rem] font-bold text-live tnum">
+<span class="size-1.5 shrink-0 rounded-full bg-live motion-safe:animate-[live-pulse_2s_cubic-bezier(.65,0,.35,1)_infinite]"></span>
+76&#039;
+</span>
 </div>
 <div class="min-w-0 flex-1">
 <p class="mb-1.5 hidden truncate text-[0.6875rem] font-medium uppercase tracking-wider text-text-subtle @3xl/card:block">
@@ -3236,7 +2135,8 @@ decoding="async"
 class="size-full object-contain p-0.5"
 >
 </span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Getafe</span>
+<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-normal text-text-muted">Getafe</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-live ml-auto">1</span>
 </span>
 <span class="flex items-center gap-2.5">
 <span
@@ -3253,7 +2153,8 @@ decoding="async"
 class="size-full object-contain p-0.5"
 >
 </span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Rayo Vallecano</span>
+<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-normal text-text-muted">Rayo Vallecano</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-live ml-auto">1</span>
 </span>
 </a>
 </div>
@@ -3347,7 +2248,7 @@ x-text="`+${hidden + extra} more`"
 data-pill
 href="/watch/channel/espn-deportes"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
 title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/ESPN_Deportes.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/ESPN_Deportes.png/tiny" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
 <span class="whitespace-nowrap">ESPN Deportes</span>
 <span class="sr-only">, showing in your country</span>
 </a>
@@ -3362,7 +2263,7 @@ href="/watch/channel/tsn-malta"     class="inline-flex items-center gap-1.5 roun
 data-pill
 href="/watch/channel/bein-sports-2-australia"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-dashed border-border-c bg-transparent text-text-subtle"
 title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/BeIn_Sports_2_Australia.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/BeIn_Sports_2_Australia.png/tiny" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
 <span class="whitespace-nowrap">BeIn Sports 2 Australia</span>
 </a>
 </div>
@@ -3386,16 +2287,10 @@ class="relative z-10 shrink-0 text-xs text-text-subtle transition-colors hover:t
 <div class="grid grid-cols-[minmax(0,1fr)] gap-4 p-4 @3xl/card:grid-cols-[minmax(0,1fr)_26rem] @3xl/card:items-center @3xl/card:gap-8 @3xl/card:p-5">
 <div class="flex min-w-0 items-center gap-4">
 <div class="flex w-[4.5rem] shrink-0 flex-col items-start gap-0.5">
-<time
-datetime="2026-10-19T19:00:00+00:00"
-data-localtime="time"
-class="text-[0.9375rem] font-semibold text-text tnum"
->21:00</time>
-<time
-datetime="2026-10-19T19:00:00+00:00"
-data-localtime="date"
-class="text-[0.6875rem] leading-tight text-text-subtle"
->Mon 19 Oct</time>
+<span class="inline-flex items-center gap-1.5 text-[0.8125rem] font-bold text-live tnum">
+<span class="size-1.5 shrink-0 rounded-full bg-live motion-safe:animate-[live-pulse_2s_cubic-bezier(.65,0,.35,1)_infinite]"></span>
+76&#039;
+</span>
 </div>
 <div class="min-w-0 flex-1">
 <p class="mb-1.5 hidden truncate text-[0.6875rem] font-medium uppercase tracking-wider text-text-subtle @3xl/card:block">
@@ -3418,6 +2313,7 @@ class="size-full object-contain p-0.5"
 >
 </span>
 <span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Tottenham Hotspur</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-bold text-live ml-auto">2</span>
 </span>
 <span class="flex items-center gap-2.5">
 <span
@@ -3434,7 +2330,8 @@ decoding="async"
 class="size-full object-contain p-0.5"
 >
 </span>
-<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-semibold text-text">Coventry City</span>
+<span class="min-w-0 truncate text-[0.9375rem] leading-tight @3xl/card:max-w-[18rem] font-normal text-text-muted">Coventry City</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-live ml-auto">1</span>
 </span>
 </a>
 </div>
@@ -3528,7 +2425,7 @@ x-text="`+${hidden + extra} more`"
 data-pill
 href="/watch/channel/universo"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
 title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/Universo.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/Universo.png/tiny" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
 <span class="whitespace-nowrap">Universo</span>
 <span class="sr-only">, showing in your country</span>
 </a>
@@ -3536,7 +2433,7 @@ title="Unconfirmed listing" >
 data-pill
 href="/watch/channel/usa-network"     class="inline-flex items-center gap-1.5 rounded-xs border px-2 py-1 text-[0.75rem] font-medium border-primary/40 bg-brand-50 text-primary dark:bg-brand-500/15"
 title="Unconfirmed listing" >
-<img src="https://r2.thesportsdb.com/images/media/channel/logo/yswxwr1433432126.png" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
+<img src="https://r2.thesportsdb.com/images/media/channel/logo/yswxwr1433432126.png/tiny" alt="" width="16" height="16" loading="lazy" decoding="async" class="size-4 rounded-[3px] object-contain">
 <span class="whitespace-nowrap">USA Network</span>
 <span class="sr-only">, showing in your country</span>
 </a>
@@ -3553,6 +2450,181 @@ href="/watch/channel/tsn-malta"     class="inline-flex items-center gap-1.5 roun
 </div>
 </article>
 </div>
+</div>
+<div class="space-y-3">
+</div>
+<section class="mt-10">
+<div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+<div class="max-w-[46ch]">
+<p class="text-label mb-2 text-primary">Results</p>
+<h2 class="text-h2 text-text">Finished</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3 min-[26rem]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<a
+href="/sport/soccer/international/saudi-arabian-pro-league/al-hilal-vs-al-hazem-19-10-2026-2573383"
+class="group flex flex-col rounded-lg border border-border-c bg-surface p-4 shadow-xs transition-[border-color,box-shadow,transform] duration-[220ms] hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
+>
+<div class="mb-3 flex items-center justify-between gap-2">
+<span class="text-label text-text-subtle">Finished</span>
+<time
+datetime="2026-10-19T18:00:00+00:00"
+data-localtime="date"
+class="text-[0.6875rem] text-text-subtle"
+>Mon 19 Oct</time>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/w0b80d1661656916.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-semibold text-text">Al-Hilal</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-bold text-text">1</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/3uy27p1635871755.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-normal text-text-muted">Al-Hazem</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-text-muted">0</span>
+</div>
+</div>
+<p class="mt-3 truncate border-t border-border-c pt-2.5 text-[0.6875rem] text-text-subtle">
+Saudi-Arabian Pro League
+</p>
+</a>
+<a
+href="/sport/soccer/italy/italian-serie-a/monza-vs-cagliari-18-10-2026-2482207"
+class="group flex flex-col rounded-lg border border-border-c bg-surface p-4 shadow-xs transition-[border-color,box-shadow,transform] duration-[220ms] hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
+>
+<div class="mb-3 flex items-center justify-between gap-2">
+<span class="text-label text-text-subtle">Finished</span>
+<time
+datetime="2026-10-19T16:30:00+00:00"
+data-localtime="date"
+class="text-[0.6875rem] text-text-subtle"
+>Mon 19 Oct</time>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/bxearg1603170113.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-semibold text-text">Monza</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-bold text-text">4</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/wvsvxt1447534471.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-normal text-text-muted">Cagliari</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-text-muted">0</span>
+</div>
+</div>
+<p class="mt-3 truncate border-t border-border-c pt-2.5 text-[0.6875rem] text-text-subtle">
+Italian Serie A
+</p>
+</a>
+<a
+href="/sport/soccer/international/saudi-arabian-pro-league/al-fayha-vs-al-ahli-19-10-2026-2573388"
+class="group flex flex-col rounded-lg border border-border-c bg-surface p-4 shadow-xs transition-[border-color,box-shadow,transform] duration-[220ms] hover:-translate-y-0.5 hover:border-border-strong hover:shadow-md"
+>
+<div class="mb-3 flex items-center justify-between gap-2">
+<span class="text-label text-text-subtle">Finished</span>
+<time
+datetime="2026-10-19T15:05:00+00:00"
+data-localtime="date"
+class="text-[0.6875rem] text-text-subtle"
+>Mon 19 Oct</time>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/jl3spp1677530565.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-normal text-text-muted">Al-Fayha</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-semibold text-text-muted">2</span>
+</div>
+<div class="flex items-center gap-2.5">
+<span
+class="inline-grid place-items-center shrink-0 overflow-hidden rounded-full bg-surface-sunken ring-1 ring-inset ring-border-c/70"
+style="width: 22px; height: 22px;"
+>
+<img
+src="https://r2.thesportsdb.com/images/media/team/badge/1bbtgb1755192301.png/tiny"
+alt=""
+width="22"
+height="22"
+loading="lazy"
+decoding="async"
+class="size-full object-contain p-0.5"
+>
+</span>
+<span class="min-w-0 flex-1 truncate text-[0.9375rem] leading-tight font-semibold text-text">Al-Ahli</span>
+<span class="inline-grid h-6 min-w-[1.75rem] shrink-0 place-items-center rounded-xs px-1.5 bg-surface-sunken ring-1 ring-inset ring-border-c/70 text-[0.875rem] leading-none tnum font-bold text-text">3</span>
+</div>
+</div>
+<p class="mt-3 truncate border-t border-border-c pt-2.5 text-[0.6875rem] text-text-subtle">
+Saudi-Arabian Pro League
+</p>
+</a>
+</div>
+</section>
 <div class="mt-8 rounded-lg border border-border-c bg-surface-sunken/50 px-5 py-4">
 <p class="text-xs leading-relaxed text-text-muted">
 <span class="font-semibold text-text">How to read these listings.</span>
