@@ -323,7 +323,7 @@ window.marfeel.cmd.push(['compass', function(compass) {
 
 
 function getLazyLoad(s, ct) {
-  return ['b300x100b', 'b300x100c', 'b300x100d', 'c990x50_320x53', 'c990x50_320x53b', 'c990x50_320x53c', 'c990x50_320x53d', 'mb', 'r-nata', 'r-nata-prm-snw', 'r-natb', 'rb', 'rb-prm-snw', 'rc', 'rc-prm-snw', 'rd', 're', 'rf', 'rg', 'ri'];
+  return [];
 }
  
 function getrootMargin(data, s) {
@@ -541,6 +541,8 @@ data.customTargeting.tag = [''];
 data.customTargeting.newsid = ['59ad4164268e3eef238b4802'];
 data.customTargeting.cwv = '1';
 
+
+data.networkId = '21626337071,' + data.networkId;
 
 if ((typeof getDFPCT === 'function') && (typeof getDFPSection === 'function')) { 
   if (('dir' === getDFPCT(data)) || (('e' === getDFPCT(data)) && ('juegos-olimpicos' === getDFPSection(data)))) {
